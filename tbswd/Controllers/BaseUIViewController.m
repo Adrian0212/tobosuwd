@@ -1,0 +1,96 @@
+//
+//  BaseUIViewController.m
+//  Connect/Users/adrian/Desktop/oc/tbswd/BaseUIViewController.m
+//
+//  Created by Adrian on 14-4-1.
+//  Copyright (c) 2014年 wengchunjie. All rights reserved.
+//
+
+#import "BaseUIViewController.h"
+
+@interface BaseUIViewController ()
+
+@end
+
+@implementation BaseUIViewController
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+
+    UINavigationBar *navBar = (UINavigationBar *)self.navigationController.navigationBar;
+    [navBar setBackgroundImage:[UIImage imageNamed:@"bg_navbar.png"] forBarMetrics:UIBarMetricsDefault];
+    // 除去NavigationBar底部阴影
+    [navBar setShadowImage:[[UIImage alloc] init]];
+
+    // 设置导航栏返回按钮
+    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    backButton.frame = CGRectMake(0, 0, 22, 19);
+    [backButton setBackgroundImage:[UIImage imageNamed:@"btn_back.png"] forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *barLeftBtn = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    self.navigationItem.leftBarButtonItem = barLeftBtn;
+
+    // 设置导航栏标题属性
+    NSDictionary *titleAttr = [NSDictionary dictionaryWithObjectsAndKeys:
+        [UIColor colorWithRed:1.0 green:102.0 / 255 blue:0 alpha:1.0], NSForegroundColorAttributeName,
+        [UIFont fontWithName:@"HiraginoSansGB-W3" size:18.0], NSFontAttributeName, nil];
+    [self.navigationController.navigationBar setTitleTextAttributes:titleAttr];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - 导航栏操作
+// 隐藏导航栏
+- (void)hideNavigationBar
+{
+    [super viewWillAppear:YES];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+}
+
+// 显示导航栏
+- (void)showNavigationBar
+{
+    [super viewWillDisappear:YES];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
+// 设置导航栏标题
+- (void)setBarTitle:(NSString *)title
+{
+    [self.navigationItem setTitle:title];
+}
+
+// 返回操作
+- (void)backAction
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark 关闭软键盘
+- (void)closeKeyBoard
+{
+    [self.view endEditing:YES];
+}
+
+#pragma mark 触屏操作
+// 手指滑动屏幕时触发
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self closeKeyBoard];
+}
+/*
+ * #pragma mark - Navigation
+ *
+ *   // In a storyboard-based application, you will often want to do a little preparation before navigation
+ *   - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ *   // Get the new view controller using [segue destinationViewController].
+ *   // Pass the selected object to the new view controller.
+ *   }
+ */
+
+@end
