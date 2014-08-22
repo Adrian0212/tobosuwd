@@ -19,7 +19,10 @@
     [super viewDidLoad];
 
     UINavigationBar *navBar = (UINavigationBar *)self.navigationController.navigationBar;
+       //self.navigationController.navigationBar.translucent = NO;
     [navBar setBackgroundImage:[UIImage imageNamed:@"bg_navbar.png"] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.translucent=NO;
+    self.extendedLayoutIncludesOpaqueBars = YES;
     // 除去NavigationBar底部阴影
     [navBar setShadowImage:[[UIImage alloc] init]];
 
@@ -30,7 +33,7 @@
     [backButton addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *barLeftBtn = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     self.navigationItem.leftBarButtonItem = barLeftBtn;
-
+    [self.navigationController.navigationItem setHidesBackButton:YES];
     // 设置导航栏标题属性
     NSDictionary *titleAttr = [NSDictionary dictionaryWithObjectsAndKeys:
         [UIColor colorWithRed:1.0 green:102.0 / 255 blue:0 alpha:1.0], NSForegroundColorAttributeName,

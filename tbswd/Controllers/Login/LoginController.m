@@ -52,9 +52,11 @@
                 //保存用户数据
                 [[Config Instance]saveUserNameAndPwd:[_userAccount text] andPwd:[Utils convert2Md5:[_userPassword text]]];
                 
+//                UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"wenda" bundle:nil];
+//                UIViewController *wendaObj = [mainStoryboard instantiateViewControllerWithIdentifier:@"wenda"];
+//                [self.navigationController pushViewController:wendaObj animated:YES];
                 UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"wenda" bundle:nil];
-                UIViewController *wendaObj = [mainStoryboard instantiateViewControllerWithIdentifier:@"wenda"];
-                [self.navigationController pushViewController:wendaObj animated:YES];
+                self.view.window.rootViewController = [mainStoryboard instantiateInitialViewController];
             }
             //NSLog(@"result:%@", jsonData);
             
