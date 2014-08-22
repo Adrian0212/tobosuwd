@@ -9,12 +9,14 @@
 #import <Foundation/Foundation.h>
 
 @interface Config : NSObject
-//是否已经登录
-@property BOOL isLogin;
 
-//保存登录用户名以及密码
--(void)saveUserNameAndPwd:(NSString *)userName andPwd:(NSString *)pwd;
--(NSString *)getUserName;
--(NSString *)getPwd;
-+(Config *) Instance;
+@property BOOL isLogin; // 是否已经登录
+
+// 保存登录用户名以及密码
+- (void)saveUserNameAndPwd:(NSString *)userName andPwd:(NSString *)pwd;
+- (NSString *)getUserName;
+- (NSString *)getPwd;
+
++ (Config *)Instance;
+
 @end

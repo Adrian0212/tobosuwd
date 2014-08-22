@@ -9,6 +9,10 @@
 #import "BaseUIViewController.h"
 
 @interface BaseUIViewController ()
+{
+    UINavigationBar *_navBar;
+    UIButton        *_backButton;
+}
 
 @end
 
@@ -27,11 +31,11 @@
     [navBar setShadowImage:[[UIImage alloc] init]];
 
     // 设置导航栏返回按钮
-    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    backButton.frame = CGRectMake(0, 0, 22, 19);
-    [backButton setBackgroundImage:[UIImage imageNamed:@"btn_back.png"] forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *barLeftBtn = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _backButton.frame = CGRectMake(0, 0, 22, 19);
+    [_backButton setBackgroundImage:[UIImage imageNamed:@"btn_back.png"] forState:UIControlStateNormal];
+    [_backButton addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *barLeftBtn = [[UIBarButtonItem alloc] initWithCustomView:_backButton];
     self.navigationItem.leftBarButtonItem = barLeftBtn;
     [self.navigationController.navigationItem setHidesBackButton:YES];
     // 设置导航栏标题属性
@@ -62,10 +66,55 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
+// 隐藏导航栏返回按钮
+- (void)hideBackButton
+{
+    [_backButton setHidden:YES];
+}
+
+// 显示导航栏返回按钮
+- (void)showBackButton
+{
+    [_backButton setHidden:NO];
+}
+
 // 设置导航栏标题
 - (void)setBarTitle:(NSString *)title
 {
     [self.navigationItem setTitle:title];
+}
+
+// 设置导航栏浅色样式
+- (void)setDefaultThemeBar
+{
+    [_navBar setBackgroundImage:[UIImage imageNamed:@"bg_navbar_white.png"] forBarMetrics:UIBarMetricsDefault];
+    // 设置导航栏底部阴影
+    [_navBar setShadowImage:[[UIImage alloc] initWithCGImage:[UIImage imageNamed:@"bg_navbar_orange.png"].CGImage]];
+    
+    // 设置导航栏标题属性
+    NSDictionary *titleAttr = [NSDictionary dictionaryWithObjectsAndKeys:
+                               [Utils hexStringToColor:@"#ff6600"], NSForegroundColorAttributeName,
+                               [UIFont fontWithName:@"HiraginoSansGB-W3" size:18.0], NSFontAttributeName, nil];
+    [self.navigationController.navigationBar setTitleTextAttributes:titleAttr];
+    
+    // 设置状态栏样式为深色，用于浅色背景
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+
+}
+
+// 设置导航栏橘色样式
+- (void)setOrangeThemeBar
+{
+    [_navBar setBackgroundImage:[UIImage imageNamed:@"bg_navbar_orange.png"] forBarMetrics:UIBarMetricsDefault];
+    
+    // 设置导航栏标题属性
+    NSDictionary *titleAttr = [NSDictionary dictionaryWithObjectsAndKeys:
+                               [Utils hexStringToColor:@"#ffffff"], NSForegroundColorAttributeName,
+                               [UIFont fontWithName:@"HiraginoSansGB-W3" size:18.0], NSFontAttributeName, nil];
+    [self.navigationController.navigationBar setTitleTextAttributes:titleAttr];
+    
+    // 设置状态栏样式为浅色，用于深色背景
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
 }
 
 // 返回操作
@@ -86,6 +135,7 @@
 {
     [self closeKeyBoard];
 }
+
 /*
  * #pragma mark - Navigation
  *
