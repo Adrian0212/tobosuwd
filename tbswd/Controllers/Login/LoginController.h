@@ -12,6 +12,7 @@
 #import "GCDiscreetNotificationView.h"
 #import "Utils.h"
 #import "Config.h"
+
 @interface LoginController : BaseUIViewController
 
 @property (nonatomic, retain) GCDiscreetNotificationView    *notificationView;

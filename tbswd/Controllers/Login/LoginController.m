@@ -46,18 +46,21 @@
         @try {
             NSData *result = [operation.responseString dataUsingEncoding:NSUTF8StringEncoding];
             NSDictionary *jsonData = [NSJSONSerialization JSONObjectWithData:result options:0 error:nil];
+
             if ([[jsonData objectForKey:@"msg"] isEqualToString:@"true"]) {
-                //[Utils ToastNotification:@"登陆成功" andView:self.view andLoading:NO andIsBottom:YES];
+                // [Utils ToastNotification:@"登陆成功" andView:self.view andLoading:NO andIsBottom:YES];
                 NSLog(@"登陆成功");
-                //保存用户数据
+                // 保存用户数据
                 [[Config Instance]saveUserNameAndPwd:[_userAccount text] andPwd:[Utils convert2Md5:[_userPassword text]]];
-                
+
                 UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"wenda" bundle:nil];
-                UIViewController *wendaObj = [mainStoryboard instantiateViewControllerWithIdentifier:@"wenda"];
-                [self.navigationController pushViewController:wendaObj animated:YES];
+                self.view.window.rootViewController = [mainStoryboard instantiateInitialViewController];
+                //                UIViewController *wendaObj = [mainStoryboard instantiateViewControllerWithIdentifier:@"wenda"];
+                //                [self.storyboard ]
+                //                [self.navigationController pushViewController:wendaObj animated:YES];
             }
-            //NSLog(@"result:%@", jsonData);
-            
+
+            // NSLog(@"result:%@", jsonData);
         }
         @catch(NSException *exception) {
             [Utils TakeException:exception];
