@@ -11,6 +11,7 @@
 #import "Utils.h"
 #import "Config.h"
 #import "MJRefresh.h"
+#import "JSONkit.h"
 @interface QueListController : BaseUIViewController<UITableViewDataSource,UITableViewDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *queListTable;
 

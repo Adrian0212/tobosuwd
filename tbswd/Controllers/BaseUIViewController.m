@@ -21,15 +21,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    UINavigationBar *navBar = (UINavigationBar *)self.navigationController.navigationBar;
-       //self.navigationController.navigationBar.translucent = NO;
-    [navBar setBackgroundImage:[UIImage imageNamed:@"bg_navbar.png"] forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.translucent=NO;
-    self.extendedLayoutIncludesOpaqueBars = YES;
-    // 除去NavigationBar底部阴影
-    [navBar setShadowImage:[[UIImage alloc] init]];
-
+    
+    _navBar = (UINavigationBar *)self.navigationController.navigationBar;
+    
+    // 设置导航栏浅色样式
+    [self setDefaultThemeBar];
+    [self.navigationController.navigationBar setTranslucent:NO];
+    // 在iOS7中，解决设置导航栏不透明时内容会下移的问题
+    [self setExtendedLayoutIncludesOpaqueBars:YES];
+    
     // 设置导航栏返回按钮
     _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _backButton.frame = CGRectMake(0, 0, 22, 19);
@@ -37,13 +37,8 @@
     [_backButton addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *barLeftBtn = [[UIBarButtonItem alloc] initWithCustomView:_backButton];
     self.navigationItem.leftBarButtonItem = barLeftBtn;
-    [self.navigationController.navigationItem setHidesBackButton:YES];
-    // 设置导航栏标题属性
-    NSDictionary *titleAttr = [NSDictionary dictionaryWithObjectsAndKeys:
-        [UIColor colorWithRed:1.0 green:102.0 / 255 blue:0 alpha:1.0], NSForegroundColorAttributeName,
-        [UIFont fontWithName:@"HiraginoSansGB-W3" size:18.0], NSFontAttributeName, nil];
-    [self.navigationController.navigationBar setTitleTextAttributes:titleAttr];
 }
+
 
 - (void)didReceiveMemoryWarning
 {

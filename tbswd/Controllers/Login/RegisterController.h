@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseUIViewController.h"
-
-@interface RegisterController : BaseUIViewController <UIScrollViewDelegate, UITextFieldDelegate>
+#import "AFNetworking.h"
+#import "JSONKit.h"
+@interface RegisterController : BaseUIViewController <UIScrollViewDelegate, UITextFieldDelegate,UINavigationControllerDelegate>
 {}
 
 @property (weak, nonatomic) IBOutlet UIButton       *yezhuBtn;

@@ -10,6 +10,7 @@
 #import "QueListCell.h"
 @interface QueListController (){
     UIView *_uiview;
+    NSInteger _page;
 }
 
 @end
@@ -31,40 +32,7 @@
     // 为tableView注册xib
     [_queListTable registerNib:nib forCellReuseIdentifier:@"queListCell"];
     
-    NSString *loginURL = [NSString stringWithFormat:@"http://192.168.1.128:85/IOSApi/askDataApi.aspx"];
-    MBProgressHUD   *hud = [[MBProgressHUD alloc] initWithView:self.view];
-    
-    [Utils showHUD:hud inView:self.view withTitle:@"正在登陆"];
-    
-    NSDictionary *infos = @{@"MType":@"10", @"PageIndex":@"1", @"PageSize":@"10"};
-    
-    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:loginURL]];       // 这里要将url设置为空
-    [httpClient postPath:loginURL parameters:infos success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        @try {
-            NSData *result = [operation.responseString dataUsingEncoding:NSUTF8StringEncoding];
-            
-            NSDictionary *jsonData = [NSJSONSerialization JSONObjectWithData:result options:0 error:nil];
-            NSLog(@"aaaaaa=====%@",jsonData);
-            if ([jsonData count]>0) {
-                //[Utils ToastNotification:@"登陆成功" andView:self.view andLoading:NO andIsBottom:YES];
-                NSLog(@"登陆成功");
-                
-            }
-            //NSLog(@"result:%@", jsonData);
-        
-        }
-        @catch(NSException *exception) {
-            [Utils TakeException:exception];
-        }
-        
-        @finally {}
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-       // _uiview=self.view;
-        //[Utils ToastNotification:@"网络连接故障" andView:_uiview andLoading:NO andIsBottom:YES];
-        NSLog(@"ERROR====%@",operation);
-    }];
-    [hud hide:YES];
-}
+    }
 
 - (void)didReceiveMemoryWarning
 {
@@ -88,7 +56,9 @@
 #pragma mark 开始进入刷新状态
 - (void)headerRereshing
 {
-  
+    _page=0;
+    [self getTableData];
+    
     // 2.2秒后刷新表格UI
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         // 刷新表格
@@ -100,7 +70,7 @@
 }
 - (void)footerRereshing
 {
- 
+    _page++;
     // 2.2秒后刷新表格UI
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         // 刷新表格
@@ -147,5 +117,44 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 165.0;
+}
+
+
+-(void)getTableData
+{
+    NSString *url = [NSString stringWithFormat:@"http://askapi.tobosu.com:8888/IOSApi/askDataApi.aspx"];
+   // MBProgressHUD   *hud = [[MBProgressHUD alloc] initWithView:self.view];
+    
+    //[Utils showHUD:hud inView:self.view withTitle:@"正在加载"];
+    
+    NSDictionary *infos = @{@"MType":@"10", @"PageIndex":[NSString stringWithFormat:@"%d",_page], @"PageSize":@"10"};
+    
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:url]];       // 这里要将url设置为空
+    [httpClient postPath:url parameters:infos success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        @try {
+            NSString *resultString = operation.responseString;
+            NSDictionary *arrlist=[resultString objectFromJSONString];
+            //            _province=[[NSMutableArray alloc] init];
+            //            for (int i=0; i<[arrlist count]; i++)
+            //            {
+            //                NSDictionary *item=[arrlist objectAtIndex:i];
+            //                NSString *provinceid=[item objectForKey:@"provincename"];
+            //                [_province addObject:provinceid];
+            //            }
+            NSLog(@"%@",[arrlist objectForKey:@"list"][0]);
+            
+        }
+        @catch(NSException *exception) {
+            [Utils TakeException:exception];
+        }
+        
+        @finally {}
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        // _uiview=self.view;
+        //[Utils ToastNotification:@"网络连接故障" andView:_uiview andLoading:NO andIsBottom:YES];
+        NSLog(@"ERROR====%@",operation);
+    }];
+    //[hud hide:YES];
+
 }
 @end

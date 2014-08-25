@@ -52,15 +52,15 @@
                 NSLog(@"登陆成功");
                 // 保存用户数据
                 [[Config Instance]saveUserNameAndPwd:[_userAccount text] andPwd:[Utils convert2Md5:[_userPassword text]]];
-                
-//                UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"wenda" bundle:nil];
-//                UIViewController *wendaObj = [mainStoryboard instantiateViewControllerWithIdentifier:@"wenda"];
-//                [self.navigationController pushViewController:wendaObj animated:YES];
+
                 UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"wenda" bundle:nil];
                 self.view.window.rootViewController = [mainStoryboard instantiateInitialViewController];
+                //                UIViewController *wendaObj = [mainStoryboard instantiateViewControllerWithIdentifier:@"wenda"];
+                //                [self.storyboard ]
+                //                [self.navigationController pushViewController:wendaObj animated:YES];
             }
 
-            // NSLog(@"result:%@", jsonData);
+             //NSLog(@"result:%@", jsonData);
         }
         @catch(NSException *exception) {
             [Utils TakeException:exception];
