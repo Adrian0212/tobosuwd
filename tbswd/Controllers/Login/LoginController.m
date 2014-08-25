@@ -60,7 +60,7 @@
                 //                [self.navigationController pushViewController:wendaObj animated:YES];
             }
 
-             //NSLog(@"result:%@", jsonData);
+             NSLog(@"result:%@", jsonData);
         }
         @catch(NSException *exception) {
             [Utils TakeException:exception];

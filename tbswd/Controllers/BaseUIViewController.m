@@ -26,8 +26,8 @@
     
     // 设置导航栏浅色样式
     [self setDefaultThemeBar];
-    
-    // 在iOS7中，设置导航栏不透明并解决内容会下移的问题
+    [self.navigationController.navigationBar setTranslucent:NO];
+    // 在iOS7中，解决设置导航栏不透明时内容会下移的问题
     [_navBar setTranslucent:NO];
     [self setExtendedLayoutIncludesOpaqueBars:YES];
     
@@ -37,7 +37,8 @@
     [_backButton setBackgroundImage:[UIImage imageNamed:@"btn_back.png"] forState:UIControlStateNormal];
     [_backButton addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *barLeftBtn = [[UIBarButtonItem alloc] initWithCustomView:_backButton];
-    self.navigationItem.leftBarButtonItem = barLeftBtn;}
+    self.navigationItem.leftBarButtonItem = barLeftBtn;
+}
 
 
 - (void)didReceiveMemoryWarning
