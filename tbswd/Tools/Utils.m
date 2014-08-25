@@ -77,14 +77,14 @@
 + (void)showHUD:(MBProgressHUD *)hud inView:(UIView *)view withTitle:(NSString *)title
 {
     [view addSubview:hud];
-    hud.labelText = title;       // 显示提示
+    hud.labelText = title;      // 显示提示
     hud.dimBackground = YES;    // 使背景成黑灰色，让MBProgressHUD成高亮显示
     hud.square = YES;           // 设置显示框的高度和宽度一样
     [hud show:YES];
 }
 
-//+(void)ToastNotification:(NSString *)text andView:(UIView *)view andHUD:(MBProgressHUD *)hud
-//{
+// +(void)ToastNotification:(NSString *)text andView:(UIView *)view andHUD:(MBProgressHUD *)hud
+// {
 //        [view addSubview:hud];
 //    hud.labelText = text;
 //    hud.mode = MBProgressHUDModeText;
@@ -96,25 +96,27 @@
 //    } completionBlock:^{
 //        [hud removeFromSuperview];
 //    }];
-//    
-//}
+//
+// }
 
 + (void)ToastNotification:(NSString *)text andView:(UIView *)view andLoading:(BOOL)isLoading andIsBottom:(BOOL)isBottom
 {
-    GCDiscreetNotificationView *notificationView = [[GCDiscreetNotificationView alloc] initWithText:text showActivity:isLoading inPresentationMode:isBottom?GCDiscreetNotificationViewPresentationModeBottom:GCDiscreetNotificationViewPresentationModeTop inView:view];
+    GCDiscreetNotificationView *notificationView = [[GCDiscreetNotificationView alloc] initWithText:text showActivity:isLoading inPresentationMode:isBottom ? GCDiscreetNotificationViewPresentationModeBottom:GCDiscreetNotificationViewPresentationModeTop inView:view];
+
     [notificationView show:YES];
     [notificationView hideAnimatedAfter:2.6];
 }
 
 + (void)TakeException:(NSException *)exception
 {
-    NSArray * arr = [exception callStackSymbols];
-    NSString * reason = [exception reason];
-    NSString * name = [exception name];
-    NSString * url = [NSString stringWithFormat:@"========异常错误报告========\nname:%@\nreason:\n%@\ncallStackSymbols:\n%@",name,reason,[arr componentsJoinedByString:@"\n"]];
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *path = [paths objectAtIndex:0];
-    
+    NSArray     *arr = [exception callStackSymbols];
+    NSString    *reason = [exception reason];
+    NSString    *name = [exception name];
+    NSString    *url = [NSString stringWithFormat:@"========异常错误报告========\nname:%@\nreason:\n%@\ncallStackSymbols:\n%@", name, reason, [arr componentsJoinedByString:@"\n"]];
+    NSArray     *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString    *path = [paths objectAtIndex:0];
+
     [url writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:nil];
 }
+
 @end

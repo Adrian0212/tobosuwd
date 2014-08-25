@@ -444,6 +444,8 @@
 				3A25C9CD19A57671002305A0 /* MBProgressHUD.m */,
 				3A25C9CE19A57671002305A0 /* Utils.h */,
 				3A25C9CF19A57671002305A0 /* Utils.m */,
+				845557F919AAD56600E115AC /* TSRegularExpressionUtils.h */,
+				845557FA19AAD56700E115AC /* TSRegularExpressionUtils.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -640,6 +642,7 @@
 				3A25C9FB19A5BA72002305A0 /* UIView+Extension.m in Sources */,
 				3A25C94A19A5758E002305A0 /* AppDelegate.m in Sources */,
 				3A25C9D719A57671002305A0 /* AFXMLRequestOperation.m in Sources */,
+				845557FB19AAD56700E115AC /* TSRegularExpressionUtils.m in Sources */,
 				3A25C9D319A57671002305A0 /* AFJSONRequestOperation.m in Sources */,
 				3A25C94619A5758E002305A0 /* main.m in Sources */,
 				3A25C9F619A5BA72002305A0 /* MJRefreshConst.m in Sources */,
