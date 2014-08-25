@@ -66,6 +66,7 @@
 		3A25C9F919A5BA72002305A0 /* UIScrollView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A25C9EF19A5BA72002305A0 /* UIScrollView+Extension.m */; };
 		3A25C9FA19A5BA72002305A0 /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A25C9F119A5BA72002305A0 /* UIScrollView+MJRefresh.m */; };
 		3A25C9FB19A5BA72002305A0 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A25C9F319A5BA72002305A0 /* UIView+Extension.m */; };
+		845557FB19AAD56700E115AC /* TSRegularExpressionUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 845557FA19AAD56700E115AC /* TSRegularExpressionUtils.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -175,6 +176,8 @@
 		3A25C9F119A5BA72002305A0 /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
 		3A25C9F219A5BA72002305A0 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
 		3A25C9F319A5BA72002305A0 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
+		845557F919AAD56600E115AC /* TSRegularExpressionUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSRegularExpressionUtils.h; sourceTree = "<group>"; };
+		845557FA19AAD56700E115AC /* TSRegularExpressionUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSRegularExpressionUtils.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -392,8 +395,6 @@
 		3A25C99B19A5766D002305A0 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				841622AF19A6E4F6003B4E8E /* bg_navbar_orange.png */,
-				841622B019A6E4F6003B4E8E /* bg_navbar_white.png */,
 				3A25C99C19A5766D002305A0 /* bg_edit_forget.png */,
 				3A25C99D19A5766D002305A0 /* bg_edit_login.png */,
 				3A25C99E19A5766D002305A0 /* bg_edit_newpwd.png */,
@@ -420,6 +421,8 @@
 				3A25C9CD19A57671002305A0 /* MBProgressHUD.m */,
 				3A25C9CE19A57671002305A0 /* Utils.h */,
 				3A25C9CF19A57671002305A0 /* Utils.m */,
+				845557F919AAD56600E115AC /* TSRegularExpressionUtils.h */,
+				845557FA19AAD56700E115AC /* TSRegularExpressionUtils.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -563,11 +566,9 @@
 				3A25C9E219A58F7F002305A0 /* QueListCell.xib in Resources */,
 				3A25C9B319A5766D002305A0 /* btn_login_weibo.png in Resources */,
 				3A25C9DD19A576CA002305A0 /* wenda.storyboard in Resources */,
-				841622B219A6E4F6003B4E8E /* bg_navbar_white.png in Resources */,
 				3A25C94D19A5758E002305A0 /* Main.storyboard in Resources */,
 				3A25C9AA19A5766D002305A0 /* bg_edit_login.png in Resources */,
 				3A25C9B119A5766D002305A0 /* btn_login.png in Resources */,
-				841622B119A6E4F6003B4E8E /* bg_navbar_orange.png in Resources */,
 				3A25C9A819A5766D002305A0 /* Hiragino Sans GB W3.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -614,6 +615,7 @@
 				3A25C9FB19A5BA72002305A0 /* UIView+Extension.m in Sources */,
 				3A25C94A19A5758E002305A0 /* AppDelegate.m in Sources */,
 				3A25C9D719A57671002305A0 /* AFXMLRequestOperation.m in Sources */,
+				845557FB19AAD56700E115AC /* TSRegularExpressionUtils.m in Sources */,
 				3A25C9D319A57671002305A0 /* AFJSONRequestOperation.m in Sources */,
 				3A25C94619A5758E002305A0 /* main.m in Sources */,
 				3A25C9F619A5BA72002305A0 /* MJRefreshConst.m in Sources */,

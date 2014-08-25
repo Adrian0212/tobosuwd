@@ -10,4 +10,6 @@
 
 @interface MessageController : BaseUIViewController
 
+@property (strong,nonatomic) NSArray *list;
+
 @end
