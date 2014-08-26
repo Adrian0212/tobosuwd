@@ -26,8 +26,8 @@
     
     // 设置导航栏浅色样式
     [self setDefaultThemeBar];
-    [self.navigationController.navigationBar setTranslucent:NO];
-    // 在iOS7中，解决设置导航栏不透明时内容会下移的问题
+    
+    // 在iOS7中，设置导航栏不透明并解决内容会下移的问题
     [_navBar setTranslucent:NO];
     [self setExtendedLayoutIncludesOpaqueBars:YES];
     

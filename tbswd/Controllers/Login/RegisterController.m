@@ -7,24 +7,20 @@
 //
 
 #import "RegisterController.h"
-#import "BaseUIViewController.h"
-#import "Utils.h"
 
 @interface RegisterController () {
-    NSArray     *_tabArray;//三个切换按钮
-    UITextField *_accountTextField;//手机号码输入框
-    UITextField *_quCodeTextField;//手机验证码输入框
-    UITextField *_pwdTextField;//密码输入框
-    UITextField *_nickNameTextField;//昵称输入框
-    UITextField *_cityTextField;//城市选择框
-    UIView *_view1;
-    UIPickerView *_picker;
-    // 1. 省份
-    NSMutableArray *_province;
-    // 2. 城市
-    NSMutableDictionary *_city;
-    NSMutableDictionary *_cityId;
-
+    NSArray             *_tabArray;             //三个切换按钮
+    UITextField         *_accountTextField;     // 手机号码输入框
+    UITextField         *_quCodeTextField;      // 手机验证码输入框
+    UITextField         *_pwdTextField;         // 密码输入框
+    UITextField         *_nickNameTextField;    // 昵称输入框
+    UITextField         *_cityTextField;        // 城市选择框
+    UIView              *_view1;
+    UIPickerView        *_picker;
+    NSMutableArray      *_province; // 1. 省份
+    NSMutableDictionary *_city;     // 2. 城市
+    NSMutableDictionary *_cityIdDictionary;
+    NSString            *_cityId;   // 保存用户当前选中的
 }
 
 @end
@@ -34,13 +30,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setBarTitle:@"注册界面"];
     [self loadPickData];
     _tabArray = [NSArray arrayWithObjects:_yezhuBtn, _shejishiBtn, _gongsiBtn, nil];
     [self setTabBorder:_tabArray[0]];
     // 设置scrollview的相关属性
     [self initScrollView];
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -74,7 +68,7 @@
 
     // 业主注册界面
     _view1 = [[UIView alloc]initWithFrame:CGRectMake(320 * 0, 0, 320, _nibScrollView.frame.size.height)];
-    
+
     UIImage     *image1 = [UIImage imageNamed:@"bg_edit_register.png"];
     UIImageView *imageView1 = [[UIImageView alloc]initWithImage:image1];
 
@@ -113,8 +107,8 @@
     [_nickNameTextField setClearButtonMode:UITextFieldViewModeWhileEditing];
     [_nickNameTextField setReturnKeyType:UIReturnKeyDone];
     [_nickNameTextField setDelegate:self];
-    
-    //城市选择
+
+    // 城市选择
     _cityTextField = [[UITextField alloc]initWithFrame:CGRectMake(57, 164, 246, 41)];
     [_cityTextField setBorderStyle:UITextBorderStyleNone];
     [_cityTextField setFont:defaultFont];
@@ -131,7 +125,7 @@
     [doneBtn setTitle:@"完成" forState:UIControlStateNormal];
     [accessView addSubview:doneBtn];
     [doneBtn addTarget:self action:@selector(doneBtnAction) forControlEvents:UIControlEventTouchUpInside];
-    
+
     [_cityTextField setInputAccessoryView:accessView];
     // 获取验证码按钮
     UIButton *getQuCodeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -141,7 +135,7 @@
     [getQuCodeBtn setBackgroundImage:[UIImage imageNamed:@"btn_getcode.png"] forState:UIControlStateNormal];
     [getQuCodeBtn.layer setCornerRadius:4.0]; // 设置矩形四个圆角半径
     [getQuCodeBtn addTarget:self action:@selector(getQuCode) forControlEvents:UIControlEventTouchUpInside];
-    
+
     // 注册按钮
     UIButton *registerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [registerBtn setFrame:CGRectMake(10, 225, 302, 42)];
@@ -158,14 +152,14 @@
     [_view1 addSubview:_cityTextField];
     [_view1 addSubview:getQuCodeBtn];
     [_view1 addSubview:registerBtn];
-    
+
     // 设计师注册页面
     UIView *view2 = [[UIView alloc]initWithFrame:CGRectMake(320 * 1, 0, 320, _nibScrollView.frame.size.height)];
     [view2 setBackgroundColor:[UIColor whiteColor]];
     // 分割线
     UILabel *separateLine1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 1)];
     [separateLine1 setBackgroundColor:[Utils hexStringToColor:@"#cccccc"]];
-    
+
     UIImage     *registerLogo = [UIImage imageNamed:@"register_logo.png"];
     UIImageView *imageview2 = [[UIImageView alloc] initWithImage:registerLogo];
     [imageview2 setFrame:CGRectMake(70, 60, 182, 73)];
@@ -192,7 +186,6 @@
 
     [_nibScrollView setDelaysContentTouches:NO]; // 在scrollview中的touch事件会影响button的效果
     [_nibScrollView setBackgroundColor:[UIColor clearColor]];
-    
 }
 
 #pragma mark 设置头上的按钮的边框和字体颜色
@@ -215,6 +208,7 @@
 {
     CGFloat pageWidth = self.nibScrollView.frame.size.width;
     int     page = floor((self.nibScrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+
     [self setTabBorder:_tabArray[page]];
     [self closeKeyBoard];
 }
@@ -239,45 +233,113 @@
     [self closeKeyBoard];
 }
 
-//注册按钮提交
-- (void)registerAction:(UIButton *)sender
+- (IBAction)dismisTitleBar:(id)sender
 {
-    NSLog(@"注册");
-}
-//获取手机验证码
--(void)getQuCode
-{
-    NSString *quCode = _accountTextField.text;
-    if (nil==quCode) {
-        //statements
-    }
-    //获得省份shuju
-    NSString *priUrl=@"http://api.tobosu.com/basic/SMSClass/quicksmsCurlapp";
-    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:priUrl]];       // 这里要将url设置为空
-    NSDictionary *par = @{@"phone": @"15267854073",@"msgtype":@"1"};
-    [httpClient postPath:priUrl parameters:par success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        @try
-        {
-            NSString *resultString = operation.responseString;
-            
-            NSLog(@"%@",resultString);
-           
-        }
-        @catch(NSException *exception)
-        {
-            [Utils TakeException:exception];
-        }
-        
-        @finally {}
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        // _uiview=self.view;
-        //[Utils ToastNotification:@"网络连接故障" andView:_uiview andLoading:NO andIsBottom:YES];
-        NSLog(@"ERROR====%@",operation);
-    }];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-//设置城市选择器
--(void)loadPickData
+#pragma mark 注册按钮提交
+- (void)registerAction:(UIButton *)sender
+{
+    NSString    *mobileNumber = _accountTextField.text;
+    NSString    *quCode = _quCodeTextField.text;
+    NSString    *pwd = _pwdTextField.text;
+    NSString    *userName = _nickNameTextField.text;
+    NSString    *cityId = _cityId;
+
+    
+    if ([TSRegularExpressionUtils validateMobile:mobileNumber])
+    {
+        if ([TSRegularExpressionUtils validatePassword:pwd])
+        {
+            if ([TSRegularExpressionUtils validateUserName:userName])
+            {
+                NSString        *priUrl = api_url_register;
+                AFHTTPClient    *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:priUrl]];        // 这里要将url设置为空
+                NSDictionary    *par = @{@"name":userName, @"password":[Utils convert2Md5:pwd], @"cityID":cityId,
+                                         @"cellphone":mobileNumber, @"gender":@"0", @"ip":@"0.0.0.0", @"logintype":@"ios", @"phoneyzm":quCode};
+                
+                [httpClient postPath:priUrl parameters:par success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    @try
+                    {
+                        NSString *resultString = operation.responseString;
+                        NSDictionary *jsonData = [resultString objectFromJSONString];
+                        
+                        if ([jsonData objectForKey:@"msg"]) {
+                            [self dismissViewControllerAnimated:YES completion:nil];
+                        }
+                        
+                        NSLog(@"%@", resultString);
+                    }
+                    @catch(NSException *exception)
+                    {
+                        [Utils TakeException:exception];
+                    }
+                    
+                    @finally {}
+                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    [Utils ToastNotification:@"网络连接故障" andView:self.view andLoading:NO andIsBottom:YES];
+                }];
+            }
+            else
+            {
+                [self alertView:@"请正确填写用户名"];
+            }
+        }
+        else
+        {
+            [self alertView:@"密码不能包含特殊字符"];
+        }
+       
+    }
+    else
+    {
+        [self alertView:@"请正确填写手机号"];
+    }
+    
+    
+   
+}
+
+/**
+ *  获取手机验证码
+ */
+- (void)getQuCode
+{
+    NSString *quCode = _accountTextField.text;
+
+    if ([TSRegularExpressionUtils validateMobile:_accountTextField.text])
+    {
+        NSString        *priUrl = api_url_registqucode;
+        AFHTTPClient    *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:priUrl]];    // 这里要将url设置为空
+        NSDictionary    *par = @{@"phone": quCode, @"msgtype":@"1"};
+        [httpClient postPath:priUrl parameters:par success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            @try
+            {
+                NSString *resultString = operation.responseString;
+
+                NSLog(@"%@", resultString);
+            }
+            @catch(NSException *exception)
+            {
+                [Utils TakeException:exception];
+            }
+
+            @finally {}
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            //NSLog(@"ERROR====%@", operation);
+        }];
+    }
+    else
+    {
+        [self alertView:@"请正确填写手机号"];
+    }
+        
+    
+}
+
+// 设置城市选择器
+- (void)loadPickData
 {
     // 1. 初始化PickerView
     _picker = [[UIPickerView alloc]init];
@@ -285,40 +347,33 @@
     [_picker setDataSource:self];
     // 1.2 设置代理
     [_picker setDelegate:self];
-       // 1.4 设置选择指示器
+    // 1.4 设置选择指示器
     [_picker setShowsSelectionIndicator:YES];
     _city = [NSMutableDictionary dictionary];
-    _cityId = [NSMutableDictionary dictionary];
-    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"provinceCity" ofType:@"plist"];
+    _cityIdDictionary = [NSMutableDictionary dictionary];
+    NSString            *plistPath = [[NSBundle mainBundle] pathForResource:@"provinceCity" ofType:@"plist"];
     NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
-    //NSLog(@"%@", data);//直接打印数据。
+    // NSLog(@"%@", data);//直接打印数据。
     _province = [NSMutableArray array];
-    for (NSInteger i=1; i<=[data count]; i++)
-    {
-        NSDictionary *proDict = [data objectForKey:[NSString stringWithFormat:@"%d",i]];
-        NSString *provinceName= [proDict objectForKey:@"ProvinceName"];
-        
+
+    for (NSInteger i = 1; i <= [data count]; i++) {
+        NSDictionary    *proDict = [data objectForKey:[NSString stringWithFormat:@"%d", i]];
+        NSString        *provinceName = [proDict objectForKey:@"ProvinceName"];
         [_province addObject:provinceName];
-        NSArray *cityArray = [proDict objectForKey:@"city"];
-        NSMutableArray *cityNameMutableArray = [NSMutableArray array];
-        
-        for (NSInteger i=0; i<[cityArray count]; i++)
-        {
-            
-            NSString *cityName=cityArray[i][@"name"];
-            NSString *cityId=cityArray[i][@"cityID"];
+        NSArray         *cityArray = [proDict objectForKey:@"city"];
+        NSMutableArray  *cityNameMutableArray = [NSMutableArray array];
+        for (NSInteger i = 0; i < [cityArray count]; i++) {
+            NSString    *cityName = cityArray[i][@"name"];
+            NSString    *cityId = cityArray[i][@"cityID"];
             [cityNameMutableArray addObject:cityName];
-            [_cityId setValue:cityId forKey:cityName];
-
+            [_cityIdDictionary setValue:cityId forKey:cityName];
         }
-        
-        [_city setValue:cityNameMutableArray forKeyPath:provinceName];
-        
-    }
-    NSLog(@"%@",_city);
-  
-}
 
+        [_city setValue:cityNameMutableArray forKeyPath:provinceName];
+    }
+
+    // NSLog(@"%@",_city);
+}
 
 #pragma mark - 数据源方法
 #pragma mark 设置列
@@ -333,14 +388,14 @@
     if (component == 0) {
         return _province.count;
     } else {
-        NSInteger rowProvince = [pickerView selectedRowInComponent:0];
-        NSString *provinceName = _province[rowProvince];
-        NSArray *citys = _city[provinceName];
-        
+        NSInteger   rowProvince = [pickerView selectedRowInComponent:0];
+        NSString    *provinceName = _province[rowProvince];
+        NSArray     *citys = _city[provinceName];
+
         return citys.count;
     }
-
 }
+
 #pragma mark - 代理方法
 #pragma mark 设置选择器行的内容的
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
@@ -355,61 +410,75 @@
         NSString *provinceName = _province[rowProvince];
         // 3. 获得城市的数组
         NSArray *citys = _city[provinceName];
-        
+
         //        NSLog(@"%@", citys[row]);
-        
+
         // 4. 返回城市数组中row的字符串内容
         return citys[row];
     }
-    
-
+}
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
+    UILabel* pickerLabel = (UILabel*)view;
+    if (!pickerLabel){
+        pickerLabel = [[UILabel alloc] init];
+        // Setup label properties - frame, font, colors etc
+        //adjustsFontSizeToFitWidth property to YES
+       // pickerLabel.minimumFontSize = 8.;
+        pickerLabel.adjustsFontSizeToFitWidth = YES;
+        pickerLabel.textAlignment=NSTextAlignmentCenter;
+        [pickerLabel setBackgroundColor:[UIColor clearColor]];
+       // [pickerLabel setFont:[UIFont boldSystemFontOfSize:15]];
+    }
+    // Fill the label text here
+    pickerLabel.text=[self pickerView:pickerView titleForRow:row forComponent:component];
+    return pickerLabel;
 }
 #pragma mark 选中行的时候，刷新数据
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
     [pickerView reloadComponent:1];
-    
-    NSInteger row1 = [pickerView selectedRowInComponent:0];
-    NSInteger row2 = [pickerView selectedRowInComponent:1];
-    
-    NSString *provinceName = _province[row1];
+
+    //NSInteger   row1 = [pickerView selectedRowInComponent:0];
+    //NSInteger   row2 = [pickerView selectedRowInComponent:1];
+    //NSString *provinceName = _province[row1];
     // 3. 获得城市的数组
-    NSArray *citys = _city[provinceName];
-    
-    
+    //NSArray *citys = _city[provinceName];
 }
--(void)doneBtnAction
+
+- (void)doneBtnAction
 {
-     [_cityTextField endEditing:YES];
+    [_cityTextField endEditing:YES];
     [self textFieldDidEndEditing:_cityTextField];
 }
 
-//城市选择框中显示选择的城市
--(void)textFieldDidEndEditing:(UITextField *)textField
+// 城市选择框中显示选择的城市
+- (void)textFieldDidEndEditing:(UITextField *)textField
 {
-   
-    
-    if (textField==_cityTextField)
-    {
+    if (textField == _cityTextField) {
         NSInteger row1 = [_picker selectedRowInComponent:0];
-        
+
         NSInteger row2 = [_picker selectedRowInComponent:1];
-        
+
         NSString *provinceName = _province[row1];
         // 3. 获得城市的数组
         NSArray *citys = _city[provinceName];
-        
-        NSString *textString = [[NSString alloc ] initWithFormat:@"%@  %@", provinceName, citys[row2]];
+
+        NSString *textString = [[NSString alloc] initWithFormat:@"%@  %@", provinceName, citys[row2]];
         textField.text = textString;
-        
-        //NSLog(@"%@",[_cityId objectForKey:citys[row2]]);
-        
+
+        // NSLog(@"%@",[_cityId objectForKey:citys[row2]]);
+        _cityId = [_cityIdDictionary objectForKey:citys[row2]];
     }
-    
 }
 
-//-(void)getPorvinceDataFromUrl
-//{
+
+-(void)alertView:(NSString *)content
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:content delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+    [alertView show];
+}
+// -(void)getPorvinceDataFromUrl
+// {
 //    //获得省份shuju
 //    NSString *priUrl=@"http://api.toboshu.net:8888/basic/basic_info/getProinceCity";
 //    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:priUrl]];       // 这里要将url设置为空
@@ -418,7 +487,7 @@
 //        {
 //            NSString *resultString = operation.responseString;
 //            NSDictionary *arrayDict=[resultString objectFromJSONString];
-//            
+//
 //            //获取应用程序沙盒的Documents目录
 //            NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
 //            NSString *plistPath1 = [paths objectAtIndex:0];
@@ -426,7 +495,7 @@
 //            NSString *filename=[plistPath1 stringByAppendingPathComponent:@"provinceCity.plist"];
 //            //输入写入
 //            [arrayDict writeToFile:filename atomically:YES];
-//            
+//
 //            //那怎么证明我的数据写入了呢？读出来看看
 //            NSMutableDictionary *data1 = [[NSMutableDictionary alloc] initWithContentsOfFile:filename];
 //            NSLog(@"%@",plistPath1);
@@ -435,7 +504,7 @@
 //        {
 //            [Utils TakeException:exception];
 //        }
-//        
+//
 //        @finally {}
 //    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 //        // _uiview=self.view;
@@ -443,6 +512,6 @@
 //        NSLog(@"ERROR====%@",operation);
 //    }];
 //
-//}
+// }
 
 @end

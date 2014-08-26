@@ -63,7 +63,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="hqB-ea-YEX" kind="push" id="DUH-vc-FPf"/>
+                                    <segue destination="hqB-ea-YEX" kind="modal" id="WeD-i6-mhi"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -124,10 +124,23 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                             </scrollView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_regist_bar.png" id="IDK-6y-zhy">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="cfM-xh-7pW">
+                                <rect key="frame" x="10" y="26" width="34" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="dismisTitleBar:" destination="hqB-ea-YEX" eventType="touchUpInside" id="Eip-yk-I9C"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" id="KUc-8r-7k7"/>
                     <connections>
                         <outlet property="gongsiBtn" destination="yLa-vP-etz" id="9RO-ik-ab0"/>
                         <outlet property="nibScrollView" destination="3jZ-H4-VM1" id="nSf-oG-PXI"/>
@@ -174,7 +187,7 @@
                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="hqB-ea-YEX" kind="push" id="K09-Xl-uQi"/>
+                                    <segue destination="hqB-ea-YEX" kind="modal" id="ohL-gD-CaW"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="又想飞的鱼O" placeholder="手机号码/用户名" minimumFontSize="17" clearButtonMode="whileEditing" id="WKE-kH-KZW">
@@ -335,6 +348,7 @@
         <image name="bg_edit_login.png" width="605" height="163"/>
         <image name="bg_edit_newpwd.png" width="605" height="163"/>
         <image name="bg_page_index.png" width="640" height="1136"/>
+        <image name="bg_regist_bar.png" width="640" height="129"/>
         <image name="btn_getcode.png" width="150" height="52"/>
         <image name="btn_login.png" width="605" height="84"/>
     </resources>
@@ -344,6 +358,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="K09-Xl-uQi"/>
+        <segue reference="ohL-gD-CaW"/>
     </inferredMetricsTieBreakers>
 </document>
