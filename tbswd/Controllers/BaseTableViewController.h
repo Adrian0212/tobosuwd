@@ -1,15 +1,15 @@
 //
-//  BaseUIViewController.h
-//  Connect
+//  BaseTableViewController.h
+//  tbswd
 //
-//  Created by wengchunjie on 14-4-1.
-//  Copyright (c) 2014年 wengchunjie. All rights reserved.
+//  Created by admin on 14/8/27.
+//  Copyright (c) 2014年 tobosu. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import "Utils.h"
 
-@interface BaseUIViewController : UIViewController
+@interface BaseTableViewController : UITableViewController
 
 @property (retain, nonatomic) UINavigationBar   *navBar;
 @property (retain, nonatomic) UIButton          *backButton;

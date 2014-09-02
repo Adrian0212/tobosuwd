@@ -1,32 +1,32 @@
 //
-//  BaseUIViewController.m
-//  Connect/Users/adrian/Desktop/oc/tbswd/BaseUIViewController.m
+//  BaseTableViewController.m
+//  tbswd
 //
-//  Created by Adrian on 14-4-1.
-//  Copyright (c) 2014年 wengchunjie. All rights reserved.
+//  Created by admin on 14/8/27.
+//  Copyright (c) 2014年 tobosu. All rights reserved.
 //
 
-#import "BaseUIViewController.h"
+#import "BaseTableViewController.h"
 
-@interface BaseUIViewController ()
+@interface BaseTableViewController ()
 
 @end
 
-@implementation BaseUIViewController
+@implementation BaseTableViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     _navBar = (UINavigationBar *)self.navigationController.navigationBar;
-    
+
     // 设置导航栏浅色样式
     [self setDefaultThemeBar];
-    
+
     // 在iOS7中，设置导航栏不透明并解决内容会下移的问题
     [_navBar setTranslucent:NO];
     [self setExtendedLayoutIncludesOpaqueBars:YES];
-    
+
     // 设置导航栏返回按钮
     _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _backButton.frame = CGRectMake(0, 0, 22, 19);
@@ -35,7 +35,6 @@
     UIBarButtonItem *barLeftBtn = [[UIBarButtonItem alloc] initWithCustomView:_backButton];
     self.navigationItem.leftBarButtonItem = barLeftBtn;
 }
-
 
 - (void)didReceiveMemoryWarning
 {
@@ -90,7 +89,7 @@
     [self.navigationController.navigationBar setTitleTextAttributes:titleAttr];
 
     // 设置状态栏样式为深色，用于浅色背景
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
 }
 
 // 设置导航栏橘色样式
@@ -105,7 +104,7 @@
     [self.navigationController.navigationBar setTitleTextAttributes:titleAttr];
 
     // 设置状态栏样式为浅色，用于深色背景
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
 }
 
 // 返回操作
@@ -127,13 +126,71 @@
     [self closeKeyBoard];
 }
 
+//#pragma mark - Table view data source
+//
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+//{
+//    // Return the number of sections.
+//    return 0;
+//}
+//
+//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+//{
+//    // Return the number of rows in the section.
+//    return 0;
+//}
+
+/*
+ *   - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+ *    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+ *
+ *    // Configure the cell...
+ *
+ *    return cell;
+ *   }
+ */
+
+/*
+ *   // Override to support conditional editing of the table view.
+ *   - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+ *    // Return NO if you do not want the specified item to be editable.
+ *    return YES;
+ *   }
+ */
+
+/*
+ *   // Override to support editing the table view.
+ *   - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+ *    if (editingStyle == UITableViewCellEditingStyleDelete) {
+ *        // Delete the row from the data source
+ *        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+ *    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+ *        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+ *    }
+ *   }
+ */
+
+/*
+ *   // Override to support rearranging the table view.
+ *   - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+ *   }
+ */
+
+/*
+ *   // Override to support conditional rearranging of the table view.
+ *   - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+ *    // Return NO if you do not want the item to be re-orderable.
+ *    return YES;
+ *   }
+ */
+
 /*
  * #pragma mark - Navigation
  *
  *   // In a storyboard-based application, you will often want to do a little preparation before navigation
  *   - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- *   // Get the new view controller using [segue destinationViewController].
- *   // Pass the selected object to the new view controller.
+ *    // Get the new view controller using [segue destinationViewController].
+ *    // Pass the selected object to the new view controller.
  *   }
  */
 

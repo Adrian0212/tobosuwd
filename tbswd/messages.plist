@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>groupname</key>
+		<string>我的提问</string>
+		<key>messages</key>
+		<array>
+			<dict>
+				<key>content</key>
+				<string>内容</string>
+				<key>user</key>
+				<string>对方</string>
+			</dict>
+			<dict>
+				<key>content</key>
+				<string>家居宝是什么东东？好不好？怎么用啊？</string>
+				<key>user</key>
+				<string>天元装饰</string>
+			</dict>
+			<dict>
+				<key>content</key>
+				<string>悄悄问圣僧女儿美不美？</string>
+				<key>user</key>
+				<string>城建装饰</string>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>groupname</key>
+		<string>我的问题</string>
+		<key>messages</key>
+		<array>
+			<dict>
+				<key>content</key>
+				<string>巴西VS克罗地亚，内马尔进了几个球？</string>
+				<key>user</key>
+				<string>同盛装饰</string>
+			</dict>
+			<dict>
+				<key>content</key>
+				<string>巴西VS克罗地亚，比分是多少？</string>
+				<key>user</key>
+				<string>壁中忆装饰</string>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>groupname</key>
+		<string>业主指定咨询</string>
+	</dict>
+</array>
+</plist>

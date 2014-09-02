@@ -14,10 +14,16 @@
 {
     NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
 
-    [settings removeObjectForKey:@"UserName"];
-    [settings removeObjectForKey:@"Password"];
     [settings setObject:userName forKey:@"UserName"];
     [settings setObject:pwd forKey:@"Password"];
+    [settings synchronize];
+}
+
+- (void)removeUserPwd
+{
+    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
+
+    [settings removeObjectForKey:@"Password"];
     [settings synchronize];
 }
 
@@ -35,12 +41,82 @@
     return [settings objectForKey:@"Password"];
 }
 
+- (void)saveUserInfo:(NSDictionary *)info
+{
+    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
+
+    if ([settings objectForKey:@"UserInfo"]) {
+        [[settings objectForKey:@"UserInfo"] addEntriesFromDictionary:info];
+        [settings setObject:[settings objectForKey:@"UserInfo"] forKey:@"UserInfo"];
+    } else {
+        [settings setObject:info forKey:@"UserInfo"];
+    }
+
+    [settings synchronize];
+}
+
+- (void)removeUserInfo
+{
+    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
+
+    [settings removeObjectForKey:@"UserInfo"];
+    [settings synchronize];
+}
+
+- (NSDictionary *)getUserInfo
+{
+    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
+
+    return [settings objectForKey:@"UserInfo"];
+}
+
+- (NSString *)getUserId
+{
+    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
+
+    return [[settings objectForKey:@"UserInfo"] objectForKey:@"id"];
+}
+
+- (NSString *)getUserMark
+{
+    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
+
+    return [[settings objectForKey:@"UserInfo"] objectForKey:@"mark"];
+}
+
+- (NSString *)getUserNewuid
+{
+    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
+
+    return [[settings objectForKey:@"UserInfo"] objectForKey:@"newuid"];
+}
+
+- (NSString *)getUserScore
+{
+    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
+
+    return [[settings objectForKey:@"UserInfo"] objectForKey:@"score"];
+}
+
+- (void)setUserScore:(NSInteger)score
+{
+    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
+
+    NSNumber *temp = [NSNumber numberWithInt:score];
+
+    [[settings objectForKey:@"UserInfo"] setValue:temp forKey:@"score"];
+
+    [settings setObject:[settings objectForKey:@"UserInfo"] forKey:@"UserInfo"];
+
+    [settings synchronize];
+}
+
 static Config *instance = nil;
 + (Config *)Instance
 {
     @synchronized(self) {
         if (nil == instance) {
-            [self new];
+            instance = [self new];
         }
     }
     return instance;

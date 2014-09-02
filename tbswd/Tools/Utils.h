@@ -40,9 +40,31 @@
  */
 + (void)showHUD:(MBProgressHUD *)hud inView:(UIView *)view withTitle:(NSString *)title;
 
+/**
+ *  toast消息框显示
+ *
+ *  @param text      消息内容
+ *  @param view      显示消息的界面
+ *  @param isLoading 是否有加载图标
+ *  @param isBottom  是否在底部显示
+ */
 + (void)ToastNotification:(NSString *)text andView:(UIView *)view andLoading:(BOOL)isLoading andIsBottom:(BOOL)isBottom;
 
+/**
+ *  异常日志输出
+ *
+ *  @param exception 异常
+ */
 + (void)TakeException:(NSException *)exception;
 
+/**
+ *  缩放图片
+ *
+ *  @param image 原始图片
+ *  @param size  缩放尺寸
+ *
+ *  @return <#return value description#>
+ */
 + (UIImage *)scaleImage:(UIImage *)image toSize:(CGSize)size;
+
 @end

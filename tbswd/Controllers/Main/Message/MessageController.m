@@ -10,6 +10,8 @@
 
 @interface MessageController ()
 
+@property (nonatomic, strong) NSMutableDictionary *headers;
+
 @end
 
 @implementation MessageController
@@ -20,12 +22,13 @@
     [self setBarTitle:@"消息提醒"];
     [self setOrangeThemeBar];
     [self hideBackButton];
-    
-    // Do any additional setup after loading the view, typically from a nib.
-    NSArray *array = [[NSArray alloc] initWithObjects:@"美国", @"菲律宾",
-                      @"黄岩岛", @"中国", @"泰国", @"越南", @"老挝",
-                      @"日本", nil];
-    self.list = array;
+
+    NSString    *path = [[NSBundle mainBundle] pathForResource:@"messages" ofType:@"plist"];
+    NSArray     *messageList = [NSArray arrayWithContentsOfFile:path];
+
+    self.headers = [NSMutableDictionary dictionary];
+
+    self.list = messageList;
 }
 
 - (void)didReceiveMemoryWarning
@@ -35,27 +38,65 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.list count];
+    MessageHeader   *header = self.headers[@(section)];
+    int             count = header.isOpen ?[self.list count] : 0;
+
+    return count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *TableSampleIdentifier = @"TableSampleIdentifier";
-    
+
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:
-                             TableSampleIdentifier];
-    
+        TableSampleIdentifier];
+
     if (cell == nil) {
         cell = [[UITableViewCell alloc]
-                initWithStyle:UITableViewCellStyleDefault
-                reuseIdentifier:TableSampleIdentifier];
+            initWithStyle:UITableViewCellStyleDefault
+            reuseIdentifier:TableSampleIdentifier];
     }
-    
-    NSUInteger row = [indexPath row];
-    cell.textLabel.text = [self.list objectAtIndex:row];
+
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    MessageHeader *mh = self.headers[@(section)];
+
+    if (!mh) {
+        mh = [[MessageHeader alloc]initWithFrame:CGRectMake(0, 0, 320, 43)];
+        NSDictionary *dict = self.list[section];
+        [mh setNameLabelText:dict[@"groupname"]];
+        [mh setNumLabelText:[dict[@"messages"] count]];
+        [mh setTag:section];
+        // 为表头UIView增加点击事件
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(expandGroup:)];
+        [mh addGestureRecognizer:tapGesture];
+
+        [self.headers setObject:mh forKey:@(section)];
+    }
+
+    return mh;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 43.0;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return [self.list count];
+}
+
+- (void)expandGroup:(UITapGestureRecognizer *)gesture
+{
+    if ([gesture.view isKindOfClass:[MessageHeader class]]) {
+        ((MessageHeader *)gesture.view).isOpen = !((MessageHeader *)gesture.view).isOpen;
+    }
+
+    [self.tableview reloadData];
+}
 
 @end

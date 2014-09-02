@@ -15,13 +15,33 @@
   #import <Foundation/Foundation.h>
 #endif
 
+// .net接口地址
+#define api_url_net @"http://askapi.tobosu.com:8888/IOSApi/askDataApi.aspx"
+
+// php接口地址
+
+/******************************线下测试接口******************************/
+
 // 登陆界面接口
-#define api_url_login       @"http://api1.toboshu.net:8888/user/login/OveralLogin"  // 登陆接口
-#define api_url_getcode     @"http://api1.toboshu.net:8888/user/save_data/findpwd"  // 获取验证码接口
-#define api_url_checkcode   @"http://api1.toboshu.net:8888/user/save_data/iscode"   // 核对验证码接口
-#define api_url_savepwd     @"http://api1.toboshu.net:8888/user/save_data/savepwd"  // 保存密码借口
-#define api_url_register     @"http://api1.toboshu.net:8888/user/save_data/SaveOwnerUser" //获得城市接口
-#define api_url_registqucode    @"http://api1.toboshu.net:8888/basic/SMSClass/quicksmsCurlapp" //获取注册验证码
+#define api_url_login           @"http://api1.toboshu.net:8888/user/login/OveralLogin"          // 登陆接口
+#define api_url_getcode         @"http://api1.toboshu.net:8888/user/save_data/findpwd"          // 获取验证码接口
+#define api_url_checkcode       @"http://api1.toboshu.net:8888/user/save_data/iscode"           // 核对验证码接口
+#define api_url_savepwd         @"http://api1.toboshu.net:8888/user/save_data/savepwd"          // 保存密码接口
+#define api_url_register        @"http://api1.toboshu.net:8888/user/save_data/SaveOwnerUser"    // 获得城市接口
+#define api_url_registqucode    @"http://api1.toboshu.net:8888/basic/SMSClass/quicksmsCurlapp"  // 获取注册验证码
 
+// 个人中心界面借口
+#define api_url_getuserinfo     @"http://api1.toboshu.net:8888/user/save_data/userinfo" // 获取用户积分等信息接口
+#define api_url_signedto        @"http://api1.toboshu.net:8888/user/save_data/signedto" // 签到接口
 
-#define api_url_net    @"http://askapi.tobosu.com:8888/IOSApi/askDataApi.aspx"
+/********************************线上接口********************************/
+
+//// 登陆界面接口
+// #define api_url_login       @"http://api.tobosu.com/user/login/OveralLogin"         // 登陆接口
+// #define api_url_getcode     @"http://api.tobosu.com/user/save_data/findpwd"         // 获取验证码接口
+// #define api_url_checkcode   @"http://api.tobosu.com/user/save_data/iscode"          // 核对验证码接口
+// #define api_url_savepwd     @"http://api.tobosu.com/user/save_data/savepwd"         // 保存密码接口
+//
+//// 个人中心界面借口
+// #define api_url_getuserinfo @"http://api.tobosu.com/user/save_data/userinfo"    // 获取用户积分等信息接口
+// #define api_url_signedto    @"http://api.tobosu.com/user/save_data/signedto"    // 签到接口
