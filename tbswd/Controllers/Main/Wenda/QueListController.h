@@ -7,12 +7,16 @@
 //
 
 #import "BaseUIViewController.h"
-#import "AFNetworking.h"
 #import "Utils.h"
 #import "Config.h"
 #import "MJRefresh.h"
 #import "JSONkit.h"
-@interface QueListController : BaseUIViewController<UITableViewDataSource,UITableViewDelegate>
+#import "QueList.h"
+#import "QueListCell.h"
+#import "UIImageView+AFNetworking.h"
+#import "AFNetworking.h"
+#import "CommnetDetailController.h"
+@interface QueListController : BaseUIViewController <UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *queListTable;
 
 @end

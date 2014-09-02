@@ -44,4 +44,5 @@
 
 + (void)TakeException:(NSException *)exception;
 
++ (UIImage *)scaleImage:(UIImage *)image toSize:(CGSize)size;
 @end

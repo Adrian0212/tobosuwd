@@ -12,7 +12,7 @@
 #import "AFNetworking.h"
 #import "JSONKit.h"
 #import "TSRegularExpressionUtils.h"
-@interface RegisterController : BaseUIViewController <UIScrollViewDelegate, UITextFieldDelegate,UINavigationControllerDelegate>
+@interface RegisterController : BaseUIViewController <UIScrollViewDelegate, UITextFieldDelegate,UINavigationControllerDelegate,UIPickerViewDelegate,UIPickerViewDataSource>
 {}
 
 @property (weak, nonatomic) IBOutlet UIButton       *yezhuBtn;

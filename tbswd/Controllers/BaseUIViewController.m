@@ -94,7 +94,7 @@
     [self.navigationController.navigationBar setTitleTextAttributes:titleAttr];
 
     // 设置状态栏样式为深色，用于浅色背景
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
 }
 
 // 设置导航栏橘色样式
@@ -109,7 +109,7 @@
     [self.navigationController.navigationBar setTitleTextAttributes:titleAttr];
 
     // 设置状态栏样式为浅色，用于深色背景
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
 }
 
 // 返回操作

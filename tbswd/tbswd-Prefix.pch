@@ -22,3 +22,6 @@
 #define api_url_savepwd     @"http://api1.toboshu.net:8888/user/save_data/savepwd"  // 保存密码借口
 #define api_url_register     @"http://api1.toboshu.net:8888/user/save_data/SaveOwnerUser" //获得城市接口
 #define api_url_registqucode    @"http://api1.toboshu.net:8888/basic/SMSClass/quicksmsCurlapp" //获取注册验证码
+
+
+#define api_url_net    @"http://askapi.tobosu.com:8888/IOSApi/askDataApi.aspx"

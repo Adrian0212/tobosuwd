@@ -7,7 +7,7 @@
 //
 
 #import "IndexController.h"
-
+#import "QuelistController.h"
 @interface IndexController ()
 
 @end
@@ -39,9 +39,13 @@
 
 - (IBAction)jumpToWenda:(id)sender
 {
+//    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"wenda" bundle:nil];
+//    UIViewController *wendaObj = [mainStoryboard instantiateViewControllerWithIdentifier:@"wenda"];
+//    [self.navigationController pushViewController:wendaObj animated:YES];
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"wenda" bundle:nil];
-    UIViewController *wendaObj = [mainStoryboard instantiateViewControllerWithIdentifier:@"wenda"];
-    [self.navigationController pushViewController:wendaObj animated:YES];
-}
+    self.view.window.rootViewController = [mainStoryboard instantiateInitialViewController];
+
+
+    }
 
 @end

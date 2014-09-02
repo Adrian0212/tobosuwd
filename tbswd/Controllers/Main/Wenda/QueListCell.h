@@ -7,14 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "EGOImageView.h"
+#import "Utils.h"
 @interface QueListCell : UITableViewCell
-@property (strong, nonatomic) IBOutlet UIImageView *img;
-@property (strong, nonatomic) IBOutlet UILabel *userName;
-@property (strong, nonatomic) IBOutlet UILabel *txt_description;
-@property (strong, nonatomic) IBOutlet UIButton *commentBtn;
-@property (strong, nonatomic) IBOutlet UITextView *txt_Message;
 
-- (IBAction)commentAction:(id)sender;
+// @property (strong,nonatomic) EGOImageView *egoImgView;
 
+@property (strong, nonatomic) IBOutlet UIImageView  *userPhoto;
+@property (strong, nonatomic) IBOutlet UILabel      *userName;
+@property (strong, nonatomic) IBOutlet UILabel      *txt_description;
+@property (strong, nonatomic) IBOutlet UIButton     *commentBtn;
+@property (strong, nonatomic) IBOutlet UITextView   *txt_Message;
+@property (strong, nonatomic) IBOutlet UILabel      *answerName;
+@property (strong, nonatomic) IBOutlet UIView       *cellView;
+
+// - (void)commentAction;
 @end

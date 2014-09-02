@@ -55,11 +55,11 @@
             </objects>
             <point key="canvasLocation" x="-235" y="-742"/>
         </scene>
-        <!--Navigation Controller - Item-->
+        <!--Navigation Controller - 首页-->
         <scene sceneID="wPN-Lh-kFJ">
             <objects>
                 <navigationController definesPresentationContext="YES" id="PpQ-GN-IZg" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="ra4-KT-KT2"/>
+                    <tabBarItem key="tabBarItem" title="首页" id="ra4-KT-KT2"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="RSr-xb-idY">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -94,13 +94,56 @@
                     <navigationItem key="navigationItem" id="69h-lk-gxS"/>
                     <connections>
                         <outlet property="queListTable" destination="cqG-52-fFQ" id="12B-59-AIm"/>
+                        <segue destination="F8D-Rp-7oo" kind="push" identifier="wenda_answerDetail" id="3Qh-fv-bqR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QL3-gx-c05" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-235" y="-1472"/>
         </scene>
+        <!--Commnet Detail Controller-->
+        <scene sceneID="ksQ-F9-adB">
+            <objects>
+                <viewController id="F8D-Rp-7oo" customClass="CommnetDetailController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="G83-Zr-NRC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="IHS-FI-ylI">
+                                <rect key="frame" x="0.0" y="65" width="320" height="105"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="dCd-ZU-XZg">
+                                <rect key="frame" x="0.0" y="518" width="320" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="1mQ-2e-bPC">
+                                        <rect key="frame" x="15" y="5" width="290" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" backgroundImage="bg_wlhd.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.8666666666666667" green="0.8666666666666667" blue="0.8666666666666667" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="eWc-lI-Ibn"/>
+                    <connections>
+                        <outlet property="submitBtn" destination="1mQ-2e-bPC" id="tpY-UD-B2e"/>
+                        <outlet property="topView" destination="IHS-FI-ylI" id="fhU-Xd-bBD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BAY-aO-az5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="369" y="-1472"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="bg_wlhd.png" width="580" height="78"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

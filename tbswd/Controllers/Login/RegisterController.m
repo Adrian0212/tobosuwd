@@ -259,25 +259,29 @@
                 NSDictionary    *par = @{@"name":userName, @"password":[Utils convert2Md5:pwd], @"cityID":cityId,
                                          @"cellphone":mobileNumber, @"gender":@"0", @"ip":@"0.0.0.0", @"logintype":@"ios", @"phoneyzm":quCode};
                 
-                [httpClient postPath:priUrl parameters:par success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                [httpClient postPath:priUrl parameters:par success:^(AFHTTPRequestOperation *operation, id responseObject)
+                {
                     @try
                     {
                         NSString *resultString = operation.responseString;
                         NSDictionary *jsonData = [resultString objectFromJSONString];
                         
-                        if ([jsonData objectForKey:@"msg"]) {
+                        if ([jsonData objectForKey:@"msg"])
+                        {
                             [self dismissViewControllerAnimated:YES completion:nil];
                         }
                         
-                        NSLog(@"%@", resultString);
                     }
                     @catch(NSException *exception)
                     {
                         [Utils TakeException:exception];
                     }
                     
-                    @finally {}
-                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    @finally
+                    {
+                    }
+                } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+                {
                     [Utils ToastNotification:@"网络连接故障" andView:self.view andLoading:NO andIsBottom:YES];
                 }];
             }
@@ -318,7 +322,7 @@
             {
                 NSString *resultString = operation.responseString;
 
-                NSLog(@"%@", resultString);
+                //NSLog(@"%@", resultString);
             }
             @catch(NSException *exception)
             {
@@ -351,16 +355,16 @@
     [_picker setShowsSelectionIndicator:YES];
     _city = [NSMutableDictionary dictionary];
     _cityIdDictionary = [NSMutableDictionary dictionary];
-    NSString            *plistPath = [[NSBundle mainBundle] pathForResource:@"provinceCity" ofType:@"plist"];
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"provinceCity" ofType:@"plist"];
     NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
     // NSLog(@"%@", data);//直接打印数据。
-    _province = [NSMutableArray array];
+    _province = [[NSMutableArray alloc]init];
 
     for (NSInteger i = 1; i <= [data count]; i++) {
         NSDictionary    *proDict = [data objectForKey:[NSString stringWithFormat:@"%d", i]];
         NSString        *provinceName = [proDict objectForKey:@"ProvinceName"];
         [_province addObject:provinceName];
-        NSArray         *cityArray = [proDict objectForKey:@"city"];
+        NSArray *cityArray = [proDict objectForKey:@"city"];
         NSMutableArray  *cityNameMutableArray = [NSMutableArray array];
         for (NSInteger i = 0; i < [cityArray count]; i++) {
             NSString    *cityName = cityArray[i][@"name"];
@@ -390,8 +394,8 @@
     } else {
         NSInteger   rowProvince = [pickerView selectedRowInComponent:0];
         NSString    *provinceName = _province[rowProvince];
-        NSArray     *citys = _city[provinceName];
-
+        NSArray     *citys = [_city objectForKey:provinceName];
+        //NSLog(@"fffffffff%d",citys.count);
         return citys.count;
     }
 }
@@ -400,43 +404,48 @@
 #pragma mark 设置选择器行的内容的
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    if (component == 0) {
-        return _province[row];
-    } else {
-        // 城市
-        // 1. 获得省份列选择的行数
-        NSInteger rowProvince = [pickerView selectedRowInComponent:0];
-        // 2. 获得省份名称
-        NSString *provinceName = _province[rowProvince];
-        // 3. 获得城市的数组
-        NSArray *citys = _city[provinceName];
-
-        //        NSLog(@"%@", citys[row]);
-
-        // 4. 返回城市数组中row的字符串内容
-        return citys[row];
+    @try {
+        if (component == 0)
+        {
+            return _province[row];
+        }
+        else
+        {
+            // 城市
+            // 1. 获得省份列选择的行数
+            NSInteger rowProvince = [pickerView selectedRowInComponent:0];
+            // 2. 获得省份名称
+            NSString *provinceName = _province[rowProvince];
+            //NSLog(@"aaaaaaaaaa===%@",provinceName);
+             //NSLog(@"rrrrrrrrrrrr===%d",row);            // 3. 获得城市的数组
+            NSArray *citys = [_city objectForKey:provinceName];
+           // NSLog(@"bbbbbbbb=%d", citys.count);
+            
+            // 4. 返回城市数组中row的字符串内容
+            return citys[row];
+            
+            
+        }
+        
     }
-}
-- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
-    UILabel* pickerLabel = (UILabel*)view;
-    if (!pickerLabel){
-        pickerLabel = [[UILabel alloc] init];
-        // Setup label properties - frame, font, colors etc
-        //adjustsFontSizeToFitWidth property to YES
-       // pickerLabel.minimumFontSize = 8.;
-        pickerLabel.adjustsFontSizeToFitWidth = YES;
-        pickerLabel.textAlignment=NSTextAlignmentCenter;
-        [pickerLabel setBackgroundColor:[UIColor clearColor]];
-       // [pickerLabel setFont:[UIFont boldSystemFontOfSize:15]];
+    @catch (NSException *exception)
+    {
+        NSLog(@"exception=%@",exception);
+        
     }
-    // Fill the label text here
-    pickerLabel.text=[self pickerView:pickerView titleForRow:row forComponent:component];
-    return pickerLabel;
+    @finally
+    {
+        
+    }
 }
 #pragma mark 选中行的时候，刷新数据
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    [pickerView reloadComponent:1];
+    if (component==0)
+    {
+         [pickerView reloadComponent:1];
+    }
+   
 
     //NSInteger   row1 = [pickerView selectedRowInComponent:0];
     //NSInteger   row2 = [pickerView selectedRowInComponent:1];
