@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "EGOImageView.h"
 #import "Utils.h"
 @interface QueListCell : UITableViewCell
 
