@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseUIViewController.h"
-
-@interface RegisterController : BaseUIViewController <UIScrollViewDelegate, UITextFieldDelegate>
+#import "Utils.h"
+#import "AFNetworking.h"
+#import "JSONKit.h"
+#import "TSRegularExpressionUtils.h"
+@interface RegisterController : BaseUIViewController <UIScrollViewDelegate, UITextFieldDelegate,UINavigationControllerDelegate,UIPickerViewDelegate,UIPickerViewDataSource>
 {}
 
 @property (weak, nonatomic) IBOutlet UIButton       *yezhuBtn;
@@ -18,5 +21,6 @@
 @property (weak, nonatomic) IBOutlet UIScrollView   *nibScrollView;
 
 - (IBAction)tabButtonAction:(UIButton *)sender;
+- (IBAction)dismisTitleBar:(id)sender;
 
 @end

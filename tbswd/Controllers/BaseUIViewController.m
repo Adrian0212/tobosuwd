@@ -17,16 +17,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     _navBar = (UINavigationBar *)self.navigationController.navigationBar;
-
+    
     // 设置导航栏浅色样式
     [self setDefaultThemeBar];
-
+    
     // 在iOS7中，设置导航栏不透明并解决内容会下移的问题
     [_navBar setTranslucent:NO];
     [self setExtendedLayoutIncludesOpaqueBars:YES];
-
+    
     // 设置导航栏返回按钮
     _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _backButton.frame = CGRectMake(0, 0, 22, 19);
@@ -35,6 +35,7 @@
     UIBarButtonItem *barLeftBtn = [[UIBarButtonItem alloc] initWithCustomView:_backButton];
     self.navigationItem.leftBarButtonItem = barLeftBtn;
 }
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -89,7 +90,7 @@
     [self.navigationController.navigationBar setTitleTextAttributes:titleAttr];
 
     // 设置状态栏样式为深色，用于浅色背景
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
 }
 
 // 设置导航栏橘色样式
@@ -104,7 +105,7 @@
     [self.navigationController.navigationBar setTitleTextAttributes:titleAttr];
 
     // 设置状态栏样式为浅色，用于深色背景
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
 }
 
 // 返回操作
