@@ -44,10 +44,10 @@
             NSData *result = [operation.responseString dataUsingEncoding:NSUTF8StringEncoding];
             
             NSDictionary *jsonData = [NSJSONSerialization JSONObjectWithData:result options:0 error:nil];
-            NSLog(@"aaaaaa=====%@",jsonData);
+//            NSLog(@"aaaaaa=====%@",jsonData);
             if ([jsonData count]>0) {
                 //[Utils ToastNotification:@"登陆成功" andView:self.view andLoading:NO andIsBottom:YES];
-                NSLog(@"登陆成功");
+//                NSLog(@"登陆成功");
                 
             }
             //NSLog(@"result:%@", jsonData);
@@ -61,7 +61,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
        // _uiview=self.view;
         //[Utils ToastNotification:@"网络连接故障" andView:_uiview andLoading:NO andIsBottom:YES];
-        NSLog(@"ERROR====%@",operation);
+//        NSLog(@"ERROR====%@",operation);
     }];
     [hud hide:YES];
 }

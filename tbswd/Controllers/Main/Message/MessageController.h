@@ -7,9 +7,12 @@
 //
 
 #import "BaseUIViewController.h"
+#import "MessageHeader.h"
 
-@interface MessageController : BaseUIViewController
+@interface MessageController : BaseUIViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (strong,nonatomic) NSArray *list;
+@property (weak, nonatomic) IBOutlet UITableView    *tableview;
+@property (strong, nonatomic) NSArray               *list;
+@property (assign, nonatomic) BOOL                  isOpen;
 
 @end

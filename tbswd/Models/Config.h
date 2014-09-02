@@ -14,8 +14,28 @@
 
 // 保存登录用户名以及密码
 - (void)saveUserNameAndPwd:(NSString *)userName andPwd:(NSString *)pwd;
+// 清除用户密码
+- (void)removeUserPwd;
+// 获取登录用户名以及密码
 - (NSString *)getUserName;
 - (NSString *)getPwd;
+
+// 保存用户信息字典
+- (void)saveUserInfo:(NSDictionary *)info;
+// 清除用户信息字典
+- (void)removeUserInfo;
+// 获取用户信息字典
+- (NSDictionary *)getUserInfo;
+// 获取用户id(此ID不唯一)
+- (NSString *)getUserId;
+// 获取用户类型
+- (NSString *)getUserMark;
+// 获取用户id(此ID唯一)
+- (NSString *)getUserNewuid;
+// 获取用户积分
+- (NSString *)getUserScore;
+// 保存用户积分
+- (void)setUserScore:(NSInteger)score;
 
 + (Config *)Instance;
 

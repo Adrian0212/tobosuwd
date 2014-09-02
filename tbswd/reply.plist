@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<array>
+		<dict>
+			<key>icon</key>
+			<string>icon_reply_01.png</string>
+			<key>title</key>
+			<string>你的擅长领域问题</string>
+			<key>description</key>
+			<string>根据你所选择的领域为你推荐</string>
+		</dict>
+		<dict>
+			<key>icon</key>
+			<string>icon_reply_02.png</string>
+			<key>title</key>
+			<string>最新问题</string>
+			<key>description</key>
+			<string>24小时内未解决的问题</string>
+		</dict>
+		<dict>
+			<key>icon</key>
+			<string>icon_reply_03.png</string>
+			<key>title</key>
+			<string>同城问题</string>
+			<key>description</key>
+			<string>在茫茫问题中找寻你的最爱</string>
+		</dict>
+		<dict>
+			<key>icon</key>
+			<string>icon_reply_04.png</string>
+			<key>title</key>
+			<string>已解决问题</string>
+			<key>description</key>
+			<string>找到与你”同病相怜“的那个它</string>
+		</dict>
+	</array>
+	<array>
+		<dict>
+			<key>icon</key>
+			<string>icon_reply_05.png</string>
+			<key>title</key>
+			<string>排行榜</string>
+			<key>description</key>
+			<string>各路高手一较高下</string>
+		</dict>
+		<dict>
+			<key>icon</key>
+			<string>icon_reply_06.png</string>
+			<key>title</key>
+			<string>积分商城</string>
+			<key>description</key>
+			<string>答题换财富，免费换大礼</string>
+		</dict>
+	</array>
+</array>
+</plist>
