@@ -571,7 +571,6 @@
 			isa = PBXGroup;
 			children = (
 				3A45597019AECC3700EA1169 /* SDWebImage */,
-				3AA516D419ADCC4C005C8040 /* EGOImageLoading */,
 				3A232C8819A747D400173FC7 /* JSONKit */,
 				3A25C9E319A5BA72002305A0 /* MJRefresh */,
 				3A25C9B619A57671002305A0 /* AFNetworking */,
@@ -636,44 +635,6 @@
 			path = MJRefresh;
 			sourceTree = "<group>";
 		};
-		3A45594719AEB8C200EA1169 /* EGOCache */ = {
-			isa = PBXGroup;
-			children = (
-				3A45594819AEB8C200EA1169 /* EGOCache.h */,
-				3A45594919AEB8C200EA1169 /* EGOCache.m */,
-			);
-			path = EGOCache;
-			sourceTree = "<group>";
-		};
-		3A45594A19AEB8C200EA1169 /* EGOImageButton */ = {
-			isa = PBXGroup;
-			children = (
-				3A45594B19AEB8C200EA1169 /* EGOImageButton.h */,
-				3A45594C19AEB8C200EA1169 /* EGOImageButton.m */,
-			);
-			path = EGOImageButton;
-			sourceTree = "<group>";
-		};
-		3A45594D19AEB8C200EA1169 /* EGOImageLoader */ = {
-			isa = PBXGroup;
-			children = (
-				3A45594E19AEB8C200EA1169 /* EGOImageLoadConnection.h */,
-				3A45594F19AEB8C200EA1169 /* EGOImageLoadConnection.m */,
-				3A45595019AEB8C200EA1169 /* EGOImageLoader.h */,
-				3A45595119AEB8C200EA1169 /* EGOImageLoader.m */,
-			);
-			path = EGOImageLoader;
-			sourceTree = "<group>";
-		};
-		3A45595219AEB8C200EA1169 /* EGOImageView */ = {
-			isa = PBXGroup;
-			children = (
-				3A45595319AEB8C200EA1169 /* EGOImageView.h */,
-				3A45595419AEB8C200EA1169 /* EGOImageView.m */,
-			);
-			path = EGOImageView;
-			sourceTree = "<group>";
-		};
 		3A45597019AECC3700EA1169 /* SDWebImage */ = {
 			isa = PBXGroup;
 			children = (
@@ -712,17 +673,6 @@
 				3A45599119AECC3700EA1169 /* UIView+WebCacheOperation.m */,
 			);
 			path = SDWebImage;
-			sourceTree = "<group>";
-		};
-		3AA516D419ADCC4C005C8040 /* EGOImageLoading */ = {
-			isa = PBXGroup;
-			children = (
-				3A45594719AEB8C200EA1169 /* EGOCache */,
-				3A45594A19AEB8C200EA1169 /* EGOImageButton */,
-				3A45594D19AEB8C200EA1169 /* EGOImageLoader */,
-				3A45595219AEB8C200EA1169 /* EGOImageView */,
-			);
-			path = EGOImageLoading;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -887,7 +837,6 @@
 				3A25C9D819A57671002305A0 /* UIImageView+AFNetworking.m in Sources */,
 				3A45599319AECC3700EA1169 /* NSData+ImageContentType.m in Sources */,
 				3A25C9F819A5BA72002305A0 /* MJRefreshHeaderView.m in Sources */,
-				3A45595919AEB8C200EA1169 /* EGOImageView.m in Sources */,
 				3A25C9F919A5BA72002305A0 /* UIScrollView+Extension.m in Sources */,
 				3A45599219AECC3700EA1169 /* MKAnnotationView+WebCache.m in Sources */,
 				3A25C9F519A5BA72002305A0 /* MJRefreshBaseView.m in Sources */,
@@ -900,7 +849,6 @@
 				3A25C9FA19A5BA72002305A0 /* UIScrollView+MJRefresh.m in Sources */,
 				3A25C9D619A57671002305A0 /* AFURLConnectionOperation.m in Sources */,
 				3A25C98A19A57660002305A0 /* BaseUIViewController.m in Sources */,
-				3A45595719AEB8C200EA1169 /* EGOImageLoadConnection.m in Sources */,
 				3A45599519AECC3700EA1169 /* SDWebImageCompat.m in Sources */,
 				3A25C9D019A57671002305A0 /* AFHTTPClient.m in Sources */,
 				3A45599C19AECC3700EA1169 /* UIImage+GIF.m in Sources */,
@@ -932,7 +880,6 @@
 				3A25C94619A5758E002305A0 /* main.m in Sources */,
 				3A25C9F619A5BA72002305A0 /* MJRefreshConst.m in Sources */,
 				3A25C99019A57660002305A0 /* MineController.m in Sources */,
-				3A45595619AEB8C200EA1169 /* EGOImageButton.m in Sources */,
 				3A25C9D519A57671002305A0 /* AFPropertyListRequestOperation.m in Sources */,
 				3A25C98C19A57660002305A0 /* LoginController.m in Sources */,
 			);
