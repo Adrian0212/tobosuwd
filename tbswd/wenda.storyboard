@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="xqI-wM-Ehp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6185.7" systemVersion="14A314h" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="xqI-wM-Ehp">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6181.2"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="Hiragino Sans GB W3.otf">
@@ -58,7 +58,7 @@
             </objects>
             <point key="canvasLocation" x="-1702" y="-964"/>
         </scene>
-        <!--Navigation Controller - Item-->
+        <!--Item-->
         <scene sceneID="KbI-to-j8y">
             <objects>
                 <navigationController definesPresentationContext="YES" id="gIA-07-AV6" sceneMemberID="viewController">
@@ -667,7 +667,7 @@
             </objects>
             <point key="canvasLocation" x="760" y="551"/>
         </scene>
-        <!--Navigation Controller - 首页-->
+        <!--首页-->
         <scene sceneID="wPN-Lh-kFJ">
             <objects>
                 <navigationController definesPresentationContext="YES" id="PpQ-GN-IZg" sceneMemberID="viewController">
@@ -754,6 +754,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="bg_wlhd.png" width="580" height="78"/>
         <image name="btn_mine_setting.png" width="20" height="20"/>
         <image name="btn_mine_uncheck.png" width="172" height="60"/>
         <image name="icon_mine_01.png" width="40" height="40"/>
@@ -769,6 +770,9 @@
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
+        <simulatedScreenMetrics key="destination" type="retina4">
+            <size key="portraitSize" width="320" height="568"/>
+            <size key="landscapeSize" width="568" height="320"/>
+        </simulatedScreenMetrics>
     </simulatedMetricsContainer>
 </document>
