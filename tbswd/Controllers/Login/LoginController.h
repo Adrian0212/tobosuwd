@@ -15,6 +15,8 @@
 
 @interface LoginController : BaseUIViewController
 
+@property (nonatomic, retain) NSString                      *userName;
+@property (nonatomic, retain) NSString                      *userPwd;
 @property (nonatomic, retain) GCDiscreetNotificationView    *notificationView;
 @property (weak, nonatomic) IBOutlet UITextField            *userAccount;
 @property (weak, nonatomic) IBOutlet UITextField            *userPassword;

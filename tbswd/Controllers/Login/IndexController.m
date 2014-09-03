@@ -7,7 +7,7 @@
 //
 
 #import "IndexController.h"
-#import "QuelistController.h"
+
 @interface IndexController ()
 
 @end
@@ -17,6 +17,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    if ([[Config Instance] getIsLogin] == YES) {
+        [self performSegueWithIdentifier:@"goLogin" sender:self];
+        NSLog(@"YES");
+    } else {
+        NSLog(@"NO");
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -39,13 +46,13 @@
 
 - (IBAction)jumpToWenda:(id)sender
 {
-//    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"wenda" bundle:nil];
-//    UIViewController *wendaObj = [mainStoryboard instantiateViewControllerWithIdentifier:@"wenda"];
-//    [self.navigationController pushViewController:wendaObj animated:YES];
+    //    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"wenda" bundle:nil];
+    //    UIViewController *wendaObj = [mainStoryboard instantiateViewControllerWithIdentifier:@"wenda"];
+    //    [self.navigationController pushViewController:wendaObj animated:YES];
+    
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"wenda" bundle:nil];
+
     self.view.window.rootViewController = [mainStoryboard instantiateInitialViewController];
-
-
-    }
+}
 
 @end

@@ -10,6 +10,22 @@
 
 @implementation Config
 
+- (void)saveIsLogin:(BOOL)isLogin
+{
+    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
+
+    [settings setBool:isLogin forKey:@"isLogin"];
+    //    _isLogin = YES;
+    [settings synchronize];
+}
+
+- (BOOL)getIsLogin
+{
+    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
+
+    return [settings boolForKey:@"isLogin"];
+}
+
 - (void)saveUserNameAndPwd:(NSString *)userName andPwd:(NSString *)pwd
 {
     NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
@@ -45,12 +61,12 @@
 {
     NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
 
-    if ([settings objectForKey:@"UserInfo"]) {
-        [[settings objectForKey:@"UserInfo"] addEntriesFromDictionary:info];
-        [settings setObject:[settings objectForKey:@"UserInfo"] forKey:@"UserInfo"];
-    } else {
-        [settings setObject:info forKey:@"UserInfo"];
-    }
+    NSMutableDictionary *newinfos = [NSMutableDictionary dictionaryWithDictionary:[settings objectForKey:@"UserInfo"]];
+
+    [newinfos addEntriesFromDictionary:info];
+
+    NSDictionary *infos = [NSDictionary dictionaryWithDictionary:newinfos];
+    [settings setObject:infos forKey:@"UserInfo"];
 
     [settings synchronize];
 }

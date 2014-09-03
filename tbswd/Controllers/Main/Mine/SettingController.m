@@ -76,6 +76,7 @@
         UIAlertAction   *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                 [[Config Instance] removeUserPwd];
                 [[Config Instance] removeUserInfo];
+                [[Config Instance] saveIsLogin:NO];
                 UIStoryboard *loginStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                 self.view.window.rootViewController = [loginStoryboard instantiateInitialViewController];
             }];
@@ -96,6 +97,7 @@
     if (buttonIndex == 1) {
         [[Config Instance] removeUserPwd];
         [[Config Instance] removeUserInfo];
+        [[Config Instance] saveIsLogin:NO];
         UIStoryboard *loginStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         self.view.window.rootViewController = [loginStoryboard instantiateInitialViewController];
     }

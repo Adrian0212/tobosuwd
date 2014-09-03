@@ -17,8 +17,6 @@
 
 @property (retain, nonatomic) UIButton *settingButton;  // 设置按钮
 
-@property (retain, nonatomic) NSCondition *itlock;      // 用于同步加锁操作
-
 // 装修公司
 @property (weak, nonatomic) IBOutlet UIImageView    *userIconView0;     // 用户头像
 @property (weak, nonatomic) IBOutlet UILabel        *userNameLabel0;    // 用户昵称

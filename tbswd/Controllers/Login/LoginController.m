@@ -19,12 +19,27 @@
     [super viewDidLoad];
     [self setBarTitle:@"登陆界面"];
 
-    NSString *userName = [[Config Instance] getUserName];
-    //    NSString *userPwd = [[Config Instance] getPwd];
+    _userName = [[Config Instance] getUserName];
+    _userPwd = [[Config Instance] getPwd];
 
-    if (userName) {
-        _userAccount.text = userName;
+    if (_userName) {
+        _userAccount.text = _userName;
     }
+
+    if (_userPwd) {
+        _userPassword.text = _userPwd;
+    }
+
+    NSLog(@"viewDidLoad");
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    if (_userName && _userPwd) {
+        [self loginAction:nil];
+    }
+
+    NSLog(@"viewDidAppear");
 }
 
 - (void)didReceiveMemoryWarning
@@ -35,18 +50,17 @@
 #pragma mark 登陆操作
 - (IBAction)loginAction:(id)sender
 {
-    /*
-     *  登陆接口:接受参数
-     *   1.name  用户名/手机号码
-     *   2.password  密码(需MD5加密)
-     *   3.isapp 表示为手机app
-     */
-    //    NSString        *loginURL = [NSString stringWithFormat:@"http://api1.toboshu.net:8888/user/login/OveralLogin"];
+    // 点击按钮，则获取输入框中的值并MD5加密
+    if (sender) {
+        _userName = _userAccount.text;
+        _userPwd = [Utils convert2Md5:_userPassword.text];
+    }
+
     MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
 
     [Utils showHUD:hud inView:self.view withTitle:@"正在登陆"];
 
-    NSDictionary *infos = @{@"name":[_userAccount text], @"password":[Utils convert2Md5:[_userPassword text]], @"logintype":@"ios"};
+    NSDictionary *infos = @{@"name":_userName, @"password":_userPwd, @"logintype":@"ios"};
 
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@""]];       // 这里要将url设置为空
     [httpClient postPath:api_url_login parameters:infos success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -55,12 +69,12 @@
             NSDictionary *jsonData = [NSJSONSerialization JSONObjectWithData:result options:0 error:nil];
 
             if ([[jsonData objectForKey:@"msg"] isEqualToString:@"true"]) {
-                // [Utils ToastNotification:@"登陆成功" andView:self.view andLoading:NO andIsBottom:YES];
-                //                NSLog(@"登陆成功");
                 // 保存用户数据
-                [[Config Instance] saveUserNameAndPwd:[_userAccount text] andPwd:[Utils convert2Md5:[_userPassword text]]];
-                //                NSLog(@"result:%@", [jsonData objectForKey:@"info"]);
+                [[Config Instance] saveUserNameAndPwd:_userName andPwd:_userPwd];
 
+                // 设置登陆标记
+                [[Config Instance] saveIsLogin:YES];
+                //                NSLog(@"result:%@", [jsonData objectForKey:@"info"]);
                 [[Config Instance] saveUserInfo:[jsonData objectForKey:@"info"]];
 
                 //                UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"wenda" bundle:nil];

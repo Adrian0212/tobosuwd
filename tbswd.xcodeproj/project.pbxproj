@@ -83,7 +83,6 @@
 		3A45599E19AECC3700EA1169 /* UIImage+WebP.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A45598B19AECC3700EA1169 /* UIImage+WebP.m */; };
 		3A45599F19AECC3700EA1169 /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A45598D19AECC3700EA1169 /* UIImageView+HighlightedWebCache.m */; };
 		3A4559A119AECC3700EA1169 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A45599119AECC3700EA1169 /* UIView+WebCacheOperation.m */; };
-		3A4559A319AECDAB00EA1169 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A4559A219AECDAB00EA1169 /* MapKit.framework */; };
 		3A4559A519AECDB400EA1169 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A4559A419AECDB400EA1169 /* ImageIO.framework */; };
 		3A7FB0CB19AAD83A00789A57 /* provinceCity.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A7FB0CA19AAD83A00789A57 /* provinceCity.plist */; };
 		3ABB2ADB19B40F140023B064 /* CommnetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABB2ADA19B40F140023B064 /* CommnetCell.m */; };
@@ -114,7 +113,7 @@
 		84C1D32C19B5AA3A0044EB86 /* bg_wlhd.png in Resources */ = {isa = PBXBuildFile; fileRef = 84C1D32B19B5AA3A0044EB86 /* bg_wlhd.png */; };
 		84C1D32E19B5AAF80044EB86 /* user_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 84C1D32D19B5AAF80044EB86 /* user_default.png */; };
 		84C1D33019B5AE720044EB86 /* wenda.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A232C7519A7074000173FC7 /* wenda.storyboard */; };
-		84C1D33619B5AF530044EB86 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84C1D33419B5AF530044EB86 /* Main.storyboard */; };
+		84C1D33A19B5BEDB0044EB86 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84C1D33919B5BEDB0044EB86 /* MapKit.framework */; };
 		84CDBE4C19ADB1D300A22226 /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CDBE4B19ADB1D300A22226 /* BaseTableViewController.m */; };
 		84CDBE5719ADD0BD00A22226 /* icon_mine_02.png in Resources */ = {isa = PBXBuildFile; fileRef = 84CDBE4D19ADD0BD00A22226 /* icon_mine_02.png */; };
 		84CDBE5819ADD0BD00A22226 /* icon_mine_list05.png in Resources */ = {isa = PBXBuildFile; fileRef = 84CDBE4E19ADD0BD00A22226 /* icon_mine_list05.png */; };
@@ -128,6 +127,7 @@
 		84CDBE6019ADD0BD00A22226 /* icon_mine_list02.png in Resources */ = {isa = PBXBuildFile; fileRef = 84CDBE5619ADD0BD00A22226 /* icon_mine_list02.png */; };
 		84D5156419B468A400356C19 /* btn_mine_setting.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D5156319B468A400356C19 /* btn_mine_setting.png */; };
 		84D5156719B46F3A00356C19 /* SettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D5156619B46F3A00356C19 /* SettingController.m */; };
+		84F4151D19B6F21400BB0E93 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84C1D33419B5AF530044EB86 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -284,7 +284,6 @@
 		3A45598F19AECC3700EA1169 /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		3A45599019AECC3700EA1169 /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		3A45599119AECC3700EA1169 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
-		3A4559A219AECDAB00EA1169 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3A4559A419AECDB400EA1169 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		3A7FB0CA19AAD83A00789A57 /* provinceCity.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = provinceCity.plist; sourceTree = "<group>"; };
 		3ABB2AD919B40F140023B064 /* CommnetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommnetCell.h; sourceTree = "<group>"; };
@@ -320,6 +319,7 @@
 		84C1D32B19B5AA3A0044EB86 /* bg_wlhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_wlhd.png; sourceTree = "<group>"; };
 		84C1D32D19B5AAF80044EB86 /* user_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user_default.png; sourceTree = "<group>"; };
 		84C1D33519B5AF530044EB86 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		84C1D33919B5BEDB0044EB86 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		84CDBE4A19ADB1D300A22226 /* BaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewController.h; sourceTree = "<group>"; };
 		84CDBE4B19ADB1D300A22226 /* BaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewController.m; sourceTree = "<group>"; };
 		84CDBE4D19ADD0BD00A22226 /* icon_mine_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_mine_02.png; sourceTree = "<group>"; };
@@ -343,10 +343,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A4559A519AECDB400EA1169 /* ImageIO.framework in Frameworks */,
-				3A4559A319AECDAB00EA1169 /* MapKit.framework in Frameworks */,
 				3A232C8219A7458B00173FC7 /* libz.dylib in Frameworks */,
 				3A25C93C19A5758E002305A0 /* CoreGraphics.framework in Frameworks */,
 				3A25C93E19A5758E002305A0 /* UIKit.framework in Frameworks */,
+				84C1D33A19B5BEDB0044EB86 /* MapKit.framework in Frameworks */,
 				3A25C93A19A5758E002305A0 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -395,8 +395,8 @@
 		3A25C93819A5758E002305A0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84C1D33919B5BEDB0044EB86 /* MapKit.framework */,
 				3A4559A419AECDB400EA1169 /* ImageIO.framework */,
-				3A4559A219AECDAB00EA1169 /* MapKit.framework */,
 				3A232C8119A7458B00173FC7 /* libz.dylib */,
 				3A25C93919A5758E002305A0 /* Foundation.framework */,
 				3A25C93B19A5758E002305A0 /* CoreGraphics.framework */,
@@ -789,6 +789,13 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = tobosu;
 				TargetAttributes = {
+					3A25C93519A5758E002305A0 = {
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
+					};
 					3A25C95619A5758E002305A0 = {
 						TestTargetID = 3A25C93519A5758E002305A0;
 					};
@@ -818,6 +825,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84F4151D19B6F21400BB0E93 /* Main.storyboard in Resources */,
 				84C1D33019B5AE720044EB86 /* wenda.storyboard in Resources */,
 				84D5156419B468A400356C19 /* btn_mine_setting.png in Resources */,
 				3A25C95219A5758E002305A0 /* Images.xcassets in Resources */,
@@ -825,7 +833,6 @@
 				846DCDE519ADD9F400FE46F2 /* btn_mine_uncheck.png in Resources */,
 				84CDBE5819ADD0BD00A22226 /* icon_mine_list05.png in Resources */,
 				3A25C9AF19A5766D002305A0 /* btn_back.png in Resources */,
-				84C1D33619B5AF530044EB86 /* Main.storyboard in Resources */,
 				3A25C9AC19A5766D002305A0 /* bg_edit_register.png in Resources */,
 				84CDBE5E19ADD0BD00A22226 /* icon_mine_list04.png in Resources */,
 				8477D4AC19AC1B5D002BAEA4 /* arrow.png in Resources */,
