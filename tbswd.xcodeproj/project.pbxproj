@@ -35,7 +35,6 @@
 		3A25C99219A57660002305A0 /* QueListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A25C98619A57660002305A0 /* QueListController.m */; };
 		3A25C99319A57660002305A0 /* WriteQueController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A25C98919A57660002305A0 /* WriteQueController.m */; };
 		3A25C99719A57668002305A0 /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A25C99619A57668002305A0 /* Config.m */; };
-		3A25C9A819A5766D002305A0 /* Hiragino Sans GB W3.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3A25C99A19A5766D002305A0 /* Hiragino Sans GB W3.otf */; };
 		3A25C9A919A5766D002305A0 /* bg_edit_forget.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A25C99C19A5766D002305A0 /* bg_edit_forget.png */; };
 		3A25C9AA19A5766D002305A0 /* bg_edit_login.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A25C99D19A5766D002305A0 /* bg_edit_login.png */; };
 		3A25C9AB19A5766D002305A0 /* bg_edit_newpwd.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A25C99E19A5766D002305A0 /* bg_edit_newpwd.png */; };
@@ -88,6 +87,7 @@
 		3A7FB0CB19AAD83A00789A57 /* provinceCity.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A7FB0CA19AAD83A00789A57 /* provinceCity.plist */; };
 		3ABB2ADB19B40F140023B064 /* CommnetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABB2ADA19B40F140023B064 /* CommnetCell.m */; };
 		3ABB2ADE19B418320023B064 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABB2ADD19B418320023B064 /* Comment.m */; };
+		3AC2FF8619B6A02A00CA9937 /* Hiragino Sans GB W3.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3A04D8B219B5C61B006E463C /* Hiragino Sans GB W3.otf */; };
 		8447C8E819B006B0005E43DF /* bg_navbar_orange.png in Resources */ = {isa = PBXBuildFile; fileRef = 8447C8E619B006B0005E43DF /* bg_navbar_orange.png */; };
 		8447C8E919B006B0005E43DF /* bg_navbar_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 8447C8E719B006B0005E43DF /* bg_navbar_white.png */; };
 		845557FB19AAD56700E115AC /* TSRegularExpressionUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 845557FA19AAD56700E115AC /* TSRegularExpressionUtils.m */; };
@@ -114,7 +114,6 @@
 		84C1D32C19B5AA3A0044EB86 /* bg_wlhd.png in Resources */ = {isa = PBXBuildFile; fileRef = 84C1D32B19B5AA3A0044EB86 /* bg_wlhd.png */; };
 		84C1D32E19B5AAF80044EB86 /* user_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 84C1D32D19B5AAF80044EB86 /* user_default.png */; };
 		84C1D33019B5AE720044EB86 /* wenda.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A232C7519A7074000173FC7 /* wenda.storyboard */; };
-		84C1D33619B5AF530044EB86 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84C1D33419B5AF530044EB86 /* Main.storyboard */; };
 		84CDBE4C19ADB1D300A22226 /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CDBE4B19ADB1D300A22226 /* BaseTableViewController.m */; };
 		84CDBE5719ADD0BD00A22226 /* icon_mine_02.png in Resources */ = {isa = PBXBuildFile; fileRef = 84CDBE4D19ADD0BD00A22226 /* icon_mine_02.png */; };
 		84CDBE5819ADD0BD00A22226 /* icon_mine_list05.png in Resources */ = {isa = PBXBuildFile; fileRef = 84CDBE4E19ADD0BD00A22226 /* icon_mine_list05.png */; };
@@ -150,6 +149,7 @@
 /* Begin PBXFileReference section */
 		3A04D8AD19B55704006E463C /* YcKeyBoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YcKeyBoardView.h; sourceTree = "<group>"; };
 		3A04D8AE19B55704006E463C /* YcKeyBoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YcKeyBoardView.m; sourceTree = "<group>"; };
+		3A04D8B219B5C61B006E463C /* Hiragino Sans GB W3.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Hiragino Sans GB W3.otf"; sourceTree = "<group>"; };
 		3A13857319AC3A9D009D63FF /* QueList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueList.h; sourceTree = "<group>"; };
 		3A13857419AC3A9D009D63FF /* QueList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueList.m; sourceTree = "<group>"; };
 		3A22CB5B19B0253D00D37DE3 /* CommnetDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommnetDetailController.h; sourceTree = "<group>"; };
@@ -196,7 +196,6 @@
 		3A25C98919A57660002305A0 /* WriteQueController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriteQueController.m; sourceTree = "<group>"; };
 		3A25C99519A57668002305A0 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		3A25C99619A57668002305A0 /* Config.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Config.m; sourceTree = "<group>"; };
-		3A25C99A19A5766D002305A0 /* Hiragino Sans GB W3.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Hiragino Sans GB W3.otf"; sourceTree = "<group>"; };
 		3A25C99C19A5766D002305A0 /* bg_edit_forget.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_edit_forget.png; sourceTree = "<group>"; };
 		3A25C99D19A5766D002305A0 /* bg_edit_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_edit_login.png; sourceTree = "<group>"; };
 		3A25C99E19A5766D002305A0 /* bg_edit_newpwd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_edit_newpwd.png; sourceTree = "<group>"; };
@@ -529,6 +528,12 @@
 		3A25C98419A57660002305A0 /* Wenda */ = {
 			isa = PBXGroup;
 			children = (
+				3A13857319AC3A9D009D63FF /* QueList.h */,
+				3A13857419AC3A9D009D63FF /* QueList.m */,
+				3A25C9DE19A58D16002305A0 /* QueListCell.h */,
+				3A25C9DF19A58D16002305A0 /* QueListCell.m */,
+				3A25C98519A57660002305A0 /* QueListController.h */,
+				3A25C98619A57660002305A0 /* QueListController.m */,
 				3ABB2ADC19B418320023B064 /* Comment.h */,
 				3ABB2ADD19B418320023B064 /* Comment.m */,
 				3ABB2AE519B477260023B064 /* Comment.xib */,
@@ -536,12 +541,6 @@
 				3ABB2ADA19B40F140023B064 /* CommnetCell.m */,
 				3A22CB5B19B0253D00D37DE3 /* CommnetDetailController.h */,
 				3A22CB5C19B0253D00D37DE3 /* CommnetDetailController.m */,
-				3A13857319AC3A9D009D63FF /* QueList.h */,
-				3A13857419AC3A9D009D63FF /* QueList.m */,
-				3A25C9DE19A58D16002305A0 /* QueListCell.h */,
-				3A25C9DF19A58D16002305A0 /* QueListCell.m */,
-				3A25C98519A57660002305A0 /* QueListController.h */,
-				3A25C98619A57660002305A0 /* QueListController.m */,
 				3A04D8AD19B55704006E463C /* YcKeyBoardView.h */,
 				3A04D8AE19B55704006E463C /* YcKeyBoardView.m */,
 			);
@@ -578,7 +577,7 @@
 		3A25C99919A5766D002305A0 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				3A25C99A19A5766D002305A0 /* Hiragino Sans GB W3.otf */,
+				3A04D8B219B5C61B006E463C /* Hiragino Sans GB W3.otf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -818,6 +817,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AC2FF8619B6A02A00CA9937 /* Hiragino Sans GB W3.otf in Resources */,
 				84C1D33019B5AE720044EB86 /* wenda.storyboard in Resources */,
 				84D5156419B468A400356C19 /* btn_mine_setting.png in Resources */,
 				3A25C95219A5758E002305A0 /* Images.xcassets in Resources */,
@@ -825,7 +825,6 @@
 				846DCDE519ADD9F400FE46F2 /* btn_mine_uncheck.png in Resources */,
 				84CDBE5819ADD0BD00A22226 /* icon_mine_list05.png in Resources */,
 				3A25C9AF19A5766D002305A0 /* btn_back.png in Resources */,
-				84C1D33619B5AF530044EB86 /* Main.storyboard in Resources */,
 				3A25C9AC19A5766D002305A0 /* bg_edit_register.png in Resources */,
 				84CDBE5E19ADD0BD00A22226 /* icon_mine_list04.png in Resources */,
 				8477D4AC19AC1B5D002BAEA4 /* arrow.png in Resources */,
@@ -869,7 +868,6 @@
 				3A7FB0CB19AAD83A00789A57 /* provinceCity.plist in Resources */,
 				3A25C9AA19A5766D002305A0 /* bg_edit_login.png in Resources */,
 				3A25C9B119A5766D002305A0 /* btn_login.png in Resources */,
-				3A25C9A819A5766D002305A0 /* Hiragino Sans GB W3.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

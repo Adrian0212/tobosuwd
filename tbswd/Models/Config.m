@@ -45,13 +45,13 @@
 {
     NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
 
-    if ([settings objectForKey:@"UserInfo"]) {
-        [[settings objectForKey:@"UserInfo"] addEntriesFromDictionary:info];
-        [settings setObject:[settings objectForKey:@"UserInfo"] forKey:@"UserInfo"];
-    } else {
-        [settings setObject:info forKey:@"UserInfo"];
-    }
+    NSMutableDictionary *newinfos = [NSMutableDictionary dictionaryWithDictionary:[settings objectForKey:@"UserInfo"]];
 
+    [newinfos addEntriesFromDictionary:info];
+
+    NSDictionary *infos = [NSDictionary dictionaryWithDictionary:newinfos];
+    [settings setObject:infos forKey:@"UserInfo"];
+    
     [settings synchronize];
 }
 

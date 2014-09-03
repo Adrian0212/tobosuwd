@@ -63,12 +63,12 @@
     [self getTableData:@"header"];
     
     // 2.2秒后刷新表格UI
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+   // dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), /dispatch_get_main_queue(), ^{
         // 刷新表格
-        [self.queListTable reloadData];
+      //  [self.queListTable reloadData];
         // (最好在刷新表格后调用)调用endRefreshing可以结束刷新状态
-        [self.queListTable headerEndRefreshing];
-    });
+      //  [self.queListTable headerEndRefreshing];
+   // });
 }
 
 - (void)footerRereshing
@@ -204,25 +204,30 @@
                 }
             }
             
-            [self.queListTable reloadData];
-            
-            if ([@"header" isEqual : location]) {
-                [self.queListTable headerEndRefreshing];
-            } else {
-                [self.queListTable footerEndRefreshing];
-            }
         }
         @catch(NSException *exception)
         {
             [Utils TakeException:exception];
         }
         
-        @finally {}
+        @finally {
+            [self.queListTable reloadData];
+            if ([@"header" isEqual : location]) {
+                [self.queListTable headerEndRefreshing];
+            } else {
+                [self.queListTable footerEndRefreshing];
+            }
+        }
     }
      
                 failure :^(AFHTTPRequestOperation *operation, NSError *error)
      {
          [Utils ToastNotification:@"网络连接故障" andView:self.view andLoading:NO andIsBottom:YES];
+         if ([@"header" isEqual : location]) {
+             [self.queListTable headerEndRefreshing];
+         } else {
+             [self.queListTable footerEndRefreshing];
+         }
      }];
 }
 
@@ -246,6 +251,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [self setOrangeThemeBar];
+    [self.tabBarController.tabBar setHidden:NO];
 }
-
 @end
