@@ -247,62 +247,45 @@
     NSString    *userName = _nickNameTextField.text;
     NSString    *cityId = _cityId;
 
-    
-    if ([TSRegularExpressionUtils validateMobile:mobileNumber])
-    {
-        if ([TSRegularExpressionUtils validatePassword:pwd])
-        {
-            if ([TSRegularExpressionUtils validateUserName:userName])
-            {
+    if ([TSRegularExpressionUtils validateMobile:mobileNumber]) {
+        if ([TSRegularExpressionUtils validatePassword:pwd]) {
+            if ([TSRegularExpressionUtils validateUserName:userName]) {
                 NSString        *priUrl = api_url_register;
                 AFHTTPClient    *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:priUrl]];        // 这里要将url设置为空
                 NSDictionary    *par = @{@"name":userName, @"password":[Utils convert2Md5:pwd], @"cityID":cityId,
                                          @"cellphone":mobileNumber, @"gender":@"0", @"ip":@"0.0.0.0", @"logintype":@"ios", @"phoneyzm":quCode};
-                
+
                 [httpClient postPath:priUrl parameters:par success:^(AFHTTPRequestOperation *operation, id responseObject)
                 {
                     @try
                     {
                         NSString *resultString = operation.responseString;
                         NSDictionary *jsonData = [resultString objectFromJSONString];
-                        
-                        if ([jsonData objectForKey:@"msg"])
-                        {
+
+                        if ([jsonData objectForKey:@"msg"]) {
                             [self dismissViewControllerAnimated:YES completion:nil];
                         }
-                        
                     }
                     @catch(NSException *exception)
                     {
                         [Utils TakeException:exception];
                     }
-                    
+
                     @finally
-                    {
-                    }
-                } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+                    {}
+                }           failure :^(AFHTTPRequestOperation *operation, NSError *error)
                 {
                     [Utils ToastNotification:@"网络连接故障" andView:self.view andLoading:NO andIsBottom:YES];
                 }];
-            }
-            else
-            {
+            } else {
                 [self alertView:@"请正确填写用户名"];
             }
-        }
-        else
-        {
+        } else {
             [self alertView:@"密码不能包含特殊字符"];
         }
-       
-    }
-    else
-    {
+    } else {
         [self alertView:@"请正确填写手机号"];
     }
-    
-    
-   
 }
 
 /**
@@ -312,8 +295,7 @@
 {
     NSString *quCode = _accountTextField.text;
 
-    if ([TSRegularExpressionUtils validateMobile:_accountTextField.text])
-    {
+    if ([TSRegularExpressionUtils validateMobile:_accountTextField.text]) {
         NSString        *priUrl = api_url_registqucode;
         AFHTTPClient    *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:priUrl]];    // 这里要将url设置为空
         NSDictionary    *par = @{@"phone": quCode, @"msgtype":@"1"};
@@ -322,7 +304,7 @@
             {
                 NSString *resultString = operation.responseString;
 
-                //NSLog(@"%@", resultString);
+                // NSLog(@"%@", resultString);
             }
             @catch(NSException *exception)
             {
@@ -331,15 +313,11 @@
 
             @finally {}
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            //NSLog(@"ERROR====%@", operation);
+            // NSLog(@"ERROR====%@", operation);
         }];
-    }
-    else
-    {
+    } else {
         [self alertView:@"请正确填写手机号"];
     }
-        
-    
 }
 
 // 设置城市选择器
@@ -355,7 +333,7 @@
     [_picker setShowsSelectionIndicator:YES];
     _city = [NSMutableDictionary dictionary];
     _cityIdDictionary = [NSMutableDictionary dictionary];
-    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"provinceCity" ofType:@"plist"];
+    NSString            *plistPath = [[NSBundle mainBundle] pathForResource:@"provinceCity" ofType:@"plist"];
     NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
     // NSLog(@"%@", data);//直接打印数据。
     _province = [[NSMutableArray alloc]init];
@@ -364,8 +342,9 @@
         NSDictionary    *proDict = [data objectForKey:[NSString stringWithFormat:@"%d", i]];
         NSString        *provinceName = [proDict objectForKey:@"ProvinceName"];
         [_province addObject:provinceName];
-        NSArray *cityArray = [proDict objectForKey:@"city"];
+        NSArray         *cityArray = [proDict objectForKey:@"city"];
         NSMutableArray  *cityNameMutableArray = [NSMutableArray array];
+
         for (NSInteger i = 0; i < [cityArray count]; i++) {
             NSString    *cityName = cityArray[i][@"name"];
             NSString    *cityId = cityArray[i][@"cityID"];
@@ -395,7 +374,7 @@
         NSInteger   rowProvince = [pickerView selectedRowInComponent:0];
         NSString    *provinceName = _province[rowProvince];
         NSArray     *citys = [_city objectForKey:provinceName];
-        //NSLog(@"fffffffff%d",citys.count);
+        // NSLog(@"fffffffff%d",citys.count);
         return citys.count;
     }
 }
@@ -405,53 +384,44 @@
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
     @try {
-        if (component == 0)
-        {
+        if (component == 0) {
             return _province[row];
-        }
-        else
-        {
+        } else {
             // 城市
             // 1. 获得省份列选择的行数
             NSInteger rowProvince = [pickerView selectedRowInComponent:0];
             // 2. 获得省份名称
             NSString *provinceName = _province[rowProvince];
-            //NSLog(@"aaaaaaaaaa===%@",provinceName);
-             //NSLog(@"rrrrrrrrrrrr===%d",row);            // 3. 获得城市的数组
+            // NSLog(@"aaaaaaaaaa===%@",provinceName);
+            // NSLog(@"rrrrrrrrrrrr===%d",row);            // 3. 获得城市的数组
             NSArray *citys = [_city objectForKey:provinceName];
-           // NSLog(@"bbbbbbbb=%d", citys.count);
-            
+            // NSLog(@"bbbbbbbb=%d", citys.count);
+
             // 4. 返回城市数组中row的字符串内容
             return citys[row];
-            
-            
         }
-        
     }
-    @catch (NSException *exception)
+    @catch(NSException *exception)
     {
-        NSLog(@"exception=%@",exception);
-        
+        NSLog(@"exception=%@", exception);
     }
+
     @finally
-    {
-        
-    }
+    {}
 }
+
 #pragma mark 选中行的时候，刷新数据
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    if (component==0)
-    {
-         [pickerView reloadComponent:1];
+    if (component == 0) {
+        [pickerView reloadComponent:1];
     }
-   
 
-    //NSInteger   row1 = [pickerView selectedRowInComponent:0];
-    //NSInteger   row2 = [pickerView selectedRowInComponent:1];
-    //NSString *provinceName = _province[row1];
+    // NSInteger   row1 = [pickerView selectedRowInComponent:0];
+    // NSInteger   row2 = [pickerView selectedRowInComponent:1];
+    // NSString *provinceName = _province[row1];
     // 3. 获得城市的数组
-    //NSArray *citys = _city[provinceName];
+    // NSArray *citys = _city[provinceName];
 }
 
 - (void)doneBtnAction
@@ -480,12 +450,13 @@
     }
 }
 
-
--(void)alertView:(NSString *)content
+- (void)alertView:(NSString *)content
 {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:content delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+
     [alertView show];
 }
+
 // -(void)getPorvinceDataFromUrl
 // {
 //    //获得省份shuju

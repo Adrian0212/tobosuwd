@@ -24,8 +24,6 @@
     _userId = [[Config Instance] getUserId];
     _userType = [[Config Instance] getUserMark];
 
-    _itlock = [[NSCondition alloc] init]; // 初始化锁
-
     [_userLevelLabel.layer setCornerRadius:2];
 
     NSDictionary *infos = [[Config Instance] getUserInfo];
@@ -34,6 +32,24 @@
     if (infos.count > 12) {
         [self setData2View:infos];
     }
+
+    if ([_userType isEqualToString:@"3"]) {
+        // 设置装修公司数据
+        [_userIconView0 setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", [infos objectForKey:@"icon"]]]];                 // 用户头像
+
+        //有公司简称则显示公司简称，否则显示公司全称
+        if ([infos objectForKey:@"realname"]) {
+            _userNameLabel0.text = [NSString stringWithFormat:@"%@", [infos objectForKey:@"realname"]];
+        } else {
+            _userNameLabel0.text = [NSString stringWithFormat:@"%@", [infos objectForKey:@"name"]];
+        }
+    } else if ([_userType isEqualToString:@"1"]) {
+        // 设置业主数据
+        [_userIconView1 setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", [infos objectForKey:@"icon"]]]];                 // 用户头像
+        _userNameLable1.text = [NSString stringWithFormat:@"%@", [infos objectForKey:@"name"]];
+    }
+
+    [[Config Instance] saveUserInfo:infos];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -42,10 +58,7 @@
     [self setOrangeThemeBar];
     [self hideBackButton];
 
-    // 开启线程请求数据
-    NSThread *thread = [[NSThread alloc]initWithTarget:self selector:@selector(loadData) object:nil];
-
-    [thread start];
+    [self loadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -115,15 +128,11 @@
 // 请求数据
 - (void)loadData
 {
-    NSMutableDictionary *infos = [[NSMutableDictionary alloc]initWithDictionary:[[Config Instance] getUserInfo]];
+    NSDictionary *params1 = @{@"MType":@"20", @"Uid":[_userType stringByAppendingString:_userId]};
 
-    // 请求问答数等信息
-    NSDictionary *params = @{@"MType":@"20", @"Uid":[_userType stringByAppendingString:_userId]};
-
-    //    NSLog(@"params:%@", params);
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@""]];
 
-    [httpClient postPath:api_url_net parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [httpClient postPath:api_url_net parameters:params1 success:^(AFHTTPRequestOperation *operation, id responseObject) {
         @try {
             NSData *data = [operation.responseString dataUsingEncoding:NSUTF8StringEncoding];
             NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
@@ -131,9 +140,19 @@
             NSLog(@"result:%@", result);
 
             if ([result[@"msg"] isEqualToString:@"true"]) {
-                [infos setObject:result[@"info"][@"AcceptRate"] forKey:@"AcceptRate"];
-                [infos setObject:result[@"info"][@"AnswerCount"] forKey:@"AnswerCount"];
-                [infos setObject:result[@"info"][@"AskCount"] forKey:@"AskCount"];
+                NSDictionary *infos = result[@"info"];
+
+                if ([_userType isEqualToString:@"3"]) {
+                    _answerNumLabel0.text = [NSString stringWithFormat:@"%@", [infos objectForKey:@"AnswerCount"]];
+                    _questionNumLabel0.text = [NSString stringWithFormat:@"%@", [infos objectForKey:@"AskCount"]];
+                    _adoptRateLabel0.text = [NSString stringWithFormat:@"%@%%", [infos objectForKey:@"AcceptRate"]];
+                } else if ([_userType isEqualToString:@"1"]) {
+                    _answerNumLabel1.text = [NSString stringWithFormat:@"%@", [infos objectForKey:@"AnswerCount"]];
+                    _questionNumLabel1.text = [NSString stringWithFormat:@"%@", [infos objectForKey:@"AskCount"]];
+                    _adoptRateLabel1.text = [NSString stringWithFormat:@"%@%%", [infos objectForKey:@"AcceptRate"]];
+                }
+
+                [[Config Instance] saveUserInfo:infos];
             } else {
                 [Utils ToastNotification:@"信息异常" andView:self.tableView andLoading:NO andIsBottom:NO];
             }
@@ -142,33 +161,94 @@
             [Utils TakeException:exception];
         }
 
-        @finally {
-            [self unlockThread];
-        }
+        @finally {}
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [Utils ToastNotification:@"网络连接故障" andView:self.tableView andLoading:NO andIsBottom:NO];
-        [self unlockThread];
     }];
-    [self lockThread];
 
     NSDictionary *params2 = @{@"userid":_userId, @"usertype":_userType};
-    //            NSLog(@"params:%@", params2);
 
     [httpClient postPath:api_url_getuserinfo parameters:params2 success:^(AFHTTPRequestOperation *operation, id responseObject) {
         @try {
             NSData *data = [operation.responseString dataUsingEncoding:NSUTF8StringEncoding];
-            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            NSDictionary *infos = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
 
-            NSLog(@"result:%@", result);
+            NSLog(@"result:%@", infos);
 
-            if (result) {
-                [infos setObject:result[@"honesty"] forKey:@"honesty"];
-                [infos setObject:result[@"isjjb"] forKey:@"isjjb"];
-                [infos setObject:result[@"issignedto"] forKey:@"issignedto"];
-                [infos setObject:result[@"level"] forKey:@"level"];
-                [infos setObject:result[@"proof"] forKey:@"proof"];
-                [infos setObject:result[@"rank"] forKey:@"rank"];
-                [infos setObject:result[@"score"] forKey:@"score"];
+            if (infos) {
+                if ([_userType isEqualToString:@"3"]) {
+                    // 设置装修公司数据
+                    _userScoreLabel0.text = [NSString stringWithFormat:@"%@", [infos objectForKey:@"score"]];
+                    _userRankLabel.text = [NSString stringWithFormat:@"%@", [infos objectForKey:@"rank"]];
+
+                    if ([[NSString stringWithFormat:@"%@", [infos objectForKey:@"proof"]] isEqualToString:@"2"]) {
+                        // 表示未认证
+                        [_userIcon1 setImage:[UIImage imageNamed:@"icon_mine_01_gray.png"]];
+                        [_userIcon1Label setText:@"未认证"];
+                        [_userIcon1Label setTextColor:[Utils hexStringToColor:@"#aaaaaa"]];
+                    } else {
+                        [_userIcon1 setImage:[UIImage imageNamed:@"icon_mine_01.png"]];
+                        [_userIcon1Label setText:@"已认证"];
+                        [_userIcon1Label setTextColor:[Utils hexStringToColor:@"#978fff"]];
+                    }
+
+                    if ([[NSString stringWithFormat:@"%@", [infos objectForKey:@"honesty"]] isEqualToString:@"0"]) {
+                        // 诚信年份0年
+                        [_userIcon2 setImage:[UIImage imageNamed:@"icon_mine_02_gray.png"]];
+                        [_userIcon2Label setText:@"0年"];
+                        [_userIcon2Label setTextColor:[Utils hexStringToColor:@"#aaaaaa"]];
+                    } else {
+                        [_userIcon2 setImage:[UIImage imageNamed:@"icon_mine_02.png"]];
+                        [_userIcon2Label setText:[NSString stringWithFormat:@"%@年", [infos objectForKey:@"honesty"]]];
+                        [_userIcon2Label setTextColor:[Utils hexStringToColor:@"#da3f3f"]];
+                    }
+
+                    if ([[NSString stringWithFormat:@"%@", [infos objectForKey:@"isjjb"]] isEqualToString:@"2"]) {
+                        // 表示不是家居宝
+                        [_userIcon3 setImage:[UIImage imageNamed:@"icon_mine_03_gray.png"]];
+                        [_userIcon3Label setTextColor:[Utils hexStringToColor:@"#aaaaaa"]];
+                    } else {
+                        [_userIcon3 setImage:[UIImage imageNamed:@"icon_mine_03.png"]];
+                        [_userIcon3Label setTextColor:[Utils hexStringToColor:@"#3d64a9"]];
+                    }
+
+                    if ([[NSString stringWithFormat:@"%@", [infos objectForKey:@"issignedto"]] isEqualToString:@"2"]) {
+                        // 表示已签到
+                        [_signInButton0 setTitle:@"已签到" forState:UIControlStateNormal];
+                        [_signInButton0 setTitleColor:[Utils hexStringToColor:@"#666666"] forState:UIControlStateNormal];
+                        [_signInButton0 setBackgroundImage:[UIImage imageNamed:@"btn_mine_checked.png"] forState:UIControlStateNormal];
+                        [_signInButton0 setEnabled:NO];
+                    } else {
+                        [_signInButton0 setTitle:@"签到" forState:UIControlStateNormal];
+                        [_signInButton0 setTitleColor:[Utils hexStringToColor:@"#ffffff"] forState:UIControlStateNormal];
+                        [_signInButton0 setBackgroundImage:[UIImage imageNamed:@"btn_mine_uncheck.png"] forState:UIControlStateNormal];
+                        [_signInButton0 setEnabled:YES];
+                    }
+                } else if ([_userType isEqualToString:@"1"]) {
+                    _userLevelLabel.text = [NSString stringWithFormat:@"Lv%@", [infos objectForKey:@"level"]];
+                    _userScoreLabel1.text = [NSString stringWithFormat:@"%@", [infos objectForKey:@"score"]];
+
+                    if ([[NSString stringWithFormat:@"%@", [infos objectForKey:@"issignedto"]] isEqualToString:@"2"]) {
+                        // 表示已签到
+                        [_signInButton1 setTitle:@"已签到" forState:UIControlStateNormal];
+                        [_signInButton1 setTitleColor:[Utils hexStringToColor:@"#666666"] forState:UIControlStateNormal];
+                        [_signInButton1 setBackgroundImage:[UIImage imageNamed:@"btn_mine_checked.png"] forState:UIControlStateNormal];
+                        [_signInButton1 setEnabled:NO];
+                    } else {
+                        [_signInButton1 setTitle:@"每日签到" forState:UIControlStateNormal];
+                        [_signInButton1 setTitleColor:[Utils hexStringToColor:@"#ffffff"] forState:UIControlStateNormal];
+                        [_signInButton1 setBackgroundImage:[UIImage imageNamed:@"btn_mine_uncheck.png"] forState:UIControlStateNormal];
+                        [_signInButton1 setEnabled:YES];
+                    }
+
+                    // 重新设置名字标签和等级标签的Frame
+                    [_userNameLable1 sizeToFit];
+                    CGRect rect = [_userNameLable1 frame];
+                    [_userNameLable1 setFrame:CGRectMake(100, 17, rect.size.width, 21)];
+                    [_userLevelLabel setFrame:CGRectMake(rect.size.width + 105, 21, 30, 14)];
+                }
+
+                [[Config Instance] saveUserInfo:infos];
             } else {
                 [Utils ToastNotification:@"信息异常" andView:self.view andLoading:NO andIsBottom:NO];
             }
@@ -177,23 +257,14 @@
             [Utils TakeException:exception];
         }
 
-        @finally {
-            [self unlockThread];
-        }
+        @finally {}
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [Utils ToastNotification:@"网络连接故障" andView:self.tableView andLoading:NO andIsBottom:NO];
-        [self unlockThread];
     }];
-
-    [self lockThread];
-
-    [[Config Instance]saveUserInfo:infos];
-    [self setData2View:infos];
 }
 
 - (void)setData2View:(NSDictionary *)infos
 {
-    //    NSLog(@"result:%@", infos);
     if ([_userType isEqualToString:@"3"]) {
         // 设置装修公司数据
         [_userIconView0 setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", [infos objectForKey:@"icon"]]]];                 // 用户头像
@@ -289,11 +360,10 @@
 // 签到操作
 - (IBAction)signInAction:(UIButton *)sender
 {
-    // 签到操作
-    NSLog(@"签到了！");
     NSDictionary *params = @{@"userid":_userId, @"usertype":_userType};
 
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@""]];
+
     [httpClient postPath:api_url_signedto parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         @try {
             NSString *result = [operation.responseString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -321,6 +391,7 @@
                 [sender setTitleColor:[Utils hexStringToColor:@"#666666"] forState:UIControlStateNormal];
                 [sender setBackgroundImage:[UIImage imageNamed:@"btn_mine_checked.png"] forState:UIControlStateNormal];
                 [sender setEnabled:NO];
+                NSLog(@"签到了！");
             }
         }
         @catch(NSException *exception) {
@@ -330,24 +401,7 @@
         @finally {}
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [Utils ToastNotification:@"网络连接故障" andView:self.tableView andLoading:NO andIsBottom:NO];
-        NSLog(@"%@", error);
     }];
-}
-
-// 加锁操作
-- (void)lockThread
-{
-    [_itlock lock];
-    [_itlock wait];
-    [_itlock unlock];
-}
-
-// 解锁操作
-- (void)unlockThread
-{
-    [_itlock lock];
-    [_itlock signal];
-    [_itlock unlock];
 }
 
 @end

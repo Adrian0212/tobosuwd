@@ -12,6 +12,10 @@
 
 @property BOOL isLogin; // 是否已经登录
 
+// 登陆标记设置及获取
+- (void)saveIsLogin:(BOOL)isLogin;
+- (BOOL)getIsLogin;
+
 // 保存登录用户名以及密码
 - (void)saveUserNameAndPwd:(NSString *)userName andPwd:(NSString *)pwd;
 // 清除用户密码

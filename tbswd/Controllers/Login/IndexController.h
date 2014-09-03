@@ -8,6 +8,7 @@
 
 #import "BaseUIViewController.h"
 #import "Config.h"
+
 @interface IndexController : BaseUIViewController
 
 - (IBAction)jumpToWenda:(id)sender;

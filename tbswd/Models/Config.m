@@ -10,6 +10,22 @@
 
 @implementation Config
 
+- (void)saveIsLogin:(BOOL)isLogin
+{
+    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
+
+    [settings setBool:isLogin forKey:@"isLogin"];
+    //    _isLogin = YES;
+    [settings synchronize];
+}
+
+- (BOOL)getIsLogin
+{
+    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
+
+    return [settings boolForKey:@"isLogin"];
+}
+
 - (void)saveUserNameAndPwd:(NSString *)userName andPwd:(NSString *)pwd
 {
     NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
