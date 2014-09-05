@@ -11,13 +11,14 @@
 #import "YcKeyBoardView.h"
 @interface CommnetDetailController () <YcKeyBoardViewDelegate>
 {
+    NSString    *_addUid;
     NSString    *_askTitle;
     NSString    *_askStatus;
     NSString    *_askCatalogChild; // 先使用子类标签，如子类为空再使用父类
     NSString    *_askCatalogTop;
     NSString    *_addTimeSpan;
     UITableView *_answerTable;
-
+    
     NSMutableArray  *_dataList;
     NSInteger       _page;
     MBProgressHUD   *_hud;
@@ -48,7 +49,6 @@
     _page = 1;
     [self setTitle:[NSString stringWithFormat:@"%@%@", nickName, @"的提问"]];
     [self getTopData:akId];
-    [self getAnswerData:akId];
     // [Utils ToastNotification:@"网络连接故障" andView:self.tabBarController.tabBar andLoading:NO andIsBottom:YES];
 
     [_submitBtn addTarget:self action:@selector(addBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -86,7 +86,7 @@
 {
     _page = 1;
 
-    [self getAnswerData:akId];
+    [self getAnswerData:akId LocationFresh:@"header"];
 
     // 2.2秒后刷新表格UI
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -100,7 +100,7 @@
 - (void)footerRereshing
 {
     _page++;
-    [self getAnswerData:akId];
+    [self getAnswerData:akId LocationFresh:@"footer"];
     // 2.2秒后刷新表格UI
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             // 刷新表格
@@ -125,7 +125,7 @@
 
             if ([arryDict objectForKey:@"msg"]) {
                 NSDictionary *arry = [arryDict objectForKey:@"info"];
-
+                _addUid = [arry objectForKey:@"AddUid"];
                 _askTitle = [arry objectForKey:@"AskTitle"];
                 _askStatus = [arry objectForKey:@"AskStatus"];
                 _askCatalogChild = [arry objectForKey:@"AskCatalogChild"];
@@ -157,7 +157,7 @@
  *  @param askID 提问ID
  */
 #pragma mark 获得回答列表数据
-- (void)getAnswerData:(NSString *)askID
+- (void)getAnswerData:(NSString *)askID LocationFresh:(NSString *)location
 {
     NSDictionary    *infos = @{@"MType":@"12", @"Id":askID, @"PageIndex":[NSString stringWithFormat:@"%d", _page], @"PageSize":@"10"};
     AFHTTPClient    *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@""]];
@@ -168,12 +168,15 @@
         {
             NSString *resultString = operation.responseString;
             NSDictionary *arryDict = [resultString objectFromJSONString];
-
+            if ([@"header" isEqual : location]) {
+                _dataList = nil;
+                // [self.queListTable headerEndRefreshing];
+            }
+            
+            if (_dataList == nil) {
+                _dataList = [NSMutableArray new];
+            }
             if ([arryDict objectForKey:@"msg"]) {
-                if (_dataList == nil) {
-                    _dataList = [NSMutableArray new];
-                }
-
                 NSArray *arry = [arryDict objectForKey:@"info"];
 
                 for (NSInteger i = 0; i < [arry count]; i++) {
@@ -193,14 +196,16 @@
                 }
             }
 
-            [_answerTable reloadData];
-        }
+                   }
         @catch(NSException *exception)
         {
             [Utils TakeException:exception];
         }
 
-        @finally {}
+        @finally {
+             [_answerTable reloadData];
+
+        }
     }
 
                 failure :^(AFHTTPRequestOperation *operation, NSError *error)
@@ -397,21 +402,56 @@
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"输入提示" message:@"回答不能为空哦！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alertView show];
     } else {
-        NSLog(@"aaa");
-        [contentView resignFirstResponder];
+        [self submitAnswerData:self.key.textView.text HideKeyBoard:contentView];
+       // [contentView resignFirstResponder];
     }
 }
-
-- (void)submitAnswerData:(NSString *)askID
+//提交回答
+- (void)submitAnswerData:(NSString *)answerInfo HideKeyBoard:(UITextView *)contentView
 {
-    NSDictionary    *infos = @{@"MType":@"12", @"Id":askID, @"PageIndex":[NSString stringWithFormat:@"%d", _page], @"PageSize":@"10"};
+    NSMutableDictionary *json = [NSMutableDictionary dictionary];
+    [json setValue:akId forKey:@"AskID"];
+    [json setValue:_addUid forKey:@"AskUid"];
+    [json setValue:answerInfo forKey:@"AnswerInfo"];
+    
+    [json setValue:[[Config Instance] getDict:@"UserInfo" ValueByKey:@"id"] forKey:@"AnswerUid"];
+    
+    [json setValue:[[Config Instance] getDict:@"UserInfo" ValueByKey:@"name"] forKey:@"AnswerUserName"];
+    
+    [json setValue:[[Config Instance] getDict:@"UserInfo" ValueByKey:@"realname"] forKey:@"AnswerTrueName"];
+    
+    [json setValue:[[Config Instance] getDict:@"UserInfo" ValueByKey:@"mark"] forKey:@"UserType"];
+    
+    [json setValue:[[Config Instance] getDict:@"UserInfo" ValueByKey:@"cityname"] forKey:@"CityName"];
+    
+    [json setValue:[[Config Instance] getDict:@"UserInfo" ValueByKey:@"cityrefe"] forKey:@"CitySName"];
+    NSString *homeUrl;
+    
+    if ([[[Config Instance] getDict:@"UserInfo" ValueByKey:@"mark"] isEqualToString:@"1"]) {
+        
+        homeUrl = [NSString stringWithFormat:@"%@%@%@%@%@",@"http://",[[Config Instance] getDict:@"UserInfo" ValueByKey:@"cityrefe"], @".tobosu.com/home/",[[Config Instance] getDict:@"UserInfo" ValueByKey:@"id"],@"-index.html"];
+    }
+    if ([[[Config Instance] getDict:@"UserInfo" ValueByKey:@"mark"] isEqualToString:@"2"]) {
+        
+        homeUrl = [NSString stringWithFormat:@"%@%@%@%@%@",@"http://",[[Config Instance] getDict:@"UserInfo" ValueByKey:@"cityrefe"], @"tobosu.com/designer/",[[Config Instance] getDict:@"UserInfo" ValueByKey:@"id"],@"/"];
+    }
+    if ([[[Config Instance] getDict:@"UserInfo" ValueByKey:@"mark"] isEqualToString:@"3"]) {
+        
+        homeUrl = [NSString stringWithFormat:@"%@%@%@%@%@",@"http://",[[Config Instance] getDict:@"UserInfo" ValueByKey:@"cityrefe"], @".tobosu.com/member/",[[Config Instance] getDict:@"UserInfo" ValueByKey:@"id"],@"/"];
+    }
+    [json setValue:homeUrl forKey:@"HomeUrl"];
+    [json setValue:[[Config Instance] getDict:@"UserInfo" ValueByKey:@"icon"]  forKey:@"HeadLog"];
+    
+    
+    NSDictionary    *infos = @{@"MType":@"15", @"Json":[json JSONString]};
     AFHTTPClient    *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@""]];
 
     [httpClient postPath:api_url_net parameters:infos success:^(AFHTTPRequestOperation *operation, id responseObject){
         @try{
             NSString *resultString = operation.responseString;
-            NSDictionary *arryDict = [resultString objectFromJSONString];
-            
+            NSLog(@"%@",resultString);
+            [_answerTable headerBeginRefreshing];
+            [contentView resignFirstResponder];
         }
         @catch(NSException *exception){
             

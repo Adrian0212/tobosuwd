@@ -1,18 +1,18 @@
 //
-//  WriteQueController.m
+//  QueController.m
 //  tbswd
 //
-//  Created by Adrian on 14-8-20.
-//  Copyright (c) 2014年 Adrian. All rights reserved.
+//  Created by Adrian on 14-9-3.
+//  Copyright (c) 2014年 tobosu. All rights reserved.
 //
 
-#import "WriteQueController.h"
+#import "QueController.h"
 
-@interface WriteQueController ()
+@interface QueController ()
 
 @end
 
-@implementation WriteQueController
+@implementation QueController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -26,7 +26,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self performSegueWithIdentifier:@"QueController" sender:self];
     // Do any additional setup after loading the view.
 }
 

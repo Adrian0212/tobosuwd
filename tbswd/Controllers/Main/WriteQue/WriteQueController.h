@@ -7,7 +7,7 @@
 //
 
 #import "BaseUIViewController.h"
-
+#import "QueController.h"
 @interface WriteQueController : BaseUIViewController
 
 @end

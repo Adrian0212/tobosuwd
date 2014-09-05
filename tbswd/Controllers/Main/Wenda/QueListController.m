@@ -233,7 +233,7 @@
 
 - (void)commentAction:(UIButton *)sender
 {
-    NSLog(@"%d", sender.tag);
+    //NSLog(@"%d", sender.tag);
     QueList *ql = _dataList[sender.tag];
     _akId = ql.AkID;
     _nickName = ql.AddUserName;

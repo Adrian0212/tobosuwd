@@ -40,7 +40,8 @@
 - (NSString *)getUserScore;
 // 保存用户积分
 - (void)setUserScore:(NSInteger)score;
-
+//获取字典中得值
+- (NSString *)getDict:(NSString *)dict ValueByKey:(NSString *)key;
 + (Config *)Instance;
 
 @end

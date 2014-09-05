@@ -67,7 +67,7 @@
 
     NSDictionary *infos = [NSDictionary dictionaryWithDictionary:newinfos];
     [settings setObject:infos forKey:@"UserInfo"];
-    
+
     [settings synchronize];
 }
 
@@ -116,15 +116,22 @@
 
 - (void)setUserScore:(NSInteger)score
 {
-    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults      *settings = [NSUserDefaults standardUserDefaults];
+    NSNumber            *temp = [NSNumber numberWithInt:score];
+    NSMutableDictionary *newinfos = [NSMutableDictionary dictionaryWithDictionary:[settings objectForKey:@"UserInfo"]];
 
-    NSNumber *temp = [NSNumber numberWithInt:score];
-
-    [[settings objectForKey:@"UserInfo"] setValue:temp forKey:@"score"];
-
-    [settings setObject:[settings objectForKey:@"UserInfo"] forKey:@"UserInfo"];
+    [newinfos setValue:temp forKey:@"score"];
+    NSDictionary *infos = [NSDictionary dictionaryWithDictionary:newinfos];
+    [settings setObject:infos forKey:@"UserInfo"];
 
     [settings synchronize];
+}
+
+- (NSString *)getDict:(NSString *)dict ValueByKey:(NSString *)key
+{
+    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
+
+    return [[settings objectForKey:dict] objectForKey:key];
 }
 
 static Config *instance = nil;

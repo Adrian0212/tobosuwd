@@ -87,6 +87,7 @@
 		3ABB2ADB19B40F140023B064 /* CommnetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABB2ADA19B40F140023B064 /* CommnetCell.m */; };
 		3ABB2ADE19B418320023B064 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABB2ADD19B418320023B064 /* Comment.m */; };
 		3AC2FF8619B6A02A00CA9937 /* Hiragino Sans GB W3.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3A04D8B219B5C61B006E463C /* Hiragino Sans GB W3.otf */; };
+		3AC2FF9119B711C800CA9937 /* QueController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC2FF9019B711C800CA9937 /* QueController.m */; };
 		8447C8E819B006B0005E43DF /* bg_navbar_orange.png in Resources */ = {isa = PBXBuildFile; fileRef = 8447C8E619B006B0005E43DF /* bg_navbar_orange.png */; };
 		8447C8E919B006B0005E43DF /* bg_navbar_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 8447C8E719B006B0005E43DF /* bg_navbar_white.png */; };
 		845557FB19AAD56700E115AC /* TSRegularExpressionUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 845557FA19AAD56700E115AC /* TSRegularExpressionUtils.m */; };
@@ -113,6 +114,7 @@
 		84C1D32C19B5AA3A0044EB86 /* bg_wlhd.png in Resources */ = {isa = PBXBuildFile; fileRef = 84C1D32B19B5AA3A0044EB86 /* bg_wlhd.png */; };
 		84C1D32E19B5AAF80044EB86 /* user_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 84C1D32D19B5AAF80044EB86 /* user_default.png */; };
 		84C1D33019B5AE720044EB86 /* wenda.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A232C7519A7074000173FC7 /* wenda.storyboard */; };
+		84C1D33A19B5BEDB0044EB86 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84C1D33919B5BEDB0044EB86 /* MapKit.framework */; };
 		84CDBE4C19ADB1D300A22226 /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CDBE4B19ADB1D300A22226 /* BaseTableViewController.m */; };
 		84CDBE5719ADD0BD00A22226 /* icon_mine_02.png in Resources */ = {isa = PBXBuildFile; fileRef = 84CDBE4D19ADD0BD00A22226 /* icon_mine_02.png */; };
 		84CDBE5819ADD0BD00A22226 /* icon_mine_list05.png in Resources */ = {isa = PBXBuildFile; fileRef = 84CDBE4E19ADD0BD00A22226 /* icon_mine_list05.png */; };
@@ -290,6 +292,8 @@
 		3ABB2ADC19B418320023B064 /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
 		3ABB2ADD19B418320023B064 /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
 		3ABB2AE519B477260023B064 /* Comment.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Comment.xib; sourceTree = "<group>"; };
+		3AC2FF8F19B711C800CA9937 /* QueController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueController.h; sourceTree = "<group>"; };
+		3AC2FF9019B711C800CA9937 /* QueController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueController.m; sourceTree = "<group>"; };
 		8447C8E619B006B0005E43DF /* bg_navbar_orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_navbar_orange.png; sourceTree = "<group>"; };
 		8447C8E719B006B0005E43DF /* bg_navbar_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_navbar_white.png; sourceTree = "<group>"; };
 		845557F919AAD56600E115AC /* TSRegularExpressionUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSRegularExpressionUtils.h; sourceTree = "<group>"; };
@@ -552,6 +556,8 @@
 			children = (
 				3A25C98819A57660002305A0 /* WriteQueController.h */,
 				3A25C98919A57660002305A0 /* WriteQueController.m */,
+				3AC2FF8F19B711C800CA9937 /* QueController.h */,
+				3AC2FF9019B711C800CA9937 /* QueController.m */,
 			);
 			path = WriteQue;
 			sourceTree = "<group>";
@@ -824,6 +830,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84F4151D19B6F21400BB0E93 /* Main.storyboard in Resources */,
 				3AC2FF8619B6A02A00CA9937 /* Hiragino Sans GB W3.otf in Resources */,
 				84C1D33019B5AE720044EB86 /* wenda.storyboard in Resources */,
 				84D5156419B468A400356C19 /* btn_mine_setting.png in Resources */,
@@ -894,6 +901,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A25C98E19A57660002305A0 /* RegisterController.m in Sources */,
+				3AC2FF9119B711C800CA9937 /* QueController.m in Sources */,
 				3A45599E19AECC3700EA1169 /* UIImage+WebP.m in Sources */,
 				3A45599B19AECC3700EA1169 /* UIButton+WebCache.m in Sources */,
 				3A25C99219A57660002305A0 /* QueListController.m in Sources */,

@@ -14,6 +14,7 @@
 #import "Comment.h"
 #import "UIImageView+AFNetworking.h"
 #import "MJRefresh.h"
+#import "Config.h"
 @interface CommnetDetailController : BaseUIViewController <UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) NSString          *akId;
 @property (strong, nonatomic) NSString          *nickName;
