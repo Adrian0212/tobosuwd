@@ -15,7 +15,6 @@
     NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
 
     [settings setBool:isLogin forKey:@"isLogin"];
-    //    _isLogin = YES;
     [settings synchronize];
 }
 

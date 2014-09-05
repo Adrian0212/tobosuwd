@@ -28,8 +28,12 @@
 
     NSDictionary *infos = [[Config Instance] getUserInfo];
 
+    NSString    *score = [infos objectForKey:@"score"];
+    NSString    *askcout = [infos objectForKey:@"AskCount"];
+    //    NSLog(@"score:%@,askcount:%@",score,askcout);
+
     // 判断是否存在问答等信息
-    if (infos.count > 12) {
+    if (score && askcout) {
         [self setData2View:infos];
     }
 

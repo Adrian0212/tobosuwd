@@ -17,16 +17,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     _navBar = (UINavigationBar *)self.navigationController.navigationBar;
-    
+    _baseTabBarController = (BaseTabBarController *)self.tabBarController;
+
     // 设置导航栏浅色样式
     [self setDefaultThemeBar];
-    
+
     // 在iOS7中，设置导航栏不透明并解决内容会下移的问题
     [_navBar setTranslucent:NO];
     [self setExtendedLayoutIncludesOpaqueBars:YES];
-    
+
     // 设置导航栏返回按钮
     _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _backButton.frame = CGRectMake(0, 0, 22, 19);
@@ -35,7 +36,6 @@
     UIBarButtonItem *barLeftBtn = [[UIBarButtonItem alloc] initWithCustomView:_backButton];
     self.navigationItem.leftBarButtonItem = barLeftBtn;
 }
-
 
 - (void)didReceiveMemoryWarning
 {
@@ -127,14 +127,19 @@
     [self closeKeyBoard];
 }
 
-/*
- * #pragma mark - Navigation
- *
- *   // In a storyboard-based application, you will often want to do a little preparation before navigation
- *   - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- *   // Get the new view controller using [segue destinationViewController].
- *   // Pass the selected object to the new view controller.
- *   }
- */
+#pragma mark - 标签栏操作
+// 隐藏TabBar
+- (void)hideTabBar
+{
+    [_baseTabBarController.tabBar setHidden:YES];
+    [_baseTabBarController hideCenterButton];
+}
+
+// 显示TabBar
+- (void)showTabBar
+{
+    [_baseTabBarController.tabBar setHidden:NO];
+    [_baseTabBarController showCenterButton];
+}
 
 @end

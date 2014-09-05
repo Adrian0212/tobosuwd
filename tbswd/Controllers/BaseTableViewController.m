@@ -89,7 +89,7 @@
     [self.navigationController.navigationBar setTitleTextAttributes:titleAttr];
 
     // 设置状态栏样式为深色，用于浅色背景
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
 }
 
 // 设置导航栏橘色样式
@@ -104,7 +104,7 @@
     [self.navigationController.navigationBar setTitleTextAttributes:titleAttr];
 
     // 设置状态栏样式为浅色，用于深色背景
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
 }
 
 // 返回操作
@@ -126,19 +126,34 @@
     [self closeKeyBoard];
 }
 
-//#pragma mark - Table view data source
+#pragma mark - 标签栏操作
+// 隐藏TabBar
+- (void)hideTabBar
+{
+    [_baseTabBarController.tabBar setHidden:YES];
+    [_baseTabBarController hideCenterButton];
+}
+
+// 显示TabBar
+- (void)showTabBar
+{
+    [_baseTabBarController.tabBar setHidden:NO];
+    [_baseTabBarController showCenterButton];
+}
+
+// #pragma mark - Table view data source
 //
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-//{
+// - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+// {
 //    // Return the number of sections.
 //    return 0;
-//}
+// }
 //
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-//{
+// - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+// {
 //    // Return the number of rows in the section.
 //    return 0;
-//}
+// }
 
 /*
  *   - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -29,8 +29,6 @@
     if (_userPwd) {
         _userPassword.text = _userPwd;
     }
-
-    NSLog(@"viewDidLoad");
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -38,8 +36,6 @@
     if (_userName && _userPwd) {
         [self loginAction:nil];
     }
-
-    NSLog(@"viewDidAppear");
 }
 
 - (void)didReceiveMemoryWarning
@@ -50,6 +46,8 @@
 #pragma mark 登陆操作
 - (IBAction)loginAction:(id)sender
 {
+    [self closeKeyBoard];
+
     // 点击按钮，则获取输入框中的值并MD5加密
     if (sender) {
         _userName = _userAccount.text;

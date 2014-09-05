@@ -6,11 +6,8 @@
 //  Copyright (c) 2014年 Adrian. All rights reserved.
 //
 
-#import "BaseUIViewController.h"
+#import "BaseTableViewController.h"
 
-@interface ReplyController : BaseUIViewController <UITableViewDataSource, UITableViewDelegate>
-
-@property (strong, nonatomic) NSArray *list;
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
+@interface ReplyController : BaseTableViewController
 
 @end
