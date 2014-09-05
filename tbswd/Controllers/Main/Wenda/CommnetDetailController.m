@@ -45,7 +45,7 @@
 {
     [super viewDidLoad];
     _page = 1;
-    [self setTitle:[NSString stringWithFormat:@"%@%@", nickName, @"的提问"]];
+    [self setBarTitle:[NSString stringWithFormat:@"%@%@", nickName, @"的提问"]];
     [self getTopData:akId];
     [self getAnswerData:akId];
     // [Utils ToastNotification:@"网络连接故障" andView:self.tabBarController.tabBar andLoading:NO andIsBottom:YES];
@@ -273,8 +273,12 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    // UITabBar *tabBar = self.tabBarController.tabBar;
-    [self.tabBarController.tabBar setHidden:YES];
+    [self hideTabBar];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [self showTabBar];
 }
 
 #pragma mark - 数据源方法

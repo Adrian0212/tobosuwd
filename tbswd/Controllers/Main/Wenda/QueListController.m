@@ -30,7 +30,7 @@
     _queListTable.tableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320.0f, 5.0f)];
     [self setOrangeThemeBar];
     [self hideBackButton];
-    [self setTitle:@"装修问答"];
+    [self setBarTitle:@"装修问答"];
     [self setupRefresh];
     [self.queListTable setDelaysContentTouches:NO];
 }

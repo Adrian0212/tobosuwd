@@ -14,19 +14,32 @@
 
 @implementation WriteQueController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    _test1.textContainerInset  = UIEdgeInsetsMake(5,8, 0, 8);
+//    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+//    paragraphStyle.minimumLineHeight = 35.f;
+////    paragraphStyle.maximumLineHeight = 35.f;
+//    
+//    UIFont *font = [UIFont fontWithName:@"AmericanTypewriter" size:18.f];
+//    _test.font = font;
+//    
+//    
+//    NSString *string = @"This is a test.\nWill I pass?\n日本語のもじもあるEnglish\nEnglish y Español";
+//    NSDictionary *attributtes = @{
+//                                  NSParagraphStyleAttributeName : paragraphStyle,
+//                                  };
+//    
+////    _test.attributedText = 
+//    _test.attributedText = [[NSAttributedString alloc] initWithString:string
+//                                                                   attributes:attributtes];
+////    _test.text = string;
+//    
+//    [_test sizeToFit];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -35,15 +48,8 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)hideWriteQueView:(UIButton *)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
 }
-*/
-
 @end

@@ -31,8 +31,14 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [self hideTabBar];
     [self setBarTitle:@"设置"];
     [self setDefaultThemeBar];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [self showTabBar];
 }
 
 - (void)didReceiveMemoryWarning

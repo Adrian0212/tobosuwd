@@ -31,6 +31,11 @@
     self.list = messageList;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self setOrangeThemeBar];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
