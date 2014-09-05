@@ -15,7 +15,6 @@
     NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
 
     [settings setBool:isLogin forKey:@"isLogin"];
-    //    _isLogin = YES;
     [settings synchronize];
 }
 
@@ -120,9 +119,12 @@
 
     NSNumber *temp = [NSNumber numberWithInt:score];
 
-    [[settings objectForKey:@"UserInfo"] setValue:temp forKey:@"score"];
+    NSMutableDictionary *newinfos = [NSMutableDictionary dictionaryWithDictionary:[settings objectForKey:@"UserInfo"]];
 
-    [settings setObject:[settings objectForKey:@"UserInfo"] forKey:@"UserInfo"];
+    [newinfos setValue:temp forKey:@"score"];
+
+    NSDictionary *infos = [NSDictionary dictionaryWithDictionary:newinfos];
+    [settings setObject:infos forKey:@"UserInfo"];
 
     [settings synchronize];
 }

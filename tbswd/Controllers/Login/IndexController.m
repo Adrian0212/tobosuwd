@@ -20,9 +20,6 @@
 
     if ([[Config Instance] getIsLogin] == YES) {
         [self performSegueWithIdentifier:@"goLogin" sender:self];
-        NSLog(@"YES");
-    } else {
-        NSLog(@"NO");
     }
 }
 

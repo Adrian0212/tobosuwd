@@ -7,12 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseTabBarController.h"
 #import "Utils.h"
 
 @interface BaseUIViewController : UIViewController
 
-@property (retain, nonatomic) UINavigationBar   *navBar;
-@property (retain, nonatomic) UIButton          *backButton;
+@property (retain, nonatomic) UINavigationBar       *navBar;
+@property (retain, nonatomic) UIButton              *backButton;
+@property (retain, nonatomic) BaseTabBarController  *baseTabBarController;
 
 // 隐藏导航栏
 - (void)hideNavigationBar;
@@ -30,5 +32,9 @@
 - (void)setOrangeThemeBar;
 // 关闭软键盘
 - (void)closeKeyBoard;
+// 隐藏标签栏
+- (void)hideTabBar;
+// 显示标签栏
+- (void)showTabBar;
 
 @end
