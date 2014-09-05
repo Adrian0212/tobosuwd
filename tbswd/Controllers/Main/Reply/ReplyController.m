@@ -17,13 +17,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     [self setBarTitle:@"等你回答"];
     [self setOrangeThemeBar];
     [self hideBackButton];
 
     // 设置第一个tableHeaderView高度，与下面的一致
     self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 22.0f)];
+}
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self setOrangeThemeBar];
 }
 
 - (void)didReceiveMemoryWarning
@@ -36,6 +41,5 @@
     // 取消选中状态
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
-
 
 @end

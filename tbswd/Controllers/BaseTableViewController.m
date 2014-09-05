@@ -19,6 +19,7 @@
     [super viewDidLoad];
 
     _navBar = (UINavigationBar *)self.navigationController.navigationBar;
+    _baseTabBarController = (BaseTabBarController *)self.tabBarController;
 
     // 设置导航栏浅色样式
     [self setDefaultThemeBar];

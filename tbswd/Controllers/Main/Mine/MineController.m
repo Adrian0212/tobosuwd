@@ -17,6 +17,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self setBarTitle:@"个人中心"];
+    [self setOrangeThemeBar];
+    [self hideBackButton];
 
     // 去除表格顶部间距
     self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.tableView.bounds.size.width, 0.01f)];
@@ -58,10 +62,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self setBarTitle:@"个人中心"];
     [self setOrangeThemeBar];
-    [self hideBackButton];
-
     [self loadData];
 }
 

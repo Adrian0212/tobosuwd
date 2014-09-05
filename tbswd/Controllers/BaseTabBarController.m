@@ -17,22 +17,28 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.tabBar setBarTintColor:[Utils hexStringToColor:@"#f5f5f5"]];
-    [self.tabBar setSelectedImageTintColor:[Utils hexStringToColor:@"ff6600"]];
 
-    NSArray *itemImage = [NSArray arrayWithObjects:@"icon_mine_01.png", @"icon_mine_02.png", @"", @"icon_mine_03.png", @"icon_mine_04.png", nil];
-    //    NSArray *itemSelectedImage = [NSArray arrayWithObjects:@"icon_mine_01.png", @"icon_mine_02.png", @"", @"icon_mine_03.png", @"icon_mine_04.png",nil];
+    NSArray *itemImage = [NSArray arrayWithObjects:@"icon_tabbar_01.png", @"icon_tabbar_02.png", @"", @"icon_tabbar_03.png", @"icon_tabbar_04.png", nil];
+    NSArray *itemSelectedImage = [NSArray arrayWithObjects:@"icon_tabbar_01_selected.png", @"icon_tabbar_02_selected.png", @"", @"icon_tabbar_03_selected.png", @"icon_tabbar_04_selected.png", nil];
+
+    // 去除tabbar上的阴影
+    [[UITabBar appearance] setBackgroundImage:[[UIImage alloc] init]];
+    [[UITabBar appearance] setShadowImage:[[UIImage alloc] init]];
 
     int i = 0;
 
     for (UITabBarItem *item in self.tabBar.items) {
+        // 下移image的位置
+        [item setImageInsets:UIEdgeInsetsMake(6, 0, -6, 0)];
         [item setImage:[UIImage imageNamed:itemImage[i]]];
+        [item setSelectedImage:[UIImage imageNamed:itemSelectedImage[i]]];
+        // 设置使用原图
+        item.image = [item.image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        item.selectedImage = [item.selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         i++;
-        //        [item setTitle:[NSString stringWithFormat:@"%d", i++]];
-        //        [item setTitleTextAttributes: forState:UIControlStateNormal];
     }
 
-    [self addCenterButtonWithImage:[UIImage imageNamed:@"camera_button_take.png"] highlightImage:[UIImage imageNamed:@"tabBar_cameraButton_ready_matte.png"]];
+    [self addCenterButtonWithImage:[UIImage imageNamed:@"icon_tabbar_center.png"] highlightImage:[UIImage imageNamed:@"icon_tabbar_center.png"]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -59,6 +65,9 @@
         _centerButton.center = center;
     }
 
+    // 添加按钮点击事件
+    [_centerButton addTarget:self action:@selector(showWriteQueView) forControlEvents:UIControlEventTouchUpInside];
+
     [self.view addSubview:_centerButton];
 }
 
@@ -74,6 +83,14 @@
     if (_centerButton) {
         [_centerButton setHidden:NO];
     }
+}
+
+- (void)showWriteQueView
+{
+    NSLog(@"showWriteQueView");
+    UIStoryboard        *mainStoryboard = [UIStoryboard storyboardWithName:@"wenda" bundle:nil];
+    UIViewController    *writeQue = [mainStoryboard instantiateViewControllerWithIdentifier:@"WriteQue"];
+    [self presentViewController:writeQue animated:YES completion:nil];
 }
 
 @end
