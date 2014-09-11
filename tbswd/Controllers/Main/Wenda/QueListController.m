@@ -251,6 +251,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [self setOrangeThemeBar];
-    [self.tabBarController.tabBar setHidden:NO];
+    [self showTabBar];
 }
+
 @end

@@ -950,20 +950,6 @@
             <point key="canvasLocation" x="272" y="1560"/>
         </scene>
         <!--View Controller-->
-        <scene sceneID="5Ry-Yf-xwJ">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="05E-iB-VYO" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="4rV-bk-PED" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Ht1-fm-5tm">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-            </objects>
-            <point key="canvasLocation" x="2686" y="1023"/>
-        </scene>
-        <!--View Controller-->
         <scene sceneID="myq-ay-jxV">
             <objects>
                 <viewController id="Bol-B4-pkt" sceneMemberID="viewController">
@@ -985,20 +971,23 @@
             </objects>
             <point key="canvasLocation" x="504" y="23"/>
         </scene>
-        <!--View Controller-->
+        <!--Good At Controller-->
         <scene sceneID="Ir8-5O-Fad">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ycE-fw-29s" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="bXV-dU-7vx" sceneMemberID="viewController">
+                <viewController id="bXV-dU-7vx" customClass="GoodAtController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="09Q-cY-yMy">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="91R-wL-ryh"/>
+                    <connections>
+                        <segue destination="F8D-Rp-7oo" kind="push" identifier="wenda_goodat_commentdetial" id="kam-Sm-mfg"/>
+                    </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ycE-fw-29s" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2686" y="-167"/>
+            <point key="canvasLocation" x="2351" y="695"/>
         </scene>
         <!--Navigation Controller - 首页-->
         <scene sceneID="wPN-Lh-kFJ">
@@ -1049,7 +1038,7 @@
         <!--Commnet Detail Controller-->
         <scene sceneID="ksQ-F9-adB">
             <objects>
-                <viewController id="F8D-Rp-7oo" customClass="CommnetDetailController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="commentDetail" id="F8D-Rp-7oo" customClass="CommnetDetailController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="G83-Zr-NRC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1111,4 +1100,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="kam-Sm-mfg"/>
+    </inferredMetricsTieBreakers>
 </document>

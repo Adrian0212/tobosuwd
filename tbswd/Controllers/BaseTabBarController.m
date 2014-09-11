@@ -18,8 +18,8 @@
 {
     [super viewDidLoad];
 
-    NSArray *itemImage = [NSArray arrayWithObjects:@"icon_tabbar_01.png", @"icon_tabbar_02.png", @"", @"icon_tabbar_03.png", @"icon_tabbar_04.png", nil];
-    NSArray *itemSelectedImage = [NSArray arrayWithObjects:@"icon_tabbar_01_selected.png", @"icon_tabbar_02_selected.png", @"", @"icon_tabbar_03_selected.png", @"icon_tabbar_04_selected.png", nil];
+    NSArray *itemImage = [NSArray arrayWithObjects:@"icon_tabbar_01.png", @"icon_tabbar_02.png", @"icon_tabbar_01.png", @"icon_tabbar_03.png", @"icon_tabbar_04.png", nil];
+    NSArray *itemSelectedImage = [NSArray arrayWithObjects:@"icon_tabbar_01_selected.png", @"icon_tabbar_02_selected.png", @"icon_tabbar_01.png", @"icon_tabbar_03_selected.png", @"icon_tabbar_04_selected.png", nil];
 
     // 去除tabbar上的阴影
     [[UITabBar appearance] setBackgroundImage:[[UIImage alloc] init]];

@@ -8,6 +8,16 @@
 
 #import "BaseUIViewController.h"
 #import "TopScrollView.h"
-@interface GoodAtController : BaseUIViewController
+#import "Utils.h"
+#import "Config.h"
+#import "MJRefresh.h"
+#import "JSONkit.h"
+#import "QueList.h"
+#import "QueListCell.h"
+#import "UIImageView+AFNetworking.h"
+#import "AFNetworking.h"
+#import "CommnetDetailController.h"
+@interface GoodAtController : BaseUIViewController<UIScrollViewDelegate,UITableViewDataSource, UITableViewDelegate>
+@property (strong, nonatomic) IBOutlet UITableView *queListTable;
 
 @end

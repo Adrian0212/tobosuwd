@@ -52,6 +52,7 @@
     // [Utils ToastNotification:@"网络连接故障" andView:self.tabBarController.tabBar andLoading:NO andIsBottom:YES];
 
     [_submitBtn addTarget:self action:@selector(addBtn:) forControlEvents:UIControlEventTouchUpInside];
+ 
 }
 
 - (void)didReceiveMemoryWarning
@@ -61,12 +62,16 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self.tabBarController.tabBar setHidden:YES];
+    //[self.tabBarController.tabBar setHidden:YES];
+    [self hideTabBar];
     // 锁住屏幕
     _hud = [[MBProgressHUD alloc] initWithView:self.view];
     [Utils showHUD:_hud inView:self.view withTitle:@"正在加载"];
 }
-
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [self showTabBar];
+}
 /**
  *  集成刷新控件
  */
@@ -204,6 +209,11 @@
 
         @finally {
              [_answerTable reloadData];
+            if ([@"header" isEqual : location]) {
+                [_answerTable headerEndRefreshing];
+            } else {
+                [_answerTable footerEndRefreshing];
+            }
 
         }
     }
@@ -280,6 +290,7 @@
 
     CGFloat tablviewH = [[UIScreen mainScreen] bounds].size.height - 64 - 50 - _topView.frame.size.height;
     _answerTable = [[UITableView alloc]initWithFrame:CGRectMake(0, _topView.frame.size.height + 64, 320, tablviewH) style:UITableViewStylePlain];
+    [self setExtraCellLineHidden:_answerTable];
     // [_answerTable setBackgroundColor:[UIColor redColor]];
     [self.view addSubview:_answerTable];
 
@@ -464,5 +475,10 @@
         // [Utils ToastNotification:@"网络连接故障" andView:self.BaseUIViewController. andLoading:NO andIsBottom:NO];
     }];
 }
-
+- (void)setExtraCellLineHidden: (UITableView *)tableView{
+    UIView *view =[ [UIView alloc]init];
+    view.backgroundColor = [UIColor clearColor];
+    [tableView setTableFooterView:view];
+    [tableView setTableHeaderView:view];
+}
 @end
