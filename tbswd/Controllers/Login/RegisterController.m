@@ -35,6 +35,7 @@
     [self setTabBorder:_tabArray[0]];
     // 设置scrollview的相关属性
     [self initScrollView];
+    [self insertCity2Db];
 }
 
 - (void)didReceiveMemoryWarning
@@ -458,31 +459,29 @@
     [alertView show];
 }
 
-// -(void)getPorvinceDataFromUrl
+// -(void)insertProvince2Db
 // {
+//     
 //    //获得省份shuju
-//    NSString *priUrl=@"http://api.toboshu.net:8888/basic/basic_info/getProinceCity";
+//    NSString *priUrl=@"http://api.tobosu.com/basic/basic_info/getProvince";
 //    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:priUrl]];       // 这里要将url设置为空
 //    [httpClient postPath:priUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        @try
-//        {
+//        @try{
 //            NSString *resultString = operation.responseString;
-//            NSDictionary *arrayDict=[resultString objectFromJSONString];
-//
-//            //获取应用程序沙盒的Documents目录
-//            NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
-//            NSString *plistPath1 = [paths objectAtIndex:0];
-//            //得到完整的文件名
-//            NSString *filename=[plistPath1 stringByAppendingPathComponent:@"provinceCity.plist"];
-//            //输入写入
-//            [arrayDict writeToFile:filename atomically:YES];
-//
-//            //那怎么证明我的数据写入了呢？读出来看看
-//            NSMutableDictionary *data1 = [[NSMutableDictionary alloc] initWithContentsOfFile:filename];
-//            NSLog(@"%@",plistPath1);
+//            NSArray *array=[resultString objectFromJSONString];
+//            NSLog(@"%@",[array objectAtIndex:1]);
+//            for (NSInteger i=0; i<array.count; i++) {
+//                NSString *provinceID=[[array objectAtIndex:i] objectForKey:@"provinceid"];
+//                NSString *provinceName = [[array objectAtIndex:i] objectForKey:@"provincename"];
+//                NSString *largeID = [[array objectAtIndex:i] objectForKey:@"largeid"];
+//                
+//                NSString *sql = [NSString stringWithFormat:@"insert into TBS_Province(ProvinceID,ProvinceName,LargeID) values('%@','%@','%@')",provinceID,provinceName,largeID];
+//                [[DBHelper createDataBase] executeUpdate:sql];
+//                
+//            }
+//            
 //        }
-//        @catch(NSException *exception)
-//        {
+//        @catch(NSException *exception){
 //            [Utils TakeException:exception];
 //        }
 //
@@ -494,5 +493,42 @@
 //    }];
 //
 // }
+-(void)insertCity2Db
+{
+    
+    //获得省份shuju
+    NSString *priUrl=@"http://api.tobosu.com/basic/basic_info/cityall";
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:priUrl]];       // 这里要将url设置为空
+    [httpClient postPath:priUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        @try{
+            NSString *resultString = operation.responseString;
+            NSDictionary *arrayDic=[resultString objectFromJSONString];
+            NSLog(@"%@",[arrayDic objectForKey:@"1"]);
+       
+            NSArray* arr = [arrayDic allKeys];
+            arr = [arr sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2){
+                NSComparisonResult result = [obj1 compare:obj2];
+                return result==NSOrderedDescending;
+            }];
+            
+            for(NSString* str in arr)
+            {
+                NSLog(@"%@",[arrayDic objectForKey:str]);
+            }
+            
+            
+        }
+        @catch(NSException *exception){
+            [Utils TakeException:exception];
+        }
+        
+        @finally {}
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        // _uiview=self.view;
+        //[Utils ToastNotification:@"网络连接故障" andView:_uiview andLoading:NO andIsBottom:YES];
+        NSLog(@"ERROR====%@",operation);
+    }];
+    
+}
 
 @end
