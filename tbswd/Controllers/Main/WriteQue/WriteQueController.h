@@ -18,6 +18,7 @@
 @property (weak, nonatomic) NSString            *placeholder;   // 默认提示语
 
 @property (retain, nonatomic) DBHelper *dbhelper;
+@property (retain, nonatomic) FMDatabase *db;
 
 @property  int number;
 

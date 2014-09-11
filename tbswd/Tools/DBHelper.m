@@ -17,7 +17,7 @@ static FMDatabase *shareDataBase = nil;
     self = [super init];
 
     if (self) {
-        shareDataBase = [DBHelper createDataBase];
+        shareDataBase = [DBHelper initFMDataBase];
     }
 
     return self;
@@ -40,45 +40,61 @@ static FMDatabase *shareDataBase = nil;
 //    }
 // }
 
-+ (FMDatabase *)createDataBase
++ (FMDatabase *)initFMDataBase
 {
     static dispatch_once_t onceToken;
 
     dispatch_once(&onceToken, ^{
+            // 获取Documents目录路径
             NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
             NSString *documentDirectory = [paths objectAtIndex:0];
+            // 拼接数据库路径
 
-            // 创建数据库实例，如果路径中不存在"wenda.sqlite"的文件，sqlite会自动创建"wenda.sqlite"
-            NSString *dbPath = [documentDirectory stringByAppendingPathComponent:@"wenda.sqlite"];
-            shareDataBase = [FMDatabase databaseWithPath:dbPath];
-            NSLog(@"dbPath:%@", dbPath);
+            NSString *dbFilePath = [documentDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.sqlite", DATABASE_FILE_NAME]];
+            // 创建NSFileManager对象，判断数据库文件是否存在
+            NSFileManager *fm = [NSFileManager defaultManager];
+            BOOL isExist = [fm fileExistsAtPath:dbFilePath];
+
+            if (!isExist) {
+                // 如果Documents中不存在数据库，则拷贝工程里的数据库到Documents下
+                NSString *backupDbPath = [[NSBundle mainBundle] pathForResource:DATABASE_FILE_NAME ofType:@"sqlite"];
+
+                if ([fm copyItemAtPath:backupDbPath toPath:dbFilePath error:nil]) {
+                    shareDataBase = [FMDatabase databaseWithPath:dbFilePath];
+                }
+            }
         });
     return shareDataBase;
 }
 
 + (BOOL)isTableExist:(NSString *)tableName
 {
-    FMResultSet *rs = [shareDataBase executeQuery:@"select count(*) as 'count' from sqlite_master where type ='table' and name = ?", tableName];
+    if ([shareDataBase open]) {
+        FMResultSet *rs = [shareDataBase executeQuery:@"select count(*) as 'count' from sqlite_master where type ='table' and name = ?", tableName];
 
-    while ([rs next]) {
-        NSInteger count = [rs intForColumn:@"count"];
+        while ([rs next]) {
+            NSInteger count = [rs intForColumn:@"count"];
 
-        if (0 == count) {
-            return NO;
-        } else {
-            return YES;
+            if (0 == count) {
+                return NO;
+            } else {
+                return YES;
+            }
         }
+
+        [rs close];
+        [shareDataBase close];
     }
 
     return NO;
 }
 
-- (BOOL)createTable
+- (BOOL)createTable:(NSString *)tableName withArguments:(NSString *)arguments
 {
-    if ([shareDataBase open]) {
-        NSString *sqlstr = @"CREATE TABLE "tCategoryTabelName " (ID integer, Title text, ReTitle text, FatherID integer, SortPath text, ShowNo integer, IsOpen boolean, Mtype integer, Tuijian boolean, TreeLevel integer,WebTitle text, WebKeyword text, WebDecription text)";
+    NSString *sqlstr = [NSString stringWithFormat:@"CREATE TABLE %@ (%@)", tableName, arguments];
 
-        if (![DBHelper isTableExist:tCategoryTabelName]) {
+    if ([shareDataBase open]) {
+        if (![DBHelper isTableExist:tableName]) {
             [shareDataBase executeUpdate:sqlstr];
         } else {
             return NO;

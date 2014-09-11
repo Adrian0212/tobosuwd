@@ -19,6 +19,7 @@
     [super viewDidLoad];
 
     _dbhelper = [[DBHelper alloc] init];
+    _db = [DBHelper initFMDataBase];
 
     _placeholder = @"请描述您的问题，尽量清晰简明，以便更好地获得答案。";
 
@@ -37,12 +38,12 @@
             NSDictionary *jsonData = [resultString objectFromJSONString];
 
             if ([jsonData[@"msg"] isEqualToString:@"true"]) {
-                [_dbhelper emptyTable:tCategoryTabelName];                  // 清空之前的数据
+                [_dbhelper emptyTable:tTopCategoryTabelName];
+                [_dbhelper emptyTable:tChildCategoryTabelName];                  // 清空之前的数据
                 NSLog(@"WriteQueController:插入问题分类数据");
                 NSArray *categoryArray = jsonData[@"info"];
-
                 for (int i = 0; i < categoryArray.count; i++) {
-                    if (![_dbhelper insertDictionary:categoryArray[i] toTable:tCategoryTabelName]) {
+                    if (![_dbhelper insertDictionary:categoryArray[i] toTable:tTopCategoryTabelName]) {
                         NSLog(@"WriteQueController:插入失败");
                         break;
                     }
@@ -58,35 +59,40 @@
         [Utils ToastNotification:@"网络连接故障" andView:self.view andLoading:NO andIsBottom:YES];
     }];
 
-    NSMutableArray *categoryTopArray = [[NSMutableArray alloc] init]; // 主类别数组
+    if ([_db open]) {
+        NSMutableArray  *categoryTopArray = [[NSMutableArray alloc] init]; // 主类别数组
+        NSString        *sqlStr = [NSString stringWithFormat:@"select ID, Title from %@ ", tTopCategoryTabelName];
+        // 从数据库中获取主类别数组
+        FMResultSet *topSet = [_db executeQuery:[sqlStr stringByAppendingString:@"where FatherID = 0"]];
 
-    NSArray *topArray = [_dbhelper queryTable:tCategoryTabelName withArguments:@"FatherID = 0"];
+        while ([topSet next]) {
+            NSMutableDictionary *categoryTopDic = [[NSMutableDictionary alloc] init];   // 主类别字典
 
-    for (int i = 0; i < topArray.count; i++) {
-        NSMutableDictionary *categoryTopDic = [[NSMutableDictionary alloc] init];   // 主类别字典
+            [categoryTopDic setObject:[topSet objectForColumnName:@"ID"] forKey:@"ID"];
+            [categoryTopDic setObject:[topSet objectForColumnName:@"Title"] forKey:@"Title"];
 
-        [categoryTopDic setObject:[topArray[i] objectForKey:@"ID"] forKey:@"ID"];
-        [categoryTopDic setObject:[topArray[i] objectForKey:@"Title"] forKey:@"Title"];
+            NSMutableArray *categoryChildArray = [[NSMutableArray alloc] init]; // 子类别数组
 
-        NSMutableArray *categoryChildArray = [[NSMutableArray alloc] init]; // 子类别数组
+            NSString    *argumentsql = [NSString stringWithFormat:@"where FatherID = %@", [topSet objectForColumnName:@"ID"]];
+            FMResultSet *childSet = [_db executeQuery:[sqlStr stringByAppendingString:argumentsql]];
 
-        NSString    *argumentsql = [NSString stringWithFormat:@"FatherID = %@", [topArray objectAtIndex:i][@"ID"]];
-        NSArray     *childArray = [_dbhelper queryTable:tCategoryTabelName withArguments:argumentsql];
+            while ([childSet next]) {
+                NSMutableDictionary *categoryChildDic = [[NSMutableDictionary alloc] init]; // 子类别字典
+                [categoryChildDic setObject:[childSet objectForColumnName:@"ID"] forKey:@"ID"];
+                [categoryChildDic setObject:[childSet objectForColumnName:@"Title"]  forKey:@"Title"];
+                [categoryChildArray addObject:categoryChildDic];
+            }
 
-        for (int j = 0; j < childArray.count; j++) {
-            NSMutableDictionary *categoryChild = [[NSMutableDictionary alloc] init]; // 子类别字典
-            [categoryChild setObject:[childArray[j] objectForKey:@"ID"] forKey:@"ID"];
-            [categoryChild setObject:[childArray[j] objectForKey:@"Title"] forKey:@"Title"];
+            [childSet close];
 
-            [categoryChildArray addObject:categoryChild];
+            [categoryTopDic setObject:categoryChildArray forKey:@"childs"];
+            [categoryTopArray addObject:categoryTopDic];
         }
 
-        [categoryTopDic setObject:categoryChildArray forKey:@"child"];
-
-        [categoryTopArray addObject:categoryTopDic];
+        [topSet close];
+        [_db close];
+        NSLog(@"%@", categoryTopArray);
     }
-
-    NSLog(@"%@", categoryTopArray);
 }
 
 - (void)didReceiveMemoryWarning
