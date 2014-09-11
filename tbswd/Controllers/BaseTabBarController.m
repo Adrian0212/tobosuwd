@@ -87,9 +87,9 @@
 
 - (void)showWriteQueView
 {
-    NSLog(@"showWriteQueView");
     UIStoryboard        *mainStoryboard = [UIStoryboard storyboardWithName:@"wenda" bundle:nil];
     UIViewController    *writeQue = [mainStoryboard instantiateViewControllerWithIdentifier:@"WriteQue"];
+
     [self presentViewController:writeQue animated:YES completion:nil];
 }
 

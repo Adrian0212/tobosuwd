@@ -849,7 +849,8 @@
                         <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <connections>
-                        <outlet property="test1" destination="kt5-oH-g9b" id="0V5-lq-eec"/>
+                        <outlet property="numLabel" destination="6X7-JL-shp" id="D6X-Fa-rUy"/>
+                        <outlet property="textView" destination="kt5-oH-g9b" id="snu-iS-3Vh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZsL-od-aMY" userLabel="First Responder" sceneMemberID="firstResponder"/>

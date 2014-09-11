@@ -56,8 +56,36 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)hideWriteQueView:(UIButton *)sender {
+- (IBAction)hideWriteQueView:(UIButton *)sender
+{
     [self dismissViewControllerAnimated:YES completion:nil];
-    
 }
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+    _number = 25 - [textView.text length];
+
+    if ([textView.text length] == 0) {
+        textView.text = _placeholder;
+        textView.textColor = [Utils hexStringToColor:@"#999999"];
+        [textView endEditing:YES];
+    }
+
+    _numLabel.text = [NSString stringWithFormat:@"%d", _number];
+
+    if (_number < 0) {
+        _numLabel.textColor = [UIColor redColor];
+    } else {
+        _numLabel.textColor = [Utils hexStringToColor:@"#666666"];
+    }
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    if ([textView.text isEqualToString:_placeholder]) {
+        textView.text = @"";
+        textView.textColor = [Utils hexStringToColor:@"#333333"];
+    }
+}
+
 @end

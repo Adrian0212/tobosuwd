@@ -11,6 +11,5 @@
 @interface WriteQueController : BaseUIViewController
 
 - (IBAction)hideWriteQueView:(UIButton *)sender;
-@property (weak, nonatomic) IBOutlet UITextView *test1;
 
 @end

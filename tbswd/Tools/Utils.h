@@ -63,8 +63,18 @@
  *  @param image 原始图片
  *  @param size  缩放尺寸
  *
- *  @return <#return value description#>
+ *  @return 缩放后的图片
  */
 + (UIImage *)scaleImage:(UIImage *)image toSize:(CGSize)size;
+
+/**
+ *  调整字符串行高
+ *
+ *  @param string 字符串
+ *  @param height 行高
+ *
+ *  @return 带有行高的字符串
+ */
++ (NSAttributedString *)rezieString:(NSString *)string toHeight:(float)height;
 
 @end
