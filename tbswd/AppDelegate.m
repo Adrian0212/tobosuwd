@@ -13,15 +13,22 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    
+
     DBHelper *dbhelper = [[DBHelper alloc] init];
-    if ([dbhelper createTable]) {
-        NSLog(@"数据库创建成功");
-    }
-    
+
+    //    NSString *argumentsql = @"('ID' INTEGER PRIMARY KEY  NOT NULL , 'Title' VARCHAR , 'ReTitle' VARCHAR, 'FatherID' INTEGER, 'SortPath' VARCHAR, 'ShowNo' INTEGER, 'IsOpen' BOOL, 'Mtype' INTEGER, 'Tuijian' BOOL, 'TreeLevel' INTEGER, 'WebTitle' VARCHAR, 'WebKeyword' VARCHAR, 'WebDecription' TEXT)";
+    //
+    //    if (![DBHelper isTableExist:tTopCategoryTabelName]) {
+    //        [dbhelper createTable:tTopCategoryTabelName withArguments:argumentsql];
+    //    }
+    //
+    //    if (![DBHelper isTableExist:tChildCategoryTabelName]) {
+    //        [dbhelper createTable:tChildCategoryTabelName withArguments:argumentsql];
+    //    }
+
     return YES;
 }
-							
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -30,7 +37,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 

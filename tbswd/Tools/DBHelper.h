@@ -9,7 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "FMDB.h"
 
-#define tCategoryTabelName @"T_Category"    // 问题列别表名
+#define DATABASE_FILE_NAME      @"wenda"
+#define tTopCategoryTabelName   @"TBS_TopCategory"      // 问题主类别表
+#define tChildCategoryTabelName @"TBS_ChildCategory"    // 问题子类别表
 
 @interface DBHelper : NSObject
 
@@ -18,7 +20,7 @@
  *
  *  @return 数据库对象
  */
-+ (FMDatabase *)createDataBase;
++ (FMDatabase *)initFMDataBase;
 
 /**
  *
@@ -32,19 +34,24 @@
 + (BOOL)isTableExist:(NSString *)tableName;
 
 /**
- *  创建一系列表
+ *  创建表
+ *
+ *  @param tableName 表名
+ *  @param arguments 参数
  *
  *  @return 成功YES，失败NO
  */
-- (BOOL)createTable;
+- (BOOL)createTable:(NSString *)tableName withArguments:(NSString *)arguments;
 
 /**
  *  将数据字典的数据插入表中
  *
+ *  Tips:字典中key的值与表中列表名需要一致
+ *
  *  @param dictionary 数据字典
  *  @param tableName  表名
  *
- *  @return 成功YES,失败NO
+ *  @return 成功YES，失败NO
  */
 - (BOOL)insertDictionary:(NSDictionary *)dictionary toTable:(NSString *)tableName;
 
@@ -53,7 +60,7 @@
  *
  *  @param tableName 表名
  *
- *  @return 成功YES,失败NO
+ *  @return 成功YES，失败NO
  */
 - (BOOL)emptyTable:(NSString *)tableName;
 

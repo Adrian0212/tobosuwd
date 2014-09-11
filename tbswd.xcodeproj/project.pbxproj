@@ -99,6 +99,7 @@
 		8447C8E919B006B0005E43DF /* bg_navbar_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 8447C8E719B006B0005E43DF /* bg_navbar_white.png */; };
 		845557FB19AAD56700E115AC /* TSRegularExpressionUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 845557FA19AAD56700E115AC /* TSRegularExpressionUtils.m */; };
 		845C686D19B564A100AA3D57 /* btn_logout.png in Resources */ = {isa = PBXBuildFile; fileRef = 845C686C19B564A100AA3D57 /* btn_logout.png */; };
+		845FCDD419C1681400FC71A1 /* wenda.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 845FCDD319C1681400FC71A1 /* wenda.sqlite */; };
 		846DCDE319ADD5FE00FE46F2 /* bg_mine_lv.png in Resources */ = {isa = PBXBuildFile; fileRef = 846DCDE219ADD5FE00FE46F2 /* bg_mine_lv.png */; };
 		846DCDE519ADD9F400FE46F2 /* btn_mine_uncheck.png in Resources */ = {isa = PBXBuildFile; fileRef = 846DCDE419ADD9F300FE46F2 /* btn_mine_uncheck.png */; };
 		8477D4A719AC0A2B002BAEA4 /* messages.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8477D4A619AC0A2B002BAEA4 /* messages.plist */; };
@@ -330,6 +331,7 @@
 		845557F919AAD56600E115AC /* TSRegularExpressionUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSRegularExpressionUtils.h; sourceTree = "<group>"; };
 		845557FA19AAD56700E115AC /* TSRegularExpressionUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSRegularExpressionUtils.m; sourceTree = "<group>"; };
 		845C686C19B564A100AA3D57 /* btn_logout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_logout.png; sourceTree = "<group>"; };
+		845FCDD319C1681400FC71A1 /* wenda.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = wenda.sqlite; sourceTree = "<group>"; };
 		846DCDE219ADD5FE00FE46F2 /* bg_mine_lv.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_mine_lv.png; sourceTree = "<group>"; };
 		846DCDE419ADD9F300FE46F2 /* btn_mine_uncheck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_mine_uncheck.png; sourceTree = "<group>"; };
 		8477D4A619AC0A2B002BAEA4 /* messages.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = messages.plist; sourceTree = "<group>"; };
@@ -485,6 +487,7 @@
 		3A25C94019A5758E002305A0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				845FCDD319C1681400FC71A1 /* wenda.sqlite */,
 				847939D719BE87D800BD58A0 /* Default@2x.png */,
 				847939D819BE87D800BD58A0 /* Default-568h@2x.png */,
 				3A7FB0CA19AAD83A00789A57 /* provinceCity.plist */,
@@ -991,6 +994,7 @@
 				8477D4BA19AC810E002BAEA4 /* icon_reply_04@2x.png in Resources */,
 				84251D4E19B839E10077CFB0 /* tabBar_cameraButton_ready_matte.png in Resources */,
 				3A7FB0CB19AAD83A00789A57 /* provinceCity.plist in Resources */,
+				845FCDD419C1681400FC71A1 /* wenda.sqlite in Resources */,
 				3A25C9AA19A5766D002305A0 /* bg_edit_login.png in Resources */,
 				3A25C9B119A5766D002305A0 /* btn_login.png in Resources */,
 			);
