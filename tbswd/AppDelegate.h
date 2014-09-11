@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AFNetworking.h"
+#import "JSONKit.h"
+#import "DBHelper.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

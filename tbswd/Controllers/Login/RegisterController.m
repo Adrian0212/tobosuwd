@@ -331,6 +331,7 @@
     [_picker setDelegate:self];
     // 1.4 设置选择指示器
     [_picker setShowsSelectionIndicator:YES];
+
     _city = [NSMutableDictionary dictionary];
     _cityIdDictionary = [NSMutableDictionary dictionary];
     NSString            *plistPath = [[NSBundle mainBundle] pathForResource:@"provinceCity" ofType:@"plist"];

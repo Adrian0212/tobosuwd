@@ -14,6 +14,11 @@
 {
     // Override point for customization after application launch.
     
+    DBHelper *dbhelper = [[DBHelper alloc] init];
+    if ([dbhelper createTable]) {
+        NSLog(@"数据库创建成功");
+    }
+    
     return YES;
 }
 							

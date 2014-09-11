@@ -132,4 +132,19 @@
     return scaledImage;   // 返回的就是已经改变的图片
 }
 
++ (NSAttributedString *)rezieString:(NSString *)string toHeight:(float)height
+{
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+
+    paragraphStyle.minimumLineHeight = height;
+    paragraphStyle.maximumLineHeight = height;
+
+    NSDictionary *attributtes = @{
+        NSParagraphStyleAttributeName : paragraphStyle,
+    };
+
+    return [[NSAttributedString alloc] initWithString:string
+           attributes:attributtes];
+}
+
 @end

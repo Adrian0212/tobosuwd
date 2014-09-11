@@ -7,10 +7,20 @@
 //
 
 #import "BaseUIViewController.h"
+#import "AFNetworking.h"
+#import "JSONKit.h"
+#import "DBHelper.h"
 
-@interface WriteQueController : BaseUIViewController
+@interface WriteQueController : BaseUIViewController <UITextViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (weak, nonatomic) IBOutlet UILabel    *numLabel;      // 剩余输入字数
+@property (weak, nonatomic) NSString            *placeholder;   // 默认提示语
+
+@property (retain, nonatomic) DBHelper *dbhelper;
+
+@property  int number;
 
 - (IBAction)hideWriteQueView:(UIButton *)sender;
-@property (weak, nonatomic) IBOutlet UITextView *test1;
 
 @end
