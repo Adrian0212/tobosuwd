@@ -45,25 +45,27 @@ static FMDatabase *shareDataBase = nil;
     static dispatch_once_t onceToken;
     
     dispatch_once(&onceToken, ^{
-        // 获取Documents目录路径
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *documentDirectory = [paths objectAtIndex:0];
-        // 拼接数据库路径
-        
-        NSString *dbFilePath = [documentDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.sqlite", DATABASE_FILE_NAME]];
-        // 创建NSFileManager对象，判断数据库文件是否存在
-        NSFileManager *fm = [NSFileManager defaultManager];
-        BOOL isExist = [fm fileExistsAtPath:dbFilePath];
-        
-        if (!isExist) {
-            // 如果Documents中不存在数据库，则拷贝工程里的数据库到Documents下
-            NSString *backupDbPath = [[NSBundle mainBundle] pathForResource:DATABASE_FILE_NAME ofType:@"sqlite"];
-            
-            [fm copyItemAtPath:backupDbPath toPath:dbFilePath error:nil];
-        }
-        
-        shareDataBase = [FMDatabase databaseWithPath:dbFilePath];
-    });
+            // 获取Documents目录路径
+            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+            NSString *documentDirectory = [paths objectAtIndex:0];
+            // 拼接数据库路径
+
+            NSString *dbFilePath = [documentDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.sqlite", DATABASE_FILE_NAME]];
+            // 创建NSFileManager对象，判断数据库文件是否存在
+            NSFileManager *fm = [NSFileManager defaultManager];
+            BOOL isExist = [fm fileExistsAtPath:dbFilePath];
+
+            if (!isExist) {
+                // 如果Documents中不存在数据库，则拷贝工程里的数据库到Documents下
+                NSLog(@"复制数据库文件");
+                NSString *backupDbPath = [[NSBundle mainBundle] pathForResource:DATABASE_FILE_NAME ofType:@"sqlite"];
+
+                [fm copyItemAtPath:backupDbPath toPath:dbFilePath error:nil];
+            }
+
+            NSLog(@"数据库文件路径：%@", dbFilePath);
+            shareDataBase = [FMDatabase databaseWithPath:dbFilePath];
+        });
     return shareDataBase;
 }
 

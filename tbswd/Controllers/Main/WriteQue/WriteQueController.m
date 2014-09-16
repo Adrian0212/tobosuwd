@@ -371,20 +371,8 @@
         [_db close];
         return categoryArray;
     }
-}
--(void)viewDidAppear:(BOOL)animated
-{
-    NSLog(@"did");
-    //[self setDefaultThemeBar];
-}
--(void)viewWillAppear:(BOOL)animated
-{
-    NSLog(@"will");
-}
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+    return nil;
 }
 
 #pragma mark - MBProgressHUD Delegate

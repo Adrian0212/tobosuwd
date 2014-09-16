@@ -301,6 +301,21 @@
             </objects>
             <point key="canvasLocation" x="-235" y="799"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="HYs-4g-bpI">
+            <objects>
+                <viewController id="FC3-gH-Ycb" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uEe-Ls-EID">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="tln-B1-ghl"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cAj-ip-nDi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="139" y="799"/>
+        </scene>
         <!--Navigation Controller - 个人中心-->
         <scene sceneID="SQB-A9-dxU">
             <objects>

@@ -18,7 +18,7 @@
     UITextField     *_cityTextField;            // 城市选择框
     UIView          *_view1;
     UIPickerView    *_picker;
-
+    
     NSString            *_cityId;           // 保存用户当前选中的城市ID
     NSMutableArray      *provinceArray;     // 省份数据
     NSMutableDictionary *citydict;          // 城市数据
@@ -38,12 +38,12 @@
     [self setTabBorder:_tabArray[0]];
     // 设置scrollview的相关属性
     [self initScrollView];
-
+    
     [self getProvinceArray];
     [self getCityDict];
     NSArray *arry = [citydict objectForKey:[provinceArray[0] objectForKey:@"ProvinceName"]];
     subProvinceArray = [NSMutableArray array];
-
+    
     for (NSInteger i = 0; i < arry.count; i++) {
         [subProvinceArray addObject:[[arry objectAtIndex:i]objectForKey:@"SimpName"]];
     }
@@ -267,29 +267,29 @@
                 NSDictionary    *par = @{@"name":userName, @"password":[Utils convert2Md5:pwd], @"cityID":cityId, @"cellphone":mobileNumber, @"gender":@"0", @"ip":@"0.0.0.0", @"logintype":@"ios", @"phoneyzm":quCode};
                 
                 [httpClient postPath:priUrl parameters:par success:^(AFHTTPRequestOperation *operation, id responseObject)
-                {
-                    @try
-                    {
-                        NSString *resultString = operation.responseString;
-                        NSDictionary *jsonData = [resultString objectFromJSONString];
-
-                        if ([jsonData objectForKey:@"msg"]) {
-                            [self dismissViewControllerAnimated:YES completion:nil];
-                        }else{
-                            [self alertView:[jsonData objectForKey:@"info"]];
-                        }
-                    }
-                    @catch(NSException *exception)
-                    {
-                        [Utils TakeException:exception];
-                    }
-
-                    @finally
-                    {}
-                }           failure :^(AFHTTPRequestOperation *operation, NSError *error)
-                {
-                    [Utils ToastNotification:@"网络连接故障" andView:self.view andLoading:NO andIsBottom:YES];
-                }];
+                 {
+                     @try
+                     {
+                         NSString *resultString = operation.responseString;
+                         NSDictionary *jsonData = [resultString objectFromJSONString];
+                         
+                         if ([jsonData objectForKey:@"msg"]) {
+                             [self dismissViewControllerAnimated:YES completion:nil];
+                         }else{
+                             [self alertView:[jsonData objectForKey:@"info"]];
+                         }
+                     }
+                     @catch(NSException *exception)
+                     {
+                         [Utils TakeException:exception];
+                     }
+                     
+                     @finally
+                     {}
+                 }           failure :^(AFHTTPRequestOperation *operation, NSError *error)
+                 {
+                     [Utils ToastNotification:@"网络连接故障" andView:self.view andLoading:NO andIsBottom:YES];
+                 }];
             } else {
                 [self alertView:@"请正确填写用户名"];
             }
@@ -383,11 +383,11 @@
     if (component == 0) {
         NSArray *arry = [citydict objectForKey:[provinceArray[row] objectForKey:@"ProvinceName"]];
         [subProvinceArray removeAllObjects];
-
+        
         for (NSInteger i = 0; i < arry.count; i++) {
             [subProvinceArray addObject:[[arry objectAtIndex:i]objectForKey:@"SimpName"]];
         }
-
+        
         [pickerView reloadComponent:1];
     }
 }
@@ -425,14 +425,14 @@
         NSString    *sql = @"select ProvinceID,ProvinceName from TBS_Province order by ProvinceID";
         FMResultSet *fm = [_db executeQuery:sql];
         provinceArray = [[NSMutableArray alloc]init];
-
+        
         while ([fm next]) {
             NSString        *provinceID = [fm stringForColumn:@"ProvinceID"];
             NSString        *provinceName = [fm stringForColumn:@"ProvinceName"];
             NSDictionary    *dict = @{@"ProvinceID":provinceID, @"ProvinceName":provinceName};
             [provinceArray addObject:dict];
         }
-
+        
         [fm close];
         [_db close];
     }
@@ -443,25 +443,25 @@
     if ([_db open]) {
         FMResultSet *fm;
         citydict = [NSMutableDictionary dictionary];
-
+        
         for (NSInteger i = 0; i < provinceArray.count; i++) {
             NSString *sql = [NSString stringWithFormat:@"SELECT CityID,SimpName FROM TBS_City where ProvinceID = '%@' order by CityID", [[provinceArray objectAtIndex:i] objectForKey:@"ProvinceID"]];
             // NSString *sql = @"SELECT CityID,SimpName FROM TBS_City order by CityID where";
             fm = [_db executeQuery:sql];
-
+            
             NSMutableArray *arry = [NSMutableArray array];
-
+            
             while ([fm next]) {
                 NSString        *cityID = [fm stringForColumn:@"CityID"];
                 NSString        *simpName = [fm stringForColumn:@"SimpName"];
                 NSDictionary    *dict = @{@"SimpName":simpName, @"CityID":cityID};
                 [arry addObject:dict];
             }
-
+            
             [citydict setValue:arry forKey:[[provinceArray objectAtIndex:i] objectForKey:@"ProvinceName"]];
             [fm close];
         }
-
+        
         [_db close];
     }
 }
@@ -550,54 +550,5 @@
 //    }];
 //
 // }
-
-//-(void)insertCity2Db
-//{
-//
-//    //获得省份shuju
-//    NSString *priUrl=@"http://api.tobosu.com/basic/basic_info/cityall";
-//    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:priUrl]];       // 这里要将url设置为空
-//    [httpClient postPath:priUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        @try{
-//            NSString *resultString = operation.responseString;
-//            NSDictionary *arrayDic=[resultString objectFromJSONString];
-//            NSLog(@"%@",[arrayDic objectForKey:@"1"]);
-//
-//            NSArray* arr = [arrayDic allKeys];
-//
-//            if ([_db open])
-//            {
-//                for(NSString* key in arr)
-//                {
-//                    NSLog(@"%@",[arrayDic objectForKey:key]);
-//                    NSString *provinceID = [[arrayDic objectForKey:key] objectForKey:@"ProvinceID"];
-//                    NSString *cityName = [[arrayDic objectForKey:key] objectForKey:@"CityName"];
-//                    NSString *simpName = [[arrayDic objectForKey:key] objectForKey:@"simpname"];
-//                    NSString *citySimpName = [[arrayDic objectForKey:key] objectForKey:@"CitySimpName"];
-//                    NSString *isOpen = [[arrayDic objectForKey:key] objectForKey:@"IsOpen"];
-//                    NSString *sql = [NSString stringWithFormat:@"insert into TBS_City(ProvinceID,CityID,CityName,SimpName,CitySimpName,IsOpen) values('%@','%@','%@','%@','%@','%@')",provinceID,key,cityName,simpName,citySimpName,isOpen];
-//                    //[[DBHelper initFMDataBase] executeUpdate:sql];
-//
-//                    NSLog(@"%hhd",[ _db executeUpdate:sql]);
-//
-//                }
-//                [_db close];
-//            }
-//
-//
-//
-//        }
-//        @catch(NSException *exception){
-//            [Utils TakeException:exception];
-//        }
-//
-//        @finally {}
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        // _uiview=self.view;
-//        //[Utils ToastNotification:@"网络连接故障" andView:_uiview andLoading:NO andIsBottom:YES];
-//        NSLog(@"ERROR====%@",operation);
-//    }];
-//    
-//}
 
 @end
