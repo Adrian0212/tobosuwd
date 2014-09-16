@@ -59,16 +59,27 @@
 // 身份证号
 + (BOOL)validateIdentityCard:(NSString *)identityCard
 {
-    BOOL flag;
-
-    if (identityCard.length <= 0) {
-        flag = NO;
-        return flag;
-    }
-
-    NSString    *regex2 = @"^(\\d{14}|\\d{17})(\\d|[xX])$";
-    NSPredicate *identityCardPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex2];
+    NSString    *identityRegex = @"^(\\d{14}|\\d{17})(\\d|[xX])$";
+    NSPredicate *identityCardPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", identityRegex];
     return [identityCardPredicate evaluateWithObject:identityCard];
+}
+
+// 文本
++ (BOOL)isIncludeChinese:(NSString *)text
+{
+    NSString    *chineseRegex = @"^.*[\\u4e00-\\u9fa5]+.*$";
+    NSPredicate *chinesePredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", chineseRegex];
+
+    return [chinesePredicate evaluateWithObject:text];
+}
+
+// 文本
++ (BOOL)isValidText:(NSString *)text
+{
+    NSString    *validateRegex = @".*\\d{6}.*";
+    NSPredicate *validatePredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", validateRegex];
+    
+    return ![validatePredicate evaluateWithObject:text];
 }
 
 @end

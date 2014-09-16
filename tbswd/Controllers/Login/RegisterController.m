@@ -77,16 +77,16 @@
     UIFont      *defaultFont = [UIFont fontWithName:@"HiraginoSansGB-W3" size:16.0];
     UIFont      *quCodeBtnFont = [UIFont fontWithName:@"HiraginoSansGB-W3" size:12.0];
     NSString    *defaultTextColor = [NSString stringWithFormat:@"#666666"];
-
+    
     // 业主注册界面
     _view1 = [[UIView alloc]initWithFrame:CGRectMake(320 * 0, 0, 320, _nibScrollView.frame.size.height)];
-
+    
     UIImage     *image1 = [UIImage imageNamed:@"bg_edit_register.png"];
     UIImageView *imageView1 = [[UIImageView alloc]initWithImage:image1];
-
+    
     [imageView1 setFrame:CGRectMake(10, 0, 303, 204)];
     [_view1 addSubview:imageView1];
-
+    
     _accountTextField = [[UITextField alloc]initWithFrame:CGRectMake(57, 0, 246, 41)];
     [_accountTextField setBorderStyle:UITextBorderStyleNone];
     [_accountTextField setFont:defaultFont];
@@ -95,14 +95,14 @@
     [_accountTextField setClearButtonMode:UITextFieldViewModeWhileEditing];
     [_accountTextField setKeyboardType:UIKeyboardTypeNumberPad];
     [_accountTextField setReturnKeyType:UIReturnKeyDone];
-
+    
     _quCodeTextField = [[UITextField alloc]initWithFrame:CGRectMake(57, 41, 140, 41)];
     [_quCodeTextField setBorderStyle:UITextBorderStyleNone];
     [_quCodeTextField setFont:defaultFont];
     [_quCodeTextField setTextColor:[Utils hexStringToColor:defaultTextColor]];
     [_quCodeTextField setPlaceholder:@"手机验证码"];
     [_quCodeTextField setClearButtonMode:UITextFieldViewModeWhileEditing];
-
+    
     _pwdTextField = [[UITextField alloc]initWithFrame:CGRectMake(57, 82, 246, 41)];
     [_pwdTextField setBorderStyle:UITextBorderStyleNone];
     [_pwdTextField setFont:defaultFont];
@@ -110,7 +110,7 @@
     [_pwdTextField setPlaceholder:@"密码6位以上"];
     [_pwdTextField setClearButtonMode:UITextFieldViewModeWhileEditing];
     [_pwdTextField setSecureTextEntry:YES];
-
+    
     _nickNameTextField = [[UITextField alloc]initWithFrame:CGRectMake(57, 123, 246, 41)];
     [_nickNameTextField setBorderStyle:UITextBorderStyleNone];
     [_nickNameTextField setFont:defaultFont];
@@ -119,7 +119,7 @@
     [_nickNameTextField setClearButtonMode:UITextFieldViewModeWhileEditing];
     [_nickNameTextField setReturnKeyType:UIReturnKeyDone];
     [_nickNameTextField setDelegate:self];
-
+    
     // 城市选择
     _cityTextField = [[UITextField alloc]initWithFrame:CGRectMake(57, 164, 246, 41)];
     [_cityTextField setBorderStyle:UITextBorderStyleNone];
@@ -137,7 +137,7 @@
     [doneBtn setTitle:@"完成" forState:UIControlStateNormal];
     [accessView addSubview:doneBtn];
     [doneBtn addTarget:self action:@selector(doneBtnAction) forControlEvents:UIControlEventTouchUpInside];
-
+    
     [_cityTextField setInputAccessoryView:accessView];
     // 获取验证码按钮
     UIButton *getQuCodeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -147,7 +147,7 @@
     [getQuCodeBtn setBackgroundImage:[UIImage imageNamed:@"btn_getcode.png"] forState:UIControlStateNormal];
     [getQuCodeBtn.layer setCornerRadius:4.0]; // 设置矩形四个圆角半径
     [getQuCodeBtn addTarget:self action:@selector(getQuCode) forControlEvents:UIControlEventTouchUpInside];
-
+    
     // 注册按钮
     UIButton *registerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [registerBtn setFrame:CGRectMake(10, 225, 302, 42)];
@@ -156,7 +156,7 @@
     [registerBtn setBackgroundImage:[UIImage imageNamed:@"btn_login.png"] forState:UIControlStateNormal];
     [registerBtn.layer setCornerRadius:2.0]; // 设置矩形四个圆角半径
     [registerBtn addTarget:self action:@selector(registerAction:) forControlEvents:UIControlEventTouchUpInside];
-
+    
     [_view1 addSubview:_accountTextField];
     [_view1 addSubview:_quCodeTextField];
     [_view1 addSubview:_pwdTextField];
@@ -164,38 +164,38 @@
     [_view1 addSubview:_cityTextField];
     [_view1 addSubview:getQuCodeBtn];
     [_view1 addSubview:registerBtn];
-
+    
     // 设计师注册页面
     UIView *view2 = [[UIView alloc]initWithFrame:CGRectMake(320 * 1, 0, 320, _nibScrollView.frame.size.height)];
     [view2 setBackgroundColor:[UIColor whiteColor]];
     // 分割线
     UILabel *separateLine1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 1)];
     [separateLine1 setBackgroundColor:[Utils hexStringToColor:@"#cccccc"]];
-
+    
     UIImage     *registerLogo = [UIImage imageNamed:@"register_logo.png"];
     UIImageView *imageview2 = [[UIImageView alloc] initWithImage:registerLogo];
     [imageview2 setFrame:CGRectMake(70, 60, 182, 73)];
-
+    
     [view2 addSubview:separateLine1];
     [view2 addSubview:imageview2];
-
+    
     // 公司注册页面
     UIView *view3 = [[UIView alloc]initWithFrame:CGRectMake(320 * 2, 0, 320, _nibScrollView.frame.size.height)];
     [view3 setBackgroundColor:[UIColor whiteColor]];
     // 分割线
     UILabel *separateLine2 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 1)];
     [separateLine2 setBackgroundColor:[Utils hexStringToColor:@"#cccccc"]];
-
+    
     UIImageView *imageview3 = [[UIImageView alloc] initWithImage:registerLogo];
     [imageview3 setFrame:CGRectMake(70, 60, 182, 73)];
-
+    
     [view3 addSubview:separateLine2];
     [view3 addSubview:imageview3];
-
+    
     [_nibScrollView addSubview:_view1];
     [_nibScrollView addSubview:view2];
     [_nibScrollView addSubview:view3];
-
+    
     [_nibScrollView setDelaysContentTouches:NO]; // 在scrollview中的touch事件会影响button的效果
     [_nibScrollView setBackgroundColor:[UIColor clearColor]];
 }
@@ -207,7 +207,7 @@
         [button.layer setBorderWidth:0.0];
         [button setTitleColor:[Utils hexStringToColor:@"#666666"] forState:UIControlStateNormal];
     }
-
+    
     [btName.layer setCornerRadius:4.0];                                         // 设置矩形四个圆角半径
     [btName.layer setBorderWidth:1.0];                                          // 边框宽度
     [btName.layer setBorderColor:[Utils hexStringToColor:@"#ff6600"].CGColor];  // 边框颜色
@@ -220,7 +220,7 @@
 {
     CGFloat pageWidth = self.nibScrollView.frame.size.width;
     int     page = floor((self.nibScrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-
+    
     [self setTabBorder:_tabArray[page]];
     [self closeKeyBoard];
 }
@@ -258,7 +258,7 @@
     NSString    *pwd = _pwdTextField.text;
     NSString    *userName = _nickNameTextField.text;
     NSString    *cityId = _cityId;
-
+    
     if ([TSRegularExpressionUtils validateMobile:mobileNumber]) {
         if ([TSRegularExpressionUtils validatePassword:pwd]) {
             if ([TSRegularExpressionUtils validateUserName:userName]) {
@@ -307,7 +307,7 @@
 - (void)getQuCode
 {
     NSString *quCode = _accountTextField.text;
-
+    
     if ([TSRegularExpressionUtils validateMobile:_accountTextField.text]) {
         NSString        *priUrl = api_url_registqucode;
         AFHTTPClient    *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:priUrl]];    // 这里要将url设置为空
@@ -316,14 +316,14 @@
             @try
             {
                 NSString *resultString = operation.responseString;
-
+                
                 // NSLog(@"%@", resultString);
             }
             @catch(NSException *exception)
             {
                 [Utils TakeException:exception];
             }
-
+            
             @finally {}
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             // NSLog(@"ERROR====%@", operation);
@@ -415,7 +415,7 @@
 - (void)alertView:(NSString *)content
 {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:content delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-
+    
     [alertView show];
 }
 
@@ -550,5 +550,54 @@
 //    }];
 //
 // }
+
+//-(void)insertCity2Db
+//{
+//
+//    //获得省份shuju
+//    NSString *priUrl=@"http://api.tobosu.com/basic/basic_info/cityall";
+//    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:priUrl]];       // 这里要将url设置为空
+//    [httpClient postPath:priUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        @try{
+//            NSString *resultString = operation.responseString;
+//            NSDictionary *arrayDic=[resultString objectFromJSONString];
+//            NSLog(@"%@",[arrayDic objectForKey:@"1"]);
+//
+//            NSArray* arr = [arrayDic allKeys];
+//
+//            if ([_db open])
+//            {
+//                for(NSString* key in arr)
+//                {
+//                    NSLog(@"%@",[arrayDic objectForKey:key]);
+//                    NSString *provinceID = [[arrayDic objectForKey:key] objectForKey:@"ProvinceID"];
+//                    NSString *cityName = [[arrayDic objectForKey:key] objectForKey:@"CityName"];
+//                    NSString *simpName = [[arrayDic objectForKey:key] objectForKey:@"simpname"];
+//                    NSString *citySimpName = [[arrayDic objectForKey:key] objectForKey:@"CitySimpName"];
+//                    NSString *isOpen = [[arrayDic objectForKey:key] objectForKey:@"IsOpen"];
+//                    NSString *sql = [NSString stringWithFormat:@"insert into TBS_City(ProvinceID,CityID,CityName,SimpName,CitySimpName,IsOpen) values('%@','%@','%@','%@','%@','%@')",provinceID,key,cityName,simpName,citySimpName,isOpen];
+//                    //[[DBHelper initFMDataBase] executeUpdate:sql];
+//
+//                    NSLog(@"%hhd",[ _db executeUpdate:sql]);
+//
+//                }
+//                [_db close];
+//            }
+//
+//
+//
+//        }
+//        @catch(NSException *exception){
+//            [Utils TakeException:exception];
+//        }
+//
+//        @finally {}
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        // _uiview=self.view;
+//        //[Utils ToastNotification:@"网络连接故障" andView:_uiview andLoading:NO andIsBottom:YES];
+//        NSLog(@"ERROR====%@",operation);
+//    }];
+//    
+//}
 
 @end

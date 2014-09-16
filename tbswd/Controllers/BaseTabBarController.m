@@ -7,6 +7,7 @@
 //
 
 #import "BaseTabBarController.h"
+#import "WriteQueController.h"
 
 @interface BaseTabBarController ()
 
@@ -87,10 +88,11 @@
 
 - (void)showWriteQueView
 {
-    UIStoryboard        *mainStoryboard = [UIStoryboard storyboardWithName:@"wenda" bundle:nil];
-    UIViewController    *writeQue = [mainStoryboard instantiateViewControllerWithIdentifier:@"WriteQue"];
+    UIStoryboard            *mainStoryboard = [UIStoryboard storyboardWithName:@"wenda" bundle:nil];
+    WriteQueController      *writeQue = [mainStoryboard instantiateViewControllerWithIdentifier:@"WriteQue"];
+    UINavigationController  *navigationController = [[UINavigationController alloc] initWithRootViewController:writeQue];
 
-    [self presentViewController:writeQue animated:YES completion:nil];
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 @end
