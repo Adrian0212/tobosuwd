@@ -7,7 +7,6 @@
 //
 
 #import "BaseUIViewController.h"
-#import "TopScrollView.h"
 #import "Utils.h"
 #import "Config.h"
 #import "MJRefresh.h"
@@ -17,7 +16,12 @@
 #import "UIImageView+AFNetworking.h"
 #import "AFNetworking.h"
 #import "CommnetDetailController.h"
+#define BUTTONGAP       15
+#define CONTENTSIZEX    270
 @interface GoodAtController : BaseUIViewController<UIScrollViewDelegate,UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *queListTable;
-
+@property (strong, nonatomic) NSString *selectTitle;
+@property (nonatomic,assign) NSInteger userSelectedButtonTag;
+- (void)getTableData:(NSString *)location buttonType:(NSString *)ButtonType;
+- (void)setupRefresh;
 @end

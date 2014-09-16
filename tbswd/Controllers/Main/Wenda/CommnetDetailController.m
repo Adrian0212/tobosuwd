@@ -83,7 +83,7 @@
     [_answerTable headerBeginRefreshing];
 
     // 2.上拉加载更多(进入刷新状态就会调用self的footerRereshing)
-    [_answerTable addFooterWithTarget:self action:@selector(footerRereshing)];
+    //[_answerTable addFooterWithTarget:self action:@selector(footerRereshing)];
 }
 
 #pragma mark 开始进入刷新状态
@@ -198,6 +198,9 @@
                     [ct setAgreeCount:[arry[i] objectForKey:@"AgreeCount"]];
                     [ct setAnswerTimeSpan:[arry[i] objectForKey:@"AnswerTimeSpan"]];
                     [_dataList addObject:ct];
+                }
+                if (arry.count>=10) {
+                    [_answerTable addFooterWithTarget:self action:@selector(footerRereshing)];
                 }
             }
 
@@ -321,7 +324,7 @@
     if ([_dataList count] > 0) {
         Comment *ct = _dataList[indexPath.row];
         cell.userName.text = ct.answerUserName;
-        // cell.userName.text = @"石家庄城市人家装饰工程有限公司石家庄城市人家装饰工程有限公司石家庄城市人家装饰工程有限公司";
+         //cell.userName.text = @"石家庄城市人家装饰工程有限公司石家庄城市人家装饰工程有限公司石家庄城市人家装饰工程有限公司";
         [cell.userPhoto setImageWithURL:[NSURL URLWithString:ct.answerHeadLog] placeholderImage:[UIImage imageNamed:@"user_default.png"]];
         cell.otherInfo.text = [NSString stringWithFormat:@"%@ %@ %@ %@ %@ %@ %@%@", ct.userType, @" | ", ct.cityName, @"| 回答数: ", ct.answerCount, @"| 采纳率: ", ct.acceptRate, @"%"];
 

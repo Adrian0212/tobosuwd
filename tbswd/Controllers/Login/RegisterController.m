@@ -9,18 +9,20 @@
 #import "RegisterController.h"
 
 @interface RegisterController () {
-    NSArray             *_tabArray;             //三个切换按钮
-    UITextField         *_accountTextField;     // 手机号码输入框
-    UITextField         *_quCodeTextField;      // 手机验证码输入框
-    UITextField         *_pwdTextField;         // 密码输入框
-    UITextField         *_nickNameTextField;    // 昵称输入框
-    UITextField         *_cityTextField;        // 城市选择框
-    UIView              *_view1;
-    UIPickerView        *_picker;
-    NSMutableArray      *_province; // 1. 省份
-    NSMutableDictionary *_city;     // 2. 城市
-    NSMutableDictionary *_cityIdDictionary;
-    NSString            *_cityId;   // 保存用户当前选中的
+    FMDatabase      *_db;
+    NSArray         *_tabArray;                 //三个切换按钮
+    UITextField     *_accountTextField;         // 手机号码输入框
+    UITextField     *_quCodeTextField;          // 手机验证码输入框
+    UITextField     *_pwdTextField;             // 密码输入框
+    UITextField     *_nickNameTextField;        // 昵称输入框
+    UITextField     *_cityTextField;            // 城市选择框
+    UIView          *_view1;
+    UIPickerView    *_picker;
+
+    NSString            *_cityId;           // 保存用户当前选中的城市ID
+    NSMutableArray      *provinceArray;     // 省份数据
+    NSMutableDictionary *citydict;          // 城市数据
+    NSMutableArray      *subProvinceArray;  // pickerview需要显示的城市数组
 }
 
 @end
@@ -30,12 +32,21 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    _db = [DBHelper initFMDataBase];
     [self loadPickData];
     _tabArray = [NSArray arrayWithObjects:_yezhuBtn, _shejishiBtn, _gongsiBtn, nil];
     [self setTabBorder:_tabArray[0]];
     // 设置scrollview的相关属性
     [self initScrollView];
-    [self insertCity2Db];
+
+    [self getProvinceArray];
+    [self getCityDict];
+    NSArray *arry = [citydict objectForKey:[provinceArray[0] objectForKey:@"ProvinceName"]];
+    subProvinceArray = [NSMutableArray array];
+
+    for (NSInteger i = 0; i < arry.count; i++) {
+        [subProvinceArray addObject:[[arry objectAtIndex:i]objectForKey:@"SimpName"]];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -253,9 +264,8 @@
             if ([TSRegularExpressionUtils validateUserName:userName]) {
                 NSString        *priUrl = api_url_register;
                 AFHTTPClient    *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:priUrl]];        // 这里要将url设置为空
-                NSDictionary    *par = @{@"name":userName, @"password":[Utils convert2Md5:pwd], @"cityID":cityId,
-                                         @"cellphone":mobileNumber, @"gender":@"0", @"ip":@"0.0.0.0", @"logintype":@"ios", @"phoneyzm":quCode};
-
+                NSDictionary    *par = @{@"name":userName, @"password":[Utils convert2Md5:pwd], @"cityID":cityId, @"cellphone":mobileNumber, @"gender":@"0", @"ip":@"0.0.0.0", @"logintype":@"ios", @"phoneyzm":quCode};
+                
                 [httpClient postPath:priUrl parameters:par success:^(AFHTTPRequestOperation *operation, id responseObject)
                 {
                     @try
@@ -265,6 +275,8 @@
 
                         if ([jsonData objectForKey:@"msg"]) {
                             [self dismissViewControllerAnimated:YES completion:nil];
+                        }else{
+                            [self alertView:[jsonData objectForKey:@"info"]];
                         }
                     }
                     @catch(NSException *exception)
@@ -332,32 +344,6 @@
     [_picker setDelegate:self];
     // 1.4 设置选择指示器
     [_picker setShowsSelectionIndicator:YES];
-
-    _city = [NSMutableDictionary dictionary];
-    _cityIdDictionary = [NSMutableDictionary dictionary];
-    NSString            *plistPath = [[NSBundle mainBundle] pathForResource:@"provinceCity" ofType:@"plist"];
-    NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
-    // NSLog(@"%@", data);//直接打印数据。
-    _province = [[NSMutableArray alloc]init];
-
-    for (NSInteger i = 1; i <= [data count]; i++) {
-        NSDictionary    *proDict = [data objectForKey:[NSString stringWithFormat:@"%d", i]];
-        NSString        *provinceName = [proDict objectForKey:@"ProvinceName"];
-        [_province addObject:provinceName];
-        NSArray         *cityArray = [proDict objectForKey:@"city"];
-        NSMutableArray  *cityNameMutableArray = [NSMutableArray array];
-
-        for (NSInteger i = 0; i < [cityArray count]; i++) {
-            NSString    *cityName = cityArray[i][@"name"];
-            NSString    *cityId = cityArray[i][@"cityID"];
-            [cityNameMutableArray addObject:cityName];
-            [_cityIdDictionary setValue:cityId forKey:cityName];
-        }
-
-        [_city setValue:cityNameMutableArray forKeyPath:provinceName];
-    }
-
-    // NSLog(@"%@",_city);
 }
 
 #pragma mark - 数据源方法
@@ -371,13 +357,9 @@
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
     if (component == 0) {
-        return _province.count;
+        return [provinceArray count];
     } else {
-        NSInteger   rowProvince = [pickerView selectedRowInComponent:0];
-        NSString    *provinceName = _province[rowProvince];
-        NSArray     *citys = [_city objectForKey:provinceName];
-        // NSLog(@"fffffffff%d",citys.count);
-        return citys.count;
+        return [subProvinceArray count];
     }
 }
 
@@ -385,45 +367,29 @@
 #pragma mark 设置选择器行的内容的
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    @try {
-        if (component == 0) {
-            return _province[row];
-        } else {
-            // 城市
-            // 1. 获得省份列选择的行数
-            NSInteger rowProvince = [pickerView selectedRowInComponent:0];
-            // 2. 获得省份名称
-            NSString *provinceName = _province[rowProvince];
-            // NSLog(@"aaaaaaaaaa===%@",provinceName);
-            // NSLog(@"rrrrrrrrrrrr===%d",row);            // 3. 获得城市的数组
-            NSArray *citys = [_city objectForKey:provinceName];
-            // NSLog(@"bbbbbbbb=%d", citys.count);
-
-            // 4. 返回城市数组中row的字符串内容
-            return citys[row];
-        }
+    if (component == 0) {
+        return [[provinceArray objectAtIndex:row] objectForKey:@"ProvinceName"];
+    } else {
+        return [subProvinceArray objectAtIndex:row];
     }
-    @catch(NSException *exception)
-    {
-        NSLog(@"exception=%@", exception);
-    }
-
-    @finally
-    {}
 }
 
 #pragma mark 选中行的时候，刷新数据
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
+    //    if (component == 0) {
+    //        [pickerView reloadComponent:1];
+    //    }
     if (component == 0) {
+        NSArray *arry = [citydict objectForKey:[provinceArray[row] objectForKey:@"ProvinceName"]];
+        [subProvinceArray removeAllObjects];
+
+        for (NSInteger i = 0; i < arry.count; i++) {
+            [subProvinceArray addObject:[[arry objectAtIndex:i]objectForKey:@"SimpName"]];
+        }
+
         [pickerView reloadComponent:1];
     }
-
-    // NSInteger   row1 = [pickerView selectedRowInComponent:0];
-    // NSInteger   row2 = [pickerView selectedRowInComponent:1];
-    // NSString *provinceName = _province[row1];
-    // 3. 获得城市的数组
-    // NSArray *citys = _city[provinceName];
 }
 
 - (void)doneBtnAction
@@ -436,19 +402,13 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     if (textField == _cityTextField) {
-        NSInteger row1 = [_picker selectedRowInComponent:0];
-
-        NSInteger row2 = [_picker selectedRowInComponent:1];
-
-        NSString *provinceName = _province[row1];
-        // 3. 获得城市的数组
-        NSArray *citys = _city[provinceName];
-
-        NSString *textString = [[NSString alloc] initWithFormat:@"%@  %@", provinceName, citys[row2]];
+        NSInteger   row1 = [_picker selectedRowInComponent:0];
+        NSInteger   row2 = [_picker selectedRowInComponent:1];
+        NSString    *provinceName = [provinceArray[row1] objectForKey:@"ProvinceName"];
+        NSString    *cityName = subProvinceArray[row2];
+        NSString    *textString = [[NSString alloc] initWithFormat:@"%@  %@", provinceName, cityName];
         textField.text = textString;
-
-        // NSLog(@"%@",[_cityId objectForKey:citys[row2]]);
-        _cityId = [_cityIdDictionary objectForKey:citys[row2]];
+        _cityId = [[[citydict objectForKey:provinceName] objectAtIndex:row2]objectForKey:@"CityID"];
     }
 }
 
@@ -459,9 +419,57 @@
     [alertView show];
 }
 
+- (void)getProvinceArray
+{
+    if ([_db open]) {
+        NSString    *sql = @"select ProvinceID,ProvinceName from TBS_Province order by ProvinceID";
+        FMResultSet *fm = [_db executeQuery:sql];
+        provinceArray = [[NSMutableArray alloc]init];
+
+        while ([fm next]) {
+            NSString        *provinceID = [fm stringForColumn:@"ProvinceID"];
+            NSString        *provinceName = [fm stringForColumn:@"ProvinceName"];
+            NSDictionary    *dict = @{@"ProvinceID":provinceID, @"ProvinceName":provinceName};
+            [provinceArray addObject:dict];
+        }
+
+        [fm close];
+        [_db close];
+    }
+}
+
+- (void)getCityDict
+{
+    if ([_db open]) {
+        FMResultSet *fm;
+        citydict = [NSMutableDictionary dictionary];
+
+        for (NSInteger i = 0; i < provinceArray.count; i++) {
+            NSString *sql = [NSString stringWithFormat:@"SELECT CityID,SimpName FROM TBS_City where ProvinceID = '%@' order by CityID", [[provinceArray objectAtIndex:i] objectForKey:@"ProvinceID"]];
+            // NSString *sql = @"SELECT CityID,SimpName FROM TBS_City order by CityID where";
+            fm = [_db executeQuery:sql];
+
+            NSMutableArray *arry = [NSMutableArray array];
+
+            while ([fm next]) {
+                NSString        *cityID = [fm stringForColumn:@"CityID"];
+                NSString        *simpName = [fm stringForColumn:@"SimpName"];
+                NSDictionary    *dict = @{@"SimpName":simpName, @"CityID":cityID};
+                [arry addObject:dict];
+            }
+
+            [citydict setValue:arry forKey:[[provinceArray objectAtIndex:i] objectForKey:@"ProvinceName"]];
+            [fm close];
+        }
+
+        [_db close];
+    }
+}
+
+#pragma mark 为了设置定时获取城市数据
 // -(void)insertProvince2Db
 // {
-//     
+//
 //    //获得省份shuju
 //    NSString *priUrl=@"http://api.tobosu.com/basic/basic_info/getProvince";
 //    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:priUrl]];       // 这里要将url设置为空
@@ -474,12 +482,12 @@
 //                NSString *provinceID=[[array objectAtIndex:i] objectForKey:@"provinceid"];
 //                NSString *provinceName = [[array objectAtIndex:i] objectForKey:@"provincename"];
 //                NSString *largeID = [[array objectAtIndex:i] objectForKey:@"largeid"];
-//                
+//
 //                NSString *sql = [NSString stringWithFormat:@"insert into TBS_Province(ProvinceID,ProvinceName,LargeID) values('%@','%@','%@')",provinceID,provinceName,largeID];
 //                [[DBHelper createDataBase] executeUpdate:sql];
-//                
+//
 //            }
-//            
+//
 //        }
 //        @catch(NSException *exception){
 //            [Utils TakeException:exception];
@@ -493,42 +501,54 @@
 //    }];
 //
 // }
--(void)insertCity2Db
-{
-    
-    //获得省份shuju
-    NSString *priUrl=@"http://api.tobosu.com/basic/basic_info/cityall";
-    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:priUrl]];       // 这里要将url设置为空
-    [httpClient postPath:priUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        @try{
-            NSString *resultString = operation.responseString;
-            NSDictionary *arrayDic=[resultString objectFromJSONString];
-            NSLog(@"%@",[arrayDic objectForKey:@"1"]);
-       
-            NSArray* arr = [arrayDic allKeys];
-            arr = [arr sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2){
-                NSComparisonResult result = [obj1 compare:obj2];
-                return result==NSOrderedDescending;
-            }];
-            
-            for(NSString* str in arr)
-            {
-                NSLog(@"%@",[arrayDic objectForKey:str]);
-            }
-            
-            
-        }
-        @catch(NSException *exception){
-            [Utils TakeException:exception];
-        }
-        
-        @finally {}
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        // _uiview=self.view;
-        //[Utils ToastNotification:@"网络连接故障" andView:_uiview andLoading:NO andIsBottom:YES];
-        NSLog(@"ERROR====%@",operation);
-    }];
-    
-}
+
+// -(void)insertCity2Db
+// {
+//
+//    //获得省份shuju
+//    NSString *priUrl=@"http://api.tobosu.com/basic/basic_info/cityall";
+//    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:priUrl]];       // 这里要将url设置为空
+//    [httpClient postPath:priUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        @try{
+//            NSString *resultString = operation.responseString;
+//            NSDictionary *arrayDic=[resultString objectFromJSONString];
+//            NSLog(@"%@",[arrayDic objectForKey:@"1"]);
+//
+//            NSArray* arr = [arrayDic allKeys];
+//
+//            if ([_db open])
+//            {
+//                for(NSString* key in arr)
+//                {
+//                    NSLog(@"%@",[arrayDic objectForKey:key]);
+//                    NSString *provinceID = [[arrayDic objectForKey:key] objectForKey:@"ProvinceID"];
+//                    NSString *cityName = [[arrayDic objectForKey:key] objectForKey:@"CityName"];
+//                    NSString *simpName = [[arrayDic objectForKey:key] objectForKey:@"simpname"];
+//                    NSString *citySimpName = [[arrayDic objectForKey:key] objectForKey:@"CitySimpName"];
+//                    NSString *isOpen = [[arrayDic objectForKey:key] objectForKey:@"IsOpen"];
+//                    NSString *sql = [NSString stringWithFormat:@"insert into TBS_City(ProvinceID,CityID,CityName,SimpName,CitySimpName,IsOpen) values('%@','%@','%@','%@','%@','%@')",provinceID,key,cityName,simpName,citySimpName,isOpen];
+//                    //[[DBHelper initFMDataBase] executeUpdate:sql];
+//
+//                    NSLog(@"%hhd",[ _db executeUpdate:sql]);
+//
+//                }
+//                [_db close];
+//            }
+//
+//
+//
+//        }
+//        @catch(NSException *exception){
+//            [Utils TakeException:exception];
+//        }
+//
+//        @finally {}
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        // _uiview=self.view;
+//        //[Utils ToastNotification:@"网络连接故障" andView:_uiview andLoading:NO andIsBottom:YES];
+//        NSLog(@"ERROR====%@",operation);
+//    }];
+//
+// }
 
 @end

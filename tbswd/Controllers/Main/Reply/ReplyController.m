@@ -41,5 +41,21 @@
     // 取消选中状态
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
-
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"zuixinwenti"])
+    {
+        UIViewController *controller = [segue destinationViewController];
+        
+        [controller setValue:@"zuixinwenti" forKey:@"source"];
+    }
+    if ([[segue identifier] isEqualToString:@"zuixinwenti"])
+    {
+        UIViewController *controller = [segue destinationViewController];
+        
+        [controller setValue:@"zuixinwenti" forKey:@"source"];
+    }
+    
+   
+}
 @end

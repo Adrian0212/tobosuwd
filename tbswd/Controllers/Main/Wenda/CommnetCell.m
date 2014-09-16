@@ -18,7 +18,7 @@
         _userPhoto = [[UIImageView alloc]initWithFrame:CGRectMake(13, 13, 40, 40)];
         [self.contentView addSubview:_userPhoto];
         
-        _userName = [[UILabel alloc]initWithFrame:CGRectMake(60, 13, 260, 26)];
+        _userName = [[UILabel alloc]initWithFrame:CGRectMake(60, 13, 187, 26)];
         _userName.lineBreakMode = UILineBreakModeWordWrap | UILineBreakModeTailTruncation;
         [_userName setNumberOfLines:2];
         [_userName setTextColor:[Utils hexStringToColor:@"#333333"]];
@@ -42,7 +42,7 @@
         [self.contentView addSubview:_answerTimeSpan];
         
         _jubaoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_jubaoBtn setImage:[UIImage imageNamed:@"jb.png"] forState:UIControlStateNormal];
+        [_jubaoBtn setImage:[UIImage imageNamed:@"bt_jb.png"] forState:UIControlStateNormal];
         [_jubaoBtn setTitle:@"举报" forState:UIControlStateNormal];
         [_jubaoBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [_jubaoBtn.titleLabel setFont:[UIFont fontWithName:@"HiraginoSansGB-W3" size:12.0]];
@@ -51,7 +51,7 @@
         [self.contentView addSubview:_jubaoBtn];
         
         _zanchengBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_zanchengBtn setImage:[UIImage imageNamed:@"zc.png"] forState:UIControlStateNormal];
+        [_zanchengBtn setImage:[UIImage imageNamed:@"bt_zc.png"] forState:UIControlStateNormal];
         [_zanchengBtn setTitle:@"赞成" forState:UIControlStateNormal];
         [_zanchengBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [_zanchengBtn.titleLabel setFont:[UIFont fontWithName:@"HiraginoSansGB-W3" size:12.0]];
