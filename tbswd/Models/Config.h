@@ -30,6 +30,8 @@
 - (void)removeUserInfo;
 // 获取用户信息字典
 - (NSDictionary *)getUserInfo;
+// 根据Key获取用户信息
+- (NSString *)getUserInfoForKey:(NSString *)key;
 // 获取用户id(此ID不唯一)
 - (NSString *)getUserId;
 // 获取用户类型

@@ -12,6 +12,7 @@
 #import "AFNetworking.h"
 #import "JSONKit.h"
 #import "TSRegularExpressionUtils.h"
+#import "FMDatabase.h"
 @interface RegisterController : BaseUIViewController <UIScrollViewDelegate, UITextFieldDelegate,UINavigationControllerDelegate,UIPickerViewDelegate,UIPickerViewDataSource>
 {}
 

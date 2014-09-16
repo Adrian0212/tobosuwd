@@ -83,6 +83,19 @@
     [hud show:YES];
 }
 
++ (void)showToast:(NSString *)title inView:(UIView *)view hideAfter:(int)time
+{
+    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:view];
+
+    HUD.mode = MBProgressHUDModeText;
+    HUD.removeFromSuperViewOnHide = YES;
+    HUD.labelText = title;
+    
+    [view addSubview:HUD];
+    [HUD show:YES];
+    [HUD hide:YES afterDelay:time];
+}
+
 // +(void)ToastNotification:(NSString *)text andView:(UIView *)view andHUD:(MBProgressHUD *)hud
 // {
 //        [view addSubview:hud];

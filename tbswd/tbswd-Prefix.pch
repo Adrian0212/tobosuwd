@@ -16,7 +16,13 @@
 #endif
 
 // .net接口地址
+
+/******************************线下测试接口******************************/
+//#define api_url_net @"http://192.168.1.128:8085/IOSApi/askDataApi.aspx"
+
+/********************************线上接口********************************/
 #define api_url_net @"http://askapi.tobosu.com:8888/IOSApi/askDataApi.aspx"
+
 
 // php接口地址
 

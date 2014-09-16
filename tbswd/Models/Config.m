@@ -85,32 +85,29 @@
     return [settings objectForKey:@"UserInfo"];
 }
 
+- (NSString *)getUserInfoForKey:(NSString *)key
+{
+    return [[self getUserInfo] objectForKey:key];
+}
+
 - (NSString *)getUserId
 {
-    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
-
-    return [[settings objectForKey:@"UserInfo"] objectForKey:@"id"];
+    return [self getUserInfoForKey:@"id"];
 }
 
 - (NSString *)getUserMark
 {
-    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
-
-    return [[settings objectForKey:@"UserInfo"] objectForKey:@"mark"];
+    return [self getUserInfoForKey:@"mark"];
 }
 
 - (NSString *)getUserNewuid
 {
-    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
-
-    return [[settings objectForKey:@"UserInfo"] objectForKey:@"newuid"];
+    return [self getUserInfoForKey:@"newuid"];
 }
 
 - (NSString *)getUserScore
 {
-    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
-
-    return [[settings objectForKey:@"UserInfo"] objectForKey:@"score"];
+    return [self getUserInfoForKey:@"score"];
 }
 
 - (void)setUserScore:(NSInteger)score

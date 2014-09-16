@@ -64,4 +64,22 @@
  */
 + (BOOL)validateIdentityCard:(NSString *)identityCard;
 
+/**
+ *  文本是否包含中文检测
+ *
+ *  @param text 文本
+ *
+ *  @return 包含返回YES，没有返回NO
+ */
++ (BOOL)isIncludeChinese:(NSString *)text;
+
+/**
+ *  文本有效性检测(检验规则：不包含连续的6个数字)
+ *
+ *  @param text 文本
+ *
+ *  @return 有效返回YES，无效返回NO
+ */
++ (BOOL)isValidText:(NSString *)text;
+
 @end

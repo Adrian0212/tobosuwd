@@ -41,6 +41,15 @@
 + (void)showHUD:(MBProgressHUD *)hud inView:(UIView *)view withTitle:(NSString *)title;
 
 /**
+ *  Toast提示
+ *
+ *  @param title 提示内容
+ *  @param view  显示界面
+ *  @param time  显示时长
+ */
++ (void)showToast:(NSString *)title inView:(UIView *)view hideAfter:(int)time;
+
+/**
  *  toast消息框显示
  *
  *  @param text      消息内容
